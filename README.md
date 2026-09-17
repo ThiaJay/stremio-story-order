@@ -1,11 +1,19 @@
 # Story Order
 
-<p align="center"><img src="public/logo.png" alt="Story Order logo" width="180"></p>
+<p align="center"><img src="public/branding/story-order-lockup.png" alt="Story Order — puts TV episodes, specials and one-offs in the right watch order" width="900"></p>
 
 [![CI](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml/badge.svg)](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/ThiaJay/stremio-story-order)](https://github.com/ThiaJay/stremio-story-order/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Configure / install:** https://stremio-story-order.storyorder.workers.dev/configure  
 **Default standalone manifest:** https://stremio-story-order.storyorder.workers.dev/manifest.json
+
+## Graphics
+
+<p align="center"><img src="public/branding/story-order-social-preview.jpg" alt="Story Order public branding" width="760"></p>
+
+<p align="center"><img src="public/screenshots/configure-desktop.png" alt="Story Order configure page" width="760"></p>
+
+The complete public graphics pack is in [`public/branding`](public/branding) and [`public/screenshots`](public/screenshots). See [`BRANDING.md`](BRANDING.md) for intended uses.
 
 ## Quick start — most people
 
