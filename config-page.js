@@ -10,7 +10,7 @@ export function configurationPage({ token = "", choices = ["cinemeta", "aiometad
   const initialToken = escapeHtml(token);
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="referrer" content="no-referrer"><title>Stremio Story Order</title>
+<meta name="referrer" content="no-referrer"><title>Story Order — Stremio addon</title>
 <style>
 :root{font-family:system-ui,sans-serif;color-scheme:light dark}body{max-width:780px;margin:40px auto;padding:0 18px;line-height:1.45}
 fieldset{border:1px solid #8886;border-radius:12px;padding:18px;margin:18px 0}label{display:block;margin:10px 0}input,select,textarea,button{font:inherit}
@@ -19,9 +19,10 @@ input[type=url],select,textarea{box-sizing:border-box;width:100%;padding:9px;bor
 button,.install{display:inline-block;padding:10px 16px;border-radius:9px;border:0;text-decoration:none;cursor:pointer}.muted{opacity:.72}.warn{padding:10px;border-left:4px solid #d88}.hidden{display:none}code{overflow-wrap:anywhere}
 @media(max-width:600px){.row{grid-template-columns:1fr}}
 </style></head><body data-token="${initialToken}">
-<h1>Stremio Story Order</h1>
-<p>Fixes narrative watch order while keeping the original video IDs used by your stream addons.</p>
-<p class="muted">Story Order provides metadata ordering only. It works independently of Torrentio, AIOStreams, Maelstrom and other stream addons.</p>`;
+<h1>Story Order</h1>
+<p><strong>Puts TV episodes, specials and one-offs in the right watch order.</strong></p>
+<p>Fixes TV episode order in Stremio. Story Order places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence.</p>
+<p class="muted">Story Order only changes metadata ordering. It works independently of Torrentio, AIOStreams, Maelstrom and other stream addons.</p>`;
   return { html: html + pageBody(custom, nonce), nonce };
 }function pageBody(customOption, nonce) {
   return `<form id="configForm">

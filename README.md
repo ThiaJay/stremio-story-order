@@ -1,13 +1,17 @@
-# Stremio Story Order
+# Story Order
+
+<p align="center"><img src="public/logo.png" alt="Story Order logo" width="180"></p>
 
 [![CI](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml/badge.svg)](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/ThiaJay/stremio-story-order)](https://github.com/ThiaJay/stremio-story-order/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Configure / install:** https://stremio-story-order.storyorder.workers.dev/configure  
 **Default standalone manifest:** https://stremio-story-order.storyorder.workers.dev/manifest.json
 
-Story Order repairs narrative TV episode order in Stremio while preserving the original video IDs used by stream addons.
+**Puts TV episodes, specials and one-offs in the right watch order.**
 
-It is **not a stream addon**. Torrentio, AIOStreams, Maelstrom and other stream addons remain independent and can be installed in any combination.
+Story Order fixes TV episode order in Stremio. It places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence.
+
+It is **not a stream addon**. It works independently of Torrentio, AIOStreams, Maelstrom and other stream addons, which can be installed in any combination.
 
 ## What it fixes
 
@@ -90,6 +94,6 @@ For Cloudflare self-hosting, copy `wrangler.example.toml` to `wrangler.local.tom
 
 ## Current release status
 
-**1.0.0 is the first public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
+**1.0.1 is the current public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

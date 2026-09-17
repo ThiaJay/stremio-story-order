@@ -5,7 +5,7 @@ import { fetchJsonResilient } from "./upstream.js";
 import { integrateStoryOrder, verifyIdentityInvariant, showOverrideFor } from "./story-order.js";
 import { configurationPage } from "./config-page.js";
 
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 const CORS = {
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "content-type",
@@ -54,7 +54,7 @@ function configuredManifest(upstreamManifest, source) {
   manifest.id = "org.stremio.story-order";
   manifest.name = "Story Order";
   manifest.version = VERSION;
-  manifest.description = `Narrative episode ordering over ${source.label}. Keeps original video IDs so stream addons remain independent. Ordering enrichment by TVmaze.`;
+  manifest.description = "Fixes TV episode order in Stremio. Story Order places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence. Works independently of your stream addons.";
   manifest.logo = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
   manifest.background = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg";
   delete manifest.stremioAddonsConfig;

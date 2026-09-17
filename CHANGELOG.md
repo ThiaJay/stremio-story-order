@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1 — 2026-09-17
+
+Branding and clarity update.
+
+- Clearer description: Story Order fixes TV episode order and places specials, feature-length one-offs and other misplaced episodes into the proper autoplay sequence.
+- New film/play Story Order logo designed to remain recognisable at small Stremio addon sizes.
+- Refreshed matching background artwork and README branding.
+- Configure page now explains the addon in plain language and makes its independence from stream addons explicit.
+
 ## 1.0.0 — 2026-09-17
 
 First community release.
