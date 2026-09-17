@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.3 — 2026-09-17
+
+Public hostname migration and release hygiene update.
+
+- Moved the hosted addon to the branded `storyorder.workers.dev` account subdomain.
+- Updated public install/configuration links to `stremio-story-order.storyorder.workers.dev`.
+- Kept production Cloudflare resource IDs out of the public repository.
+- No ordering, privacy or stream-addon behaviour changed.
+
 ## 1.0.2 — 2026-09-17
 
 Usability/documentation update.

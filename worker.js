@@ -5,7 +5,7 @@ import { fetchJsonResilient } from "./upstream.js";
 import { integrateStoryOrder, verifyIdentityInvariant, showOverrideFor } from "./story-order.js";
 import { configurationPage } from "./config-page.js";
 
-const VERSION = "1.0.2";
+const VERSION = "1.0.3";
 const CORS = {
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "content-type",
