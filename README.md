@@ -1,5 +1,10 @@
 # Stremio Story Order
 
+[![CI](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml/badge.svg)](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/ThiaJay/stremio-story-order)](https://github.com/ThiaJay/stremio-story-order/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**Configure / install:** https://stremio-story-order.storyorder.workers.dev/configure  
+**Default standalone manifest:** https://stremio-story-order.storyorder.workers.dev/manifest.json
+
 Story Order repairs narrative TV episode order in Stremio while preserving the original video IDs used by stream addons.
 
 It is **not a stream addon**. Torrentio, AIOStreams, Maelstrom and other stream addons remain independent and can be installed in any combination.
