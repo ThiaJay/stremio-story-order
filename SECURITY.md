@@ -47,4 +47,6 @@ The public repository must not contain a user's configured AIOMetadata manifest 
 
 ## Reporting
 
-Before public stable release, a dedicated security contact/reporting route should be added to the repository. Until then this beta tree should not be advertised as security-audited software.
+Sensitive vulnerabilities should be reported through GitHub Private Vulnerability Reporting for this repository. Ordinary non-sensitive bugs can use GitHub Issues. Do not include Stremio AuthKeys, debrid credentials or private configuration URLs in public reports.
+
+The project is security-hardened and regression-tested, though it is not represented as having undergone an independent third-party security audit.

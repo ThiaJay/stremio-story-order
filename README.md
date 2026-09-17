@@ -85,6 +85,6 @@ For Cloudflare self-hosting, copy `wrangler.example.toml` to `wrangler.local.tom
 
 ## Current release status
 
-This tree is a hardened community **beta candidate**, not yet the public stable release. Publication remains gated on hosted-beta validation, dependency/source review, licence selection and final adversarial release checks.
+**1.0.0 is the first public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

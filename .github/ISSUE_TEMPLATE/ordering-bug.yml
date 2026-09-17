@@ -1,0 +1,34 @@
+name: Ordering bug
+description: Report an episode or special that Story Order placed incorrectly
+title: "[Ordering] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Do not post Stremio AuthKeys, debrid credentials or private metadata configuration URLs."
+  - type: input
+    id: series
+    attributes:
+      label: Series
+      description: Include the IMDb ID if known.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current order
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected order
+    validations:
+      required: true
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Ordering profile
+      options: [Safe, Balanced, Complete story, Custom]
+    validations:
+      required: true
