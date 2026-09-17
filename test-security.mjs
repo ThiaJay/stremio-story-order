@@ -1,0 +1,80 @@
+import assert from "node:assert/strict";
+import { Buffer } from "node:buffer";
+import { encodeConfig, decodeConfig, normalizeConfig } from "./config-token.js";
+import { resolveSource } from "./source-registry.js";
+import { fetchJsonResilient, assertResourcePath, readJsonResponse } from "./upstream.js";
+import { configurationPage } from "./config-page.js";
+
+class MemoryKV {
+  constructor(){this.map=new Map()}
+  async get(key,type){const v=this.map.get(key); return !v?null:type==="json"?JSON.parse(v):v}
+  async put(key,value){this.map.set(key,value)}
+}
+const secret=Buffer.alloc(32,7).toString("base64url");
+const env={CONFIG_SECRET:secret,STORY_CACHE:new MemoryKV()};
+
+const cfg=normalizeConfig({
+  source:{kind:"aiometadata",manifestUrl:"https://demo-aiometadata.elfhosted.com/stremio/12345678-1234-1234-1234-123456789abc/manifest.json"},
+  order:{profile:"balanced",includeInsignificant:true},
+  overrides:{tt1234567:{exclude:["tt1234567:0:8"],include:[{id:"tt1234567:0:9",targetSeason:2}]}}
+});
+resolveSource(cfg.source,env);
+const token=await encodeConfig(cfg,env);
+assert.ok(token.startsWith("v2."));
+assert.ok(!token.includes("elfhosted"));
+assert.deepEqual(await decodeConfig(token,env),cfg);
+await assert.rejects(()=>decodeConfig(token.slice(0,-2)+"xx",env),/Invalid configuration token/);
+
+assert.equal(resolveSource({kind:"cinemeta"},env).kind,"cinemeta");
+assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl:"http://demo-aiometadata.elfhosted.com/stremio/x/manifest.json"},env),/HTTPS/);
+assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://127.0.0.1/manifest.json"},{ENABLE_CUSTOM_UPSTREAM:"true",ALLOWED_UPSTREAM_HOSTS:"127.0.0.1"}),/Local and IP/);
+assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://addons.example.com/manifest.json"},env),/does not allow/);const custom=resolveSource(
+  {kind:"custom",manifestUrl:"https://addons.example.com/user/manifest.json"},
+  {ENABLE_CUSTOM_UPSTREAM:"true",ALLOWED_UPSTREAM_HOSTS:"addons.example.com"}
+);
+assert.equal(custom.root,"https://addons.example.com/user");
+assert.throws(()=>assertResourcePath("/meta/series/../../secret.json"),/Unsupported/);
+assert.throws(()=>assertResourcePath("/admin/secrets.json"),/Unsupported/);
+
+const source={kind:"custom",manifestUrl:"https://source.example/manifest.json",root:"https://source.example"};
+const payload={meta:{id:"tt1234567",name:"Cached"}};
+const goodFetch=async()=>new Response(JSON.stringify(payload),{status:200,headers:{"content-type":"application/json"}});
+let r=await fetchJsonResilient(source,"/meta/series/tt1234567.json",null,env,null,goodFetch);
+assert.equal(r.source,"live"); assert.deepEqual(r.payload,payload);
+const downFetch=async()=>new Response("down",{status:503,headers:{"content-type":"text/plain"}});
+r=await fetchJsonResilient(source,"/meta/series/tt1234567.json",null,env,null,downFetch);
+assert.equal(r.source,"stale-cache"); assert.deepEqual(r.payload,payload);
+
+const noCacheEnv={STORY_CACHE:new MemoryKV()};
+const fallbackPayload={meta:{id:"tt7654321",name:"Cinemeta fallback"}};
+const fallbackFetch=async url=>String(url).startsWith("https://v3-cinemeta.strem.io")
+  ? new Response(JSON.stringify(fallbackPayload),{status:200,headers:{"content-type":"application/json"}})
+  : new Response("down",{status:503,headers:{"content-type":"text/plain"}});
+r=await fetchJsonResilient(source,"/meta/series/tt7654321.json",null,noCacheEnv,null,fallbackFetch);
+assert.equal(r.source,"cinemeta-fallback"); assert.deepEqual(r.payload,fallbackPayload);const redirectFetch=async()=>new Response(null,{status:302,headers:{location:"https://example.org/"}});
+r=await fetchJsonResilient(source,"/catalog/series/test.json",null,{STORY_CACHE:new MemoryKV()},null,redirectFetch);
+assert.equal(r.source,"failed"); assert.equal(r.status,302);
+
+const oversized=JSON.stringify({data:"x".repeat(6*1024*1024)});
+await assert.rejects(
+  ()=>readJsonResponse(new Response(oversized,{headers:{"content-type":"application/json"}})),
+  /too large/
+);
+
+const page=configurationPage({choices:["cinemeta","aiometadata"]});
+assert.ok(page.html.includes("Stremio Story Order"));
+assert.ok(!/<script[^>]+src=/i.test(page.html));
+assert.ok(!/google-analytics|segment\.com|plausible\.io/i.test(page.html));
+assert.ok(page.html.includes("no Stremio AuthKey"));
+
+console.log("PASS: Story Order security and outage suite");
+{
+  const privateLikeEnv={STORY_CACHE:new MemoryKV()};
+  const catalogPayload={metas:[{id:"tt1",name:"Personal list item"}]};
+  const catalogFetch=async()=>new Response(JSON.stringify(catalogPayload),{status:200,headers:{"content-type":"application/json"}});
+  let catalogResult=await fetchJsonResilient(source,"/catalog/series/private-list.json",null,privateLikeEnv,null,catalogFetch);
+  assert.equal(catalogResult.source,"live");
+  assert.equal(privateLikeEnv.STORY_CACHE.map.size,0,"catalog response was persisted");
+  catalogResult=await fetchJsonResilient(source,"/catalog/series/private-list.json",null,privateLikeEnv,null,downFetch);
+  assert.equal(catalogResult.source,"failed","private catalogue should not be served from persistent stale cache");
+}

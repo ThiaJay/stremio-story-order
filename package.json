@@ -1,0 +1,20 @@
+{
+  "name": "stremio-story-order",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": "https://github.com/ThiaJay/stremio-story-order",
+  "bugs": "https://github.com/ThiaJay/stremio-story-order/issues",
+  "scripts": {
+    "test": "node test-engine.mjs && node test-security.mjs && node test-worker.mjs && node test-customization.mjs",
+    "test:live": "node test-live.mjs",
+    "test:all": "npm run test && npm run test:live",
+    "check": "node --check worker.js && node --check story-order.js && node --check config-token.js && node --check upstream.js && node --check provider.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.134.0"
+  }
+}

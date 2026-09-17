@@ -1,0 +1,18 @@
+name = "stremio-story-order"
+main = "worker.js"
+compatibility_date = "2026-09-17"
+workers_dev = true
+preview_urls = true
+
+[vars]
+ENABLE_CUSTOM_UPSTREAM = "false"
+ALLOWED_UPSTREAM_HOSTS = ""
+
+# Create a KV namespace for resilient public metadata and TVmaze ordering cache:
+#   wrangler kv namespace create STORY_CACHE
+# Then copy this file to wrangler.local.toml and add:
+# [[kv_namespaces]]
+# binding = "STORY_CACHE"
+# id = "<your namespace id>"
+# Finally create a 32-byte base64url CONFIG_SECRET with:
+#   wrangler secret put CONFIG_SECRET
