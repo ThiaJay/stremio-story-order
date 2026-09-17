@@ -1,4 +1,4 @@
-# Story Order 1.0.4 Release Checklist
+# Story Order 1.0.5 Release Checklist
 
 ## Automated gates
 

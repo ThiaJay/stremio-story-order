@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5 - 2026-09-18
+
+stremio-addons.net ownership-claim update.
+
+- Added the public `stremioAddonsConfig` ownership proof requested by stremio-addons.net.
+- Allows the Story Order listing to be claimed by the submitting developer account without exposing Stremio credentials.
+- No episode-ordering, privacy or stream-addon behaviour changed.
+
 ## 1.0.4 — 2026-09-17
 
 Display-encoding hardening update.

@@ -5,7 +5,11 @@ import { fetchJsonResilient } from "./upstream.js";
 import { integrateStoryOrder, verifyIdentityInvariant, showOverrideFor } from "./story-order.js";
 import { configurationPage } from "./config-page.js";
 
-const VERSION = "1.0.4";
+const VERSION = "1.0.5";
+const STREMIO_ADDONS_CONFIG = Object.freeze({
+  issuer: "https://stremio-addons.net",
+  signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
+});
 const CORS = {
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "content-type",
@@ -57,7 +61,7 @@ function configuredManifest(upstreamManifest, source) {
   manifest.description = "Fixes TV episode order in Stremio. Story Order places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence. Works independently of your stream addons.";
   manifest.logo = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
   manifest.background = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg";
-  delete manifest.stremioAddonsConfig;
+  manifest.stremioAddonsConfig = { ...STREMIO_ADDONS_CONFIG };
   manifest.behaviorHints = { ...(manifest.behaviorHints || {}), adult: false, p2p: false, configurable: true, configurationRequired: false };
   return manifest;
 }async function configForToken(token, env) {

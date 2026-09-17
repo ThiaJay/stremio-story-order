@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
-import worker from "./worker.js";
+import worker, { configuredManifest } from "./worker.js";
 
 const env={CONFIG_SECRET:Buffer.alloc(32,9).toString("base64url")};
 const ctx={waitUntil(p){p.catch(()=>{})}};
+
+const claimed= configuredManifest({id:"upstream",name:"Upstream"},{label:"test"});
+assert.equal(claimed.stremioAddonsConfig?.issuer,"https://stremio-addons.net");
+assert.match(claimed.stremioAddonsConfig?.signature||"",/^eyJ/);
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
