@@ -7,6 +7,25 @@
 **Configure / install:** https://stremio-story-order.storyorder.workers.dev/configure  
 **Default standalone manifest:** https://stremio-story-order.storyorder.workers.dev/manifest.json
 
+## Quick start — most people
+
+1. Open the **Configure / install** link above.
+2. Leave **Cinemeta** selected as the metadata source.
+3. Leave **Safe** selected as the ordering profile.
+4. Click **Create install link**.
+5. Click **Install Story Order** and approve it in Stremio.
+6. Keep your stream addons such as Torrentio, AIOStreams or Maelstrom installed exactly as they are.
+
+That is all most users need to do. Open a TV series normally and Story Order will place supported specials and one-offs into the episode sequence automatically.
+
+### If you already use AIOMetadata or another metadata addon
+
+Choose that source on the Configure page instead of Cinemeta. For the corrected episode list to win, **Story Order must be ahead of the metadata addon it is replacing/wrapping**, or you should use the Story Order copy of that metadata source rather than the duplicate original entry. Stream addons do not need to move.
+
+### After installation
+
+There is no separate player and nothing to start manually. Story Order changes the episode list Stremio sees. When a supported special or one-off belongs between normal episodes, it appears in that position and autoplay can continue through it.
+
 **Puts TV episodes, specials and one-offs in the right watch order.**
 
 Story Order fixes TV episode order in Stremio. It places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence.
@@ -94,6 +113,6 @@ For Cloudflare self-hosting, copy `wrangler.example.toml` to `wrangler.local.tom
 
 ## Current release status
 
-**1.0.1 is the current public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
+**1.0.2 is the current public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

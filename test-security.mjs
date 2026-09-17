@@ -65,7 +65,7 @@ const page=configurationPage({choices:["cinemeta","aiometadata"]});
 assert.ok(page.html.includes("Story Order"));
 assert.ok(!/<script[^>]+src=/i.test(page.html));
 assert.ok(!/google-analytics|segment\.com|plausible\.io/i.test(page.html));
-assert.ok(page.html.includes("no Stremio AuthKey"));
+assert.match(page.html,/no Stremio AuthKey/i);
 
 console.log("PASS: Story Order security and outage suite");
 {

@@ -11,6 +11,10 @@ assert.match(response.headers.get("content-security-policy"),/default-src 'none'
 const html=await response.text();
 assert.match(html,/Cinemeta — simplest/);
 assert.match(html,/AIOMetadata/);
+assert.match(html,/class="hero"/);
+assert.match(html,/name="sourceKind"/);
+assert.match(html,/name="profile"/);
+assert.match(html,/Install Story Order/);
 assert.doesNotMatch(html,/type="password"/);
 
 const config={source:{kind:"cinemeta"},order:{profile:"safe"},overrides:{}};

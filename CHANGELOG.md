@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 — 2026-09-17
+
+Usability/documentation update.
+
+- Added a plain-English five-step installation path for ordinary Stremio users.
+- Added clear instructions for existing AIOMetadata/metadata-addon users.
+- Clarified that stream addons stay installed and do not need reconfiguration.
+- Explained what happens after installation and when addon ordering matters.
+
 ## 1.0.1 — 2026-09-17
 
 Branding and clarity update.
