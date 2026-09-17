@@ -1,6 +1,6 @@
 # Story Order
 
-<p align="center"><img src="public/branding/story-order-lockup.png" alt="Story Order Ã¢â‚¬â€ puts TV episodes, specials and one-offs in the right watch order" width="900"></p>
+<p align="center"><img src="public/branding/story-order-lockup.png" alt="Story Order - puts TV episodes, specials and one-offs in the right watch order" width="900"></p>
 
 [![CI](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml/badge.svg)](https://github.com/ThiaJay/stremio-story-order/actions/workflows/ci.yml) [![Release](https://img.shields.io/github/v/release/ThiaJay/stremio-story-order)](https://github.com/ThiaJay/stremio-story-order/releases) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -15,7 +15,7 @@
 
 The complete public graphics pack is in [`public/branding`](public/branding) and [`public/screenshots`](public/screenshots). See [`BRANDING.md`](BRANDING.md) for intended uses.
 
-## Quick start Ã¢â‚¬â€ most people
+## Quick start - most people
 
 1. Open the **Configure / install** link above.
 2. Leave **Cinemeta** selected as the metadata source.
@@ -44,24 +44,24 @@ It is **not a stream addon**. It works independently of Torrentio, AIOStreams, M
 
 Stremio metadata commonly places Christmas specials, feature-length one-offs and other narrative episodes in Season 0. Autoplay then jumps from the last normal episode straight to the next numbered season.
 
-Story Order can place those existing entries into the normal sequence without changing their underlying IDs. For example, a display entry may become Season 1 Episode 14 while its stream-facing ID remains `ttÃ¢â‚¬Â¦:0:2`.
+Story Order can place those existing entries into the normal sequence without changing their underlying IDs. For example, a display entry may become Season 1 Episode 14 while its stream-facing ID remains `tt...:0:2`.
 
 The engine also handles normal episodes that a source has misclassified into Season 0 and post-series feature-length episodes such as *Jonathan Creek: Daemons' Roost*.
 
 ## Metadata sources
 
-- **Cinemeta** Ã¢â‚¬â€ zero-setup standalone mode and the recommended first community setup.
-- **AIOMetadata** Ã¢â‚¬â€ wrap an existing configured ElfHosted AIOMetadata manifest without keeping a duplicate metadata addon installed.
-- **Custom Stremio metadata addon** Ã¢â‚¬â€ supported by the architecture. The hosted service keeps this behind a server allowlist to prevent SSRF abuse; self-hosters can explicitly enable trusted hosts.
+- **Cinemeta** - zero-setup standalone mode and the recommended first community setup.
+- **AIOMetadata** - wrap an existing configured ElfHosted AIOMetadata manifest without keeping a duplicate metadata addon installed.
+- **Custom Stremio metadata addon** - supported by the architecture. The hosted service keeps this behind a server allowlist to prevent SSRF abuse; self-hosters can explicitly enable trusted hosts.
 
 The ordering layer is the same in every mode.
 
 ## Ordering profiles
 
-- **Safe** Ã¢â‚¬â€ full-length narrative entries and high-confidence regular-episode repairs. Short-form extras stay in Specials.
-- **Balanced** Ã¢â‚¬â€ additionally includes provider-confirmed significant short-form story entries.
-- **Complete story** Ã¢â‚¬â€ includes all provider-confirmed short-form story entries allowed by the other safety switches.
-- **Custom** Ã¢â‚¬â€ exposes runtime thresholds, insignificant-special handling, non-story extras, future entries and per-series overrides.
+- **Safe** - full-length narrative entries and high-confidence regular-episode repairs. Short-form extras stay in Specials.
+- **Balanced** - additionally includes provider-confirmed significant short-form story entries.
+- **Complete story** - includes all provider-confirmed short-form story entries allowed by the other safety switches.
+- **Custom** - exposes runtime thresholds, insignificant-special handling, non-story extras, future entries and per-series overrides.
 ## Outage behaviour
 
 Ordering enrichment currently uses TVmaze. Successful public ordering data is cached. If TVmaze is unavailable, Story Order uses stale cached enrichment when available and then falls back to conservative date/runtime inference from the chosen metadata source.
