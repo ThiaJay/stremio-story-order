@@ -7,4 +7,4 @@ wrangler.local.toml
 coverage/
 *.log
 .DS_Store
-Thumbs.db
+Thumbs.dbwrangler.toml
