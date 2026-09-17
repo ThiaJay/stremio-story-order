@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.4 — 2026-09-17
+
+Display-encoding hardening update.
+
+- Removed fragile decorative Unicode characters from the configure-page source.
+- Replaced text glyphs with CSS-drawn icons and ASCII-safe copy.
+- Added a regression test that prevents non-ASCII UI glyphs and mojibake from returning.
+- No episode-ordering or stream-addon behaviour changed.
+
 ## 1.0.3 — 2026-09-17
 
 Public hostname migration and release hygiene update.

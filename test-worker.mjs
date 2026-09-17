@@ -9,7 +9,7 @@ let response=await worker.fetch(new Request("https://story.test/configure"),env,
 assert.equal(response.status,200);
 assert.match(response.headers.get("content-security-policy"),/default-src 'none'/);
 const html=await response.text();
-assert.match(html,/Cinemeta — simplest/);
+assert.match(html,/Cinemeta - simplest/);
 assert.match(html,/AIOMetadata/);
 assert.match(html,/class="hero"/);
 assert.match(html,/name="sourceKind"/);

@@ -21,7 +21,8 @@ a{color:#7bdcff}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding
 .hero:after{content:"";position:absolute;width:460px;height:190px;right:-110px;bottom:-125px;border:22px solid #437eff44;border-radius:50%;transform:rotate(-8deg)}
 .brand-row{display:flex;gap:22px;align-items:center;position:relative;z-index:1}.brand-row>div:last-child,.step-title>div:last-child{min-width:0}.logo-card{width:92px;height:92px;flex:0 0 auto;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#0c1830,#142b57);box-shadow:inset 0 0 0 1px #7adfff55,0 12px 35px #03081588}
 .logo-card svg{width:72px;height:72px}.eyebrow{color:#8fdfff;text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:800;margin:0 0 5px}h1{font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:0;letter-spacing:-.055em}.strap{font-size:clamp(1.05rem,2.4vw,1.45rem);color:#d8e4fb;margin:12px 0 0;max-width:700px}
-.badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.badge{border:1px solid #42618e;background:#0e203f99;padding:6px 10px;border-radius:999px;color:#c9d9f5;font-size:.82rem}.badge.good{color:#8ff2cd;border-color:#3aa77c88;background:#0c332b88}
+.badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.badge{border:1px solid #42618e;background:#0e203f99;padding:6px 10px;border-radius:999px;color:#c9d9f5;font-size:.82rem}.badge.good{display:inline-flex;align-items:center;gap:7px;color:#8ff2cd;border-color:#3aa77c88;background:#0c332b88}
+.ok-mark{display:inline-block;width:7px;height:11px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);flex:0 0 auto}.ok-mark.large{width:8px;height:13px;margin:0 10px 2px 2px}
 `;
 const CSS_MORE = `
 .grid,.panel,.side-stack,form,.section{min-width:0}.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;margin-top:22px}.panel{background:linear-gradient(180deg,#0d1a33e8,#0a162de8);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 60px #02071366}.panel-pad{padding:24px}
@@ -34,7 +35,8 @@ const CSS_MORE = `
 details{margin-top:14px;border:1px solid #263b64;border-radius:13px;background:#09162c}summary{cursor:pointer;padding:13px 14px;font-weight:750;color:#d7e3fa}details[open] summary{border-bottom:1px solid #263b64}.advanced{padding:14px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .primary{width:100%;margin-top:18px;padding:14px 18px;border:0;border-radius:13px;background:linear-gradient(100deg,#168cff,#7657ee);color:white;font:inherit;font-weight:850;cursor:pointer;box-shadow:0 10px 32px #2f66ff44}.primary:hover{filter:brightness(1.08)}.primary:focus-visible{outline:3px solid #b9e7ff;outline-offset:3px}
 .result{margin-top:16px;padding:18px;border-radius:16px;border:1px solid #3a806d;background:linear-gradient(145deg,#0c302d,#0d2136)}.result h3{margin:0 0 6px;color:#9af0d1}.install{display:inline-block;margin:12px 0;padding:12px 18px;border-radius:11px;background:#fff;color:#0a1730;text-decoration:none;font-weight:900}.manifest{font-size:.78rem;color:#94a8cc;overflow-wrap:anywhere}.copy{padding:7px 10px;border:1px solid #36527f;border-radius:9px;background:#0b1931;color:#dbe7fb;cursor:pointer}
-.side-stack{display:grid;gap:16px}.side-card{padding:20px}.side-card h3{margin:0 0 12px}.example{padding:11px 12px;margin-top:9px;border-radius:12px;background:#08152b;border:1px solid #263d66}.episode{display:flex;gap:9px;align-items:center;padding:6px 0;color:#b5c4df}.episode strong{color:#fff}.episode.highlight{color:#8ddfff}.epno{width:30px;text-align:right;color:#6f88b3}.tick{margin-left:auto;color:#7ef0c7}.feature-list{display:grid;gap:10px}.feature{display:flex;gap:10px;align-items:flex-start}.feature-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#122a50;color:#8ddfff;flex:0 0 auto}.feature b{display:block}.feature small{color:var(--muted)}
+.side-stack{display:grid;gap:16px}.side-card{padding:20px}.side-card h3{margin:0 0 12px}.example{padding:11px 12px;margin-top:9px;border-radius:12px;background:#08152b;border:1px solid #263d66}.episode{display:flex;gap:9px;align-items:center;padding:6px 0;color:#b5c4df}.episode strong{color:#fff}.episode.highlight{color:#8ddfff}.epno{width:30px;text-align:right;color:#6f88b3}.tick{position:relative;margin-left:auto;width:18px;height:18px;color:#7ef0c7;flex:0 0 auto}.tick-ok:before{content:"";position:absolute;left:5px;top:1px;width:6px;height:10px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg)}.tick-play:before{content:"";position:absolute;left:5px;top:4px;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.feature-list{display:grid;gap:10px}.feature{display:flex;gap:10px;align-items:flex-start}.feature-icon{position:relative;width:30px;height:30px;border-radius:9px;background:#122a50;color:#8ddfff;flex:0 0 auto}.icon-play:before{content:"";position:absolute;left:11px;top:8px;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}.icon-link:before,.icon-link:after{content:"";position:absolute;width:11px;height:6px;border:2px solid currentColor;border-radius:6px;transform:rotate(-40deg)}.icon-link:before{left:5px;top:8px}.icon-link:after{left:13px;top:14px}.icon-refresh:before{content:"";position:absolute;inset:7px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%}.icon-refresh:after{content:"";position:absolute;right:5px;top:5px;border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;transform:rotate(-35deg)}.icon-private:before{content:"";position:absolute;left:8px;bottom:6px;width:12px;height:10px;border:2px solid currentColor;border-radius:2px}.icon-private:after{content:"";position:absolute;left:10px;top:5px;width:8px;height:8px;border:2px solid currentColor;border-bottom:0;border-radius:8px 8px 0 0}.feature b{display:block}.feature small{color:var(--muted)}
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;padding:0 4px;color:#7f91b2;font-size:.82rem}footer a{color:#9ebeff}.status{display:block;margin-top:10px;color:#ffd397;font-size:.88rem}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.choice-grid.profiles{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card svg{width:44px;height:44px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
@@ -43,11 +45,11 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin
 function styles() { return CSS + CSS_MORE + CSS_END; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="referrer" content="no-referrer"><title>Story Order — Stremio addon</title><style>${styles()}</style></head>
+<meta name="referrer" content="no-referrer"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell">
 <header class="hero"><div class="brand-row"><div class="logo-card">${logoSvg()}</div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1><p class="strap">Puts TV episodes, specials and one-offs in the right watch order.</p>
-<div class="badges"><span class="badge good">✓ No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
+<div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
 </div></div></header>
 <div class="grid"><main class="panel"><div class="panel-pad">
 <div class="quick"><div class="quick-step"><span>1</span><b>Choose source</b>Most people leave Cinemeta selected.</div>
@@ -56,16 +58,16 @@ function pageHtml(initialToken, customOption, nonce) {
 <div class="quick-step"><span>4</span><b>Install</b>Approve it in Stremio and watch normally.</div></div>
 <div class="muted">For most users, the defaults are already right. Your stream addons stay exactly as they are.</div></div>
 <form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
-</div><footer><span>Story Order · Correct order. Complete stories.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> · <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> · No Stremio AuthKey · No analytics</span></footer>
+</div><footer><span>Story Order | Correct order. Complete stories.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
 </div><script nonce="${nonce}">${clientScript()}</script></body></html>`;
 }
 function formSections(customOption) {
   return `<section class="section"><div class="step-title"><div class="step-num">1</div><div><h2>Where should Story Order get series information?</h2><p>Leave Cinemeta selected unless you already use AIOMetadata or another supported metadata addon.</p></div></div>
 <div class="choice-grid">
-<label class="choice"><input type="radio" name="sourceKind" value="cinemeta" checked><span class="choice-box"><strong>Cinemeta — simplest</strong><small>No extra setup. Recommended for most people.</small><span class="recommended">Recommended</span></span></label>
+<label class="choice"><input type="radio" name="sourceKind" value="cinemeta" checked><span class="choice-box"><strong>Cinemeta - simplest</strong><small>No extra setup. Recommended for most people.</small><span class="recommended">Recommended</span></span></label>
 <label class="choice"><input type="radio" name="sourceKind" value="aiometadata"><span class="choice-box"><strong>AIOMetadata</strong><small>Use your existing configured AIOMetadata setup and let Story Order fix its episode sequence.</small></span></label>
 ${customOption}</div>
-<div id="manifestRow" class="field hidden"><label for="manifestUrl">Metadata addon manifest URL</label><input id="manifestUrl" type="url" inputmode="url" autocomplete="off" placeholder="https://…/manifest.json"><div class="muted">Your source URL is encrypted into the Story Order install URL.</div></div>
+<div id="manifestRow" class="field hidden"><label for="manifestUrl">Metadata addon manifest URL</label><input id="manifestUrl" type="url" inputmode="url" autocomplete="off" placeholder="https://.../manifest.json"><div class="muted">Your source URL is encrypted into the Story Order install URL.</div></div>
 </section>
 <section class="section"><div class="step-title"><div class="step-num">2</div><div><h2>How much should Story Order include?</h2><p>Safe handles the common cases without pulling short-form extras into autoplay.</p></div></div>
 <div class="choice-grid profiles">
@@ -96,22 +98,22 @@ function advancedOptions() {
 function installSection() {
   return `<section class="section"><div class="step-title"><div class="step-num">3</div><div><h2>Create your install link</h2><p>Story Order will generate a private configuration link for Stremio.</p></div></div>
 <button class="primary" type="submit">Create install link</button><span id="status" class="status"></span>
-<div id="result" class="result hidden"><h3>✓ Story Order is ready</h3><div>Click below, approve the addon in Stremio and then open your series normally.</div>
+<div id="result" class="result hidden"><h3><span class="ok-mark large" aria-hidden="true"></span>Story Order is ready</h3><div>Click below, approve the addon in Stremio and then open your series normally.</div>
 <a id="install" class="install">Install Story Order</a><div class="manifest">Manifest URL: <span id="manifestOut"></span></div><button id="copy" class="copy" type="button">Copy manifest URL</button></div>
 </section>`;
 }
 function sidePanel() {
   return `<aside class="side-stack"><section class="panel side-card"><h3>What changes?</h3>
-<div class="example"><b>Doctor Who</b><div class="episode"><span class="epno">13</span><span>The Parting of the Ways</span><span class="tick">✓</span></div>
-<div class="episode highlight"><span class="epno">14</span><strong>The Christmas Invasion</strong><span class="tick">▶</span></div><div class="episode"><span class="epno">15</span><span>New Earth</span></div></div>
-<div class="example"><b>Jonathan Creek</b><div class="episode"><span class="epno">3</span><span>The Curse of the Bronze Lamp</span><span class="tick">✓</span></div>
-<div class="episode highlight"><span class="epno">4</span><strong>Daemons' Roost</strong><span class="tick">▶</span></div></div>
+<div class="example"><b>Doctor Who</b><div class="episode"><span class="epno">13</span><span>The Parting of the Ways</span><span class="tick tick-ok" aria-label="correct"></span></div>
+<div class="episode highlight"><span class="epno">14</span><strong>The Christmas Invasion</strong><span class="tick tick-play" aria-label="next"></span></div><div class="episode"><span class="epno">15</span><span>New Earth</span></div></div>
+<div class="example"><b>Jonathan Creek</b><div class="episode"><span class="epno">3</span><span>The Curse of the Bronze Lamp</span><span class="tick tick-ok" aria-label="correct"></span></div>
+<div class="episode highlight"><span class="epno">4</span><strong>Daemons' Roost</strong><span class="tick tick-play" aria-label="next"></span></div></div>
 <p class="muted">The original episode IDs stay intact, so your installed stream addons still receive the same episode identity.</p></section>
 <section class="panel side-card"><h3>Designed to stay out of the way</h3><div class="feature-list">
-<div class="feature"><span class="feature-icon">▶</span><div><b>Use Stremio normally</b><small>No separate player or extra launch step.</small></div></div>
-<div class="feature"><span class="feature-icon">⛓</span><div><b>Stream-addon independent</b><small>Torrentio, AIOStreams, Maelstrom and others stay separate.</small></div></div>
-<div class="feature"><span class="feature-icon">↻</span><div><b>Outage aware</b><small>Cached ordering and conservative fallback keep metadata useful when enrichment is unavailable.</small></div></div>
-<div class="feature"><span class="feature-icon">◇</span><div><b>No Stremio account access</b><small>No AuthKey, password or account session required.</small></div></div>
+<div class="feature"><span class="feature-icon icon-play" aria-hidden="true"></span><div><b>Use Stremio normally</b><small>No separate player or extra launch step.</small></div></div>
+<div class="feature"><span class="feature-icon icon-link" aria-hidden="true"></span><div><b>Stream-addon independent</b><small>Torrentio, AIOStreams, Maelstrom and others stay separate.</small></div></div>
+<div class="feature"><span class="feature-icon icon-refresh" aria-hidden="true"></span><div><b>Outage aware</b><small>Cached ordering and conservative fallback keep metadata useful when enrichment is unavailable.</small></div></div>
+<div class="feature"><span class="feature-icon icon-private" aria-hidden="true"></span><div><b>No Stremio account access</b><small>No AuthKey, password or account session required.</small></div></div>
 </div></section></aside>`;
 }
 export function configurationPage({ token = "", choices = ["cinemeta", "aiometadata"] } = {}) {
@@ -145,7 +147,7 @@ loadExisting();` + clientScriptTail();
 }
 function clientScriptTail() {
   return `
-form.addEventListener("submit",async e=>{e.preventDefault();$("status").textContent="Creating your install link…";$("result").classList.add("hidden");
+form.addEventListener("submit",async e=>{e.preventDefault();$("status").textContent="Creating your install link...";$("result").classList.add("hidden");
   let overrides={};try{const text=$("overrides").value.trim();if(text)overrides=JSON.parse(text)}catch{$("status").textContent="The override JSON is invalid.";return}
   const source={kind:radioValue("sourceKind")||"cinemeta"};if(source.kind!=="cinemeta")source.manifestUrl=$("manifestUrl").value.trim();
   const payload={source,order:{profile:radioValue("profile")||"safe",fullLength:$("fullLength").checked,shortForm:$("shortForm").value,

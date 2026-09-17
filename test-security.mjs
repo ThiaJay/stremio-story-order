@@ -66,6 +66,8 @@ assert.ok(page.html.includes("Story Order"));
 assert.ok(!/<script[^>]+src=/i.test(page.html));
 assert.ok(!/google-analytics|segment\.com|plausible\.io/i.test(page.html));
 assert.match(page.html,/no Stremio AuthKey/i);
+assert.ok([...page.html].every(ch=>ch.charCodeAt(0)<128),"configure page contains non-ASCII UI glyphs");
+assert.doesNotMatch(page.html,/\uFFFD|\u00C2|\u00E2/);
 
 console.log("PASS: Story Order security and outage suite");
 {
