@@ -119,6 +119,19 @@ npm run test:live
 
 For Cloudflare self-hosting, copy `wrangler.example.toml` to `wrangler.local.toml`, create the optional `STORY_CACHE` KV namespace and set a 32-byte base64url `CONFIG_SECRET` using Wrangler secrets.
 
+### Self-hosting placeholders
+
+Hosted users do not need to replace anything in the repository. The following values are only for people deploying their own Worker:
+
+| Example/config value | What it means |
+| --- | --- |
+| `<your namespace id>` in `wrangler.example.toml` | Replace this with the KV namespace ID printed by `wrangler kv namespace create STORY_CACHE`. Leave the whole `[[kv_namespaces]]` block out if you intentionally run without cache. |
+| `CONFIG_SECRET` | A deployment secret you create yourself. Run `wrangler secret put CONFIG_SECRET` and enter a random 32-byte base64url value. Never commit it. |
+| `ENABLE_CUSTOM_UPSTREAM` | Leave `false` unless the operator deliberately wants to allow custom metadata hosts. |
+| `ALLOWED_UPSTREAM_HOSTS` | A comma-separated allowlist of trusted public metadata hostnames. Leave empty when custom upstreams are disabled. |
+
+Test-only hosts such as `*.example.com` and `demo-aiometadata.elfhosted.com` are synthetic fixtures and are not production configuration to copy.
+
 ## Current release status
 
 **1.0.5 is the current public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
