@@ -1,0 +1,30 @@
+{
+  "foundationSchema": 1,
+  "id": "story-order",
+  "name": "Story Order",
+  "classification": "hosted-addon",
+  "status": "ACTIVE_PUBLIC",
+  "domain": "episode-ordering",
+  "crossPlatform": true,
+  "productionAuthority": "hosted-addon",
+  "deviceDependency": "none",
+  "scope": [
+    "episode/special ordering",
+    "metadata wrapping"
+  ],
+  "forbiddenScope": [
+    "watched-state sync",
+    "poster correctness",
+    "stream/debrid aggregation"
+  ],
+  "releaseChannels": [
+    "github-source",
+    "github-release",
+    "hosted-manifest",
+    "configure-page",
+    "community-addon-directory-if-eligible"
+  ],
+  "notes": [
+    "Primary general ordering product."
+  ]
+}
