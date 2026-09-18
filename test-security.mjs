@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import { encodeConfig, decodeConfig, normalizeConfig } from "./config-token.js";
 import { resolveSource } from "./source-registry.js";
-import { fetchJsonResilient, assertResourcePath, readJsonResponse } from "./upstream.js";
+import { fetchJsonResilient, assertResourcePath, readJsonResponse, cinemetaCatalogRedirect } from "./upstream.js";
 import { configurationPage } from "./config-page.js";
+import { safeTvMazeRedirect } from "./provider.js";
 
 class MemoryKV {
   constructor(){this.map=new Map()}
@@ -35,6 +36,35 @@ assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://addons.examp
 assert.equal(custom.root,"https://addons.example.com/user");
 assert.throws(()=>assertResourcePath("/meta/series/../../secret.json"),/Unsupported/);
 assert.throws(()=>assertResourcePath("/admin/secrets.json"),/Unsupported/);
+
+const cinemaSource={kind:"cinemeta"};
+const goodCinemaRedirect=new Response(null,{status:307,headers:{location:"https://cinemeta-catalogs.strem.io/top/catalog/series/top.json"}});
+assert.equal(
+  cinemetaCatalogRedirect(cinemaSource,"/catalog/series/top.json","",goodCinemaRedirect),
+  "https://cinemeta-catalogs.strem.io/top/catalog/series/top.json"
+);
+for(const location of [
+  "http://cinemeta-catalogs.strem.io/top/catalog/series/top.json",
+  "https://evil.example/top/catalog/series/top.json",
+  "https://cinemeta-catalogs.strem.io/wrong/catalog/series/top.json",
+  "https://"+"user:pass"+"@"+"cinemeta-catalogs.strem.io/top/catalog/series/top.json"
+]){
+  assert.equal(cinemetaCatalogRedirect(cinemaSource,"/catalog/series/top.json","",new Response(null,{status:307,headers:{location}})),null);
+}
+
+assert.equal(
+  safeTvMazeRedirect(new Response(null,{status:301,headers:{location:"https://api.tvmaze.com/shows/210"}})),
+  "https://api.tvmaze.com/shows/210"
+);
+for(const location of [
+  "http://api.tvmaze.com/shows/210",
+  "https://evil.example/shows/210",
+  "https://api.tvmaze.com/search?q=x",
+  "https://"+"user:pass"+"@"+"api.tvmaze.com/shows/210",
+  "https://api.tvmaze.com/shows/210?x=1"
+]){
+  assert.equal(safeTvMazeRedirect(new Response(null,{status:301,headers:{location}})),null);
+}
 
 const source={kind:"custom",manifestUrl:"https://source.example/manifest.json",root:"https://source.example"};
 const payload={meta:{id:"tt1234567",name:"Cached"}};

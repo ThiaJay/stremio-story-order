@@ -15,6 +15,20 @@ assert.equal(manifest.name,"Story Order");
 assert.equal(manifest.id,"org.stremio.story-order");
 assert.ok(manifest.catalogs?.length>0);
 
+const popular=await get("/catalog/series/top.json");
+assert.ok(Array.isArray(popular.metas)&&popular.metas.length>0,"Cinemeta redirected Popular catalog did not resolve safely");
+
+async function head(path){
+  const response=await worker.fetch(new Request(`https://story.test${path}`,{method:"HEAD"}),env,ctx);
+  assert.equal(response.status,200,`HEAD ${path} returned ${response.status}`);
+  assert.equal((await response.text()).length,0,`HEAD ${path} returned a body`);
+  return response;
+}
+for(const path of ["/manifest.json","/meta/series/tt0436992.json","/catalog/series/top.json"]){
+  const response=await head(path);
+  assert.match(response.headers.get("content-type")||"",/json/i);
+}
+
 const doctor=await get("/meta/series/tt0436992.json");
 const doctorIds=[...doctor.meta.videos.map(v=>v.id)];
 assert.equal(new Set(doctorIds).size,doctorIds.length);

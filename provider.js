@@ -1,20 +1,40 @@
 import { readCache, writeCache, cacheAgeMs } from "./cache.js";
+import { readJsonResponse } from "./upstream.js";
 
 const TVMAZE = "https://api.tvmaze.com";
 const FRESH_MS = 7 * 86400_000;
 const STALE_MS = 180 * 86400_000;
 
+function safeTvMazeRedirect(response) {
+  if (![301,302,307,308].includes(response.status)) return null;
+  const location = response.headers.get("location");
+  if (!location) return null;
+  let target;
+  try { target = new URL(location); } catch { return null; }
+  if (target.protocol !== "https:" || target.username || target.password || target.hash || target.search) return null;
+  if (target.port && target.port !== "443") return null;
+  if (target.hostname.toLowerCase() !== "api.tvmaze.com") return null;
+  if (!/^\/shows\/\d+$/.test(target.pathname)) return null;
+  return target.toString();
+}
+
 async function fetchJson(url, fetchImpl = fetch, timeoutMs = 4500) {
-  const response = await fetchImpl(url, {
-    redirect: "follow",
+  const init = {
+    redirect: "manual",
     signal: AbortSignal.timeout(timeoutMs),
     headers: { "user-agent": "StremioStoryOrder/0.2 (+community addon; TVmaze attributed)" }
-  });
+  };
+  let response = await fetchImpl(url, init);
+  const redirected = safeTvMazeRedirect(response);
+  if (redirected) {
+    try { await response.body?.cancel?.(); } catch {}
+    response = await fetchImpl(redirected, init);
+  }
   if (!response.ok) throw new Error(`TVmaze ${response.status}`);
-  const length = Number(response.headers.get("content-length") || 0);
-  if (length > 4 * 1024 * 1024) throw new Error("TVmaze response too large");
-  return response.json();
+  return readJsonResponse(response, 4 * 1024 * 1024);
 }
+
+export { safeTvMazeRedirect };
 
 function cacheKey(ids) {
   if (ids.imdbId) return `enrichment:tvmaze:v2:imdb:${ids.imdbId}`;

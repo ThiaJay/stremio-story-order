@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.6 - 2026-09-18
+
+Dependability and transport-hardening update.
+
+- Safely follows Cinemeta's current catalogue redirect only to the exact expected HTTPS catalogue host/path; arbitrary redirects remain blocked.
+- Safely follows TVmaze's IMDb lookup redirect only to the exact same-service numeric show target.
+- Bounds TVmaze JSON responses and rejects unexpected content types/oversized bodies.
+- Makes HEAD responses execute the same validated resource path as GET while returning no body.
+- Adds live coverage for redirected Cinemeta catalogues and HEAD semantics.
+- Expands CI to Linux, Windows and macOS with dependency audit on every platform.
+- No stream/debrid ownership, account access or watched-state behaviour is introduced.
+
 ## 1.0.5 - 2026-09-18
 
 stremio-addons.net ownership-claim update.

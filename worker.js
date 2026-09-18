@@ -5,7 +5,7 @@ import { fetchJsonResilient } from "./upstream.js";
 import { integrateStoryOrder, verifyIdentityInvariant, showOverrideFor } from "./story-order.js";
 import { configurationPage } from "./config-page.js";
 
-const VERSION = "1.0.5";
+const VERSION = "1.0.6";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
   issuer: "https://stremio-addons.net",
   signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
@@ -26,6 +26,14 @@ function json(data, status = 200, cache = "no-store") {
   return new Response(JSON.stringify(data), {
     status,
     headers: headers({ "content-type": "application/json; charset=utf-8", "cache-control": cache })
+  });
+}
+
+function headless(response) {
+  return new Response(null, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers
   });
 }
 
@@ -177,36 +185,42 @@ async function handleConfigApi(request, env, url) {
       }
       if (request.method !== "GET" && request.method !== "HEAD") return errorResponse("Method not allowed", 405);
 
+      const isHead = request.method === "HEAD";
+      const resourceRequest = isHead
+        ? new Request(request.url, { method: "GET", headers: request.headers })
+        : request;
+      const finish = response => isHead ? headless(response) : response;
+
       const route = configuredRoute(url.pathname);
       if (!route) return errorResponse("Not found", 404);
       const config = await configForToken(route.token, env);
       const source = resolveSource(config.source, env);
 
       if (route.resource === "/manifest.json") {
-        const built = await manifestFor(config, env, ctx, request);
+        const built = await manifestFor(config, env, ctx, resourceRequest);
         const degraded = built.upstream.source !== "live";
-        return json(built.manifest, 200, cachePolicy(route.resource, degraded));
+        return finish(json(built.manifest, 200, cachePolicy(route.resource, degraded)));
       }
 
       const debugMatch = route.resource.match(/^\/_story\/debug\/series\/(.+)\.json$/);
       if (debugMatch) {
         const id = decodeURIComponent(debugMatch[1]);
-        const result = await seriesPayload(config, source, `/meta/series/${encodeURIComponent(id)}.json`, id, request, env, ctx);
-        return json(result.diagnostics, result.payload ? 200 : result.status || 502);
+        const result = await seriesPayload(config, source, `/meta/series/${encodeURIComponent(id)}.json`, id, resourceRequest, env, ctx);
+        return finish(json(result.diagnostics, result.payload ? 200 : result.status || 502));
       }
       if (!validResource(route.resource)) return errorResponse("Unsupported resource", 404);
       const seriesMatch = route.resource.match(/^\/meta\/series\/(.+)\.json$/);
       if (seriesMatch) {
         const id = decodeURIComponent(seriesMatch[1]);
-        const result = await seriesPayload(config, source, `${route.resource}${url.search}`, id, request, env, ctx);
-        if (!result.payload) return errorResponse("Metadata source unavailable", result.status || 502);
+        const result = await seriesPayload(config, source, `${route.resource}${url.search}`, id, resourceRequest, env, ctx);
+        if (!result.payload) return finish(errorResponse("Metadata source unavailable", result.status || 502));
         const degraded = result.diagnostics?.upstream?.source !== "live";
-        return json(result.payload, 200, cachePolicy(route.resource, degraded));
+        return finish(json(result.payload, 200, cachePolicy(route.resource, degraded)));
       }
 
-      const upstream = await genericPayload(source, `${route.resource}${url.search}`, request, env, ctx);
-      if (!upstream.payload) return errorResponse("Metadata source unavailable", upstream.status || 502);
-      return json(upstream.payload, 200, cachePolicy(route.resource, upstream.source !== "live"));
+      const upstream = await genericPayload(source, `${route.resource}${url.search}`, resourceRequest, env, ctx);
+      if (!upstream.payload) return finish(errorResponse("Metadata source unavailable", upstream.status || 502));
+      return finish(json(upstream.payload, 200, cachePolicy(route.resource, upstream.source !== "live")));
     } catch (error) {
       return errorResponse(error, 400);
     }

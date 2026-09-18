@@ -1,4 +1,4 @@
-# Story Order 1.0.5 Release Checklist
+# Story Order 1.0.6 Release Checklist
 
 ## Automated gates
 
@@ -10,6 +10,8 @@
 - [x] live standalone Cinemeta suite passes
 - [x] AIOMetadata compatibility smoke test passes without persisting a private manifest URL in the repository
 - [x] GitHub CI passes on the public repository
+- [x] CI passes on Linux, Windows and macOS
+- [x] dependency audit reports zero vulnerabilities on each CI platform
 
 ## Behaviour gates
 
@@ -32,7 +34,9 @@
 - [x] no Stremio AuthKey or account login required by Story Order
 - [x] encrypted stateless configuration token
 - [x] custom upstream disabled by default and allowlisted when enabled
-- [x] localhost, IP literals, URL credentials, non-HTTPS, path traversal and redirects rejected
+- [x] localhost, IP literals, URL credentials, non-HTTPS and path traversal rejected
+- [x] Cinemeta catalogue redirects are constrained to the exact expected HTTPS host/path; all other metadata redirects rejected
+- [x] TVmaze redirect handling is constrained to the exact same-service numeric show target
 - [x] oversized response and request limits tested
 - [x] non-public/personal catalogue responses are not persisted
 - [x] no analytics or advertising code

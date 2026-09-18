@@ -4,6 +4,7 @@ import { CINEMETA_MANIFEST } from "./source-registry.js";
 const RESOURCE_PATH = /^\/(?:manifest\.json|(?:catalog|meta|subtitles)\/[A-Za-z0-9._:-]+\/.+\.json)$/;
 const MAX_JSON_BYTES = 6 * 1024 * 1024;
 const CINEMETA_ROOT = CINEMETA_MANIFEST.slice(0, -"/manifest.json".length);
+const CINEMETA_CATALOG_HOST = "cinemeta-catalogs.strem.io";
 
 export function assertResourcePath(path) {
   const decoded = decodeURIComponent(String(path || ""));
@@ -61,6 +62,22 @@ function shouldUseStale(status) {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
+function cinemetaCatalogRedirect(source, path, search, response) {
+  if (source.kind !== "cinemeta" || ![307,308].includes(response.status) || !path.startsWith("/catalog/")) return null;
+  const location = response.headers.get("location");
+  if (!location) return null;
+  let url;
+  try { url = new URL(location); } catch { return null; }
+  if (url.protocol !== "https:" || url.username || url.password || url.hash) return null;
+  if (url.port && url.port !== "443") return null;
+  if (url.hostname.toLowerCase() !== CINEMETA_CATALOG_HOST) return null;
+  const match = path.match(/^\/catalog\/(?:movie|series)\/([A-Za-z0-9._:-]+)(?:\/.*)?\.json$/);
+  if (!match) return null;
+  if (url.pathname !== `/${match[1]}${path}`) return null;
+  if (url.search !== search) return null;
+  return url.toString();
+}
+
 async function liveFetch(source, pathAndQuery, request, fetchImpl) {
   const parsed = new URL(pathAndQuery, "https://local.invalid");
   const path = assertResourcePath(parsed.pathname);
@@ -69,12 +86,19 @@ async function liveFetch(source, pathAndQuery, request, fetchImpl) {
   const accept = request?.headers?.get("accept");
   if (accept) headers.set("accept", accept);
   headers.set("user-agent", "StremioStoryOrder/0.2");
-  const response = await fetchImpl(target, {
+  const init = {
     method: request?.method === "HEAD" ? "HEAD" : "GET",
     headers,
     redirect: "manual",
     signal: AbortSignal.timeout(6500)
-  });
+  };
+  let response = await fetchImpl(target, init);
+  const redirected = cinemetaCatalogRedirect(source, path, parsed.search, response);
+  if (redirected) {
+    try { await response.body?.cancel?.(); } catch {}
+    response = await fetchImpl(redirected, init);
+    return { response, path, target: redirected, redirectedFrom: target };
+  }
   return { response, path, target };
 }function cinemetaFallbackPath(path) {
   const match = path.match(/^\/meta\/(series|movie)\/(tt\d+)\.json$/);
@@ -96,6 +120,8 @@ async function fetchCinemetaFallback(path, fetchImpl) {
     return null;
   }
 }
+
+export { cinemetaCatalogRedirect };
 
 export async function fetchJsonResilient(source, pathAndQuery, request, env = {}, ctx = null, fetchImpl = fetch) {
   const parsed = new URL(pathAndQuery, "https://local.invalid");
