@@ -51,5 +51,6 @@
 - [x] configuration API creates working tokenised manifest/install URLs
 - [x] versioned GitHub release prepared
 - [x] Stremio central publish request accepted (`success: true`)
-- [ ] confirm visibility after Stremio's indexing delay
-- [ ] optional stremio-addons.net curated-directory submission (requires submitter's Stremio-account login)
+- [x] Stremio central publish re-submitted on 2026-09-18 through the official `publishToCentral` SDK path (`success: true`)
+- [ ] confirm visibility after Stremio's indexing delay — immediate post-submit check still returned no Story Order entry
+- [ ] stremio-addons.net curated-directory submission/claim — public API search on 2026-09-18 returned zero Story Order entries; submission requires the submitter's signed-in Stremio account, after which the deployed `stremioAddonsConfig` proof is ready for ownership validation
