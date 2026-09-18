@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.7 - 2026-09-18
+
+Emergency watched-state/autoplay safety release.
+
+- Temporarily disables series episode relocation in the hosted Worker and returns upstream series video arrays unchanged.
+- Adds a Stremio watched-bitfield identity-order invariant: changing video IDs' season/episode coordinates is treated as unsafe even when the set of IDs is unchanged.
+- Adds Jonathan Creek and Doctor Who live regressions proving the wrapped video array and watched identity order remain identical to Cinemeta.
+- Prevents specials relocation from changing watched/blur interpretation or native next-video/autoplay semantics while a native alternate-order representation is pursued.
+- The ordering engine remains in source/tests for redesign work, but the production hosted path is fail-safe passthrough.
+
 ## 1.0.6 - 2026-09-18
 
 Dependability and transport-hardening update.

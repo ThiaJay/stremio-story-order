@@ -1,60 +1,51 @@
-# Story Order 1.0.6 Release Checklist
+# Story Order 1.0.7 Release Checklist
+
+## Purpose
+
+v1.0.7 is an emergency watched-state/autoplay safety release. The hosted Worker must not relocate series episodes until Stremio has a representation that can preserve watched identity independently from display/story order.
 
 ## Automated gates
 
-- [x] syntax checks pass for Worker and core modules
-- [x] deterministic adversarial engine suite passes
+- [x] syntax and README encoding checks pass
+- [x] deterministic watched-state-safe engine suite passes
 - [x] security/outage suite passes
 - [x] Worker/configuration API suite passes
-- [x] profile/manual-override suite passes
-- [x] live standalone Cinemeta suite passes
-- [x] AIOMetadata compatibility smoke test passes without persisting a private manifest URL in the repository
-- [x] GitHub CI passes on the public repository
-- [x] CI passes on Linux, Windows and macOS
-- [x] dependency audit reports zero vulnerabilities on each CI platform
+- [x] profile/override emergency-safety suite passes
+- [x] live Cinemeta emergency-safety suite passes
+- [x] dependency audit reports zero vulnerabilities
+- [ ] public CI passes on Linux, Windows and macOS for the v1.0.7 commit
 
 ## Behaviour gates
 
-- [x] full-length special between seasons
-- [x] post-series feature-length continuation (`Jonathan Creek: Daemons' Roost`)
-- [x] high-confidence normal episode misclassified as Season 0
-- [x] significant minisode excluded in Safe and available when explicitly opted in
-- [x] insignificant/non-story extra excluded by default
-- [x] future/unaired entry remains untouched by default
-- [x] manual include/exclude and before/after positioning preserve the original video ID
-- [x] TVmaze outage -> cached enrichment or conservative upstream-only inference
-- [x] metadata-source 5xx outage -> safe cache or Cinemeta fallback where supported
-- [x] metadata-source 4xx/configuration error is not hidden by stale data
-- [x] video-ID multiset unchanged after every automatic transformation
-- [x] no duplicate positive-season episode numbers in tested transformations
-- [x] ordinary movie metadata remains unchanged
+- [x] hosted series metadata returns the upstream video array unchanged
+- [x] watched identity order remains identical to upstream
+- [x] Doctor Who regression proves a Season 0 special is not relocated
+- [x] Jonathan Creek regression proves a post-series special is not relocated
+- [x] movie metadata remains unchanged
+- [x] Story Order still exposes its independent manifest/configuration surface
+- [x] debug diagnostics identify emergency watched-state safety passthrough
+- [x] no watched/account writes or stream/debrid behaviour introduced
 
 ## Privacy and security gates
 
-- [x] no Stremio AuthKey or account login required by Story Order
+- [x] no Stremio AuthKey or account login required
 - [x] encrypted stateless configuration token
-- [x] custom upstream disabled by default and allowlisted when enabled
-- [x] localhost, IP literals, URL credentials, non-HTTPS and path traversal rejected
-- [x] Cinemeta catalogue redirects are constrained to the exact expected HTTPS host/path; all other metadata redirects rejected
-- [x] TVmaze redirect handling is constrained to the exact same-service numeric show target
-- [x] oversized response and request limits tested
-- [x] non-public/personal catalogue responses are not persisted
-- [x] no analytics or advertising code
-- [x] source scan contains no private deployment/configuration identifiers
-- [x] `CONFIG_SECRET` stored as a Cloudflare Worker secret and absent from repository
-- [x] GitHub Private Vulnerability Reporting enabled
+- [x] custom upstream remains restricted
+- [x] response/request bounds and redirect restrictions remain covered
+- [x] no analytics or advertising
+- [x] public source contains no private deployment/configuration identifiers
 
 ## Publication gates
 
-- [x] MIT licence present
-- [x] README, CHANGELOG, CONTRIBUTING, SECURITY, PRIVACY and ARCHITECTURE present
-- [x] Stremio logo/background assets present
-- [x] public GitHub repository created
-- [x] hosted production Worker deployed under `stremio-story-order`
-- [x] hosted `/manifest.json`, `/configure`, Doctor Who and Jonathan Creek smoke checks pass
-- [x] configuration API creates working tokenised manifest/install URLs
-- [x] versioned GitHub release prepared
-- [x] Stremio central publish request accepted (`success: true`)
-- [x] Stremio central publish re-submitted on 2026-09-18 through the official `publishToCentral` SDK path (`success: true`)
-- [ ] confirm visibility after Stremio's indexing delay — immediate post-submit check still returned no Story Order entry
-- [ ] stremio-addons.net curated-directory submission/claim — public API search on 2026-09-18 returned zero Story Order entries; submission requires the submitter's signed-in Stremio account, after which the deployed `stremioAddonsConfig` proof is ready for ownership validation
+- [ ] commit and push exact v1.0.7 source
+- [ ] cross-platform CI passes for that commit
+- [ ] deploy production Worker from that source
+- [ ] verify hosted manifest reports 1.0.7
+- [ ] verify live Doctor Who and Jonathan Creek passthrough
+- [ ] publish immutable GitHub v1.0.7 release
+- [ ] update Foundation publication truth
+- [ ] re-submit stable manifest to central directory if appropriate
+
+## Native follow-up
+
+Story Order's long-term narrative ordering requires a native/display-order contract that does not repurpose season/episode coordinates used by watched-state identity. That work belongs in a separate Stremio native-fix workstream.

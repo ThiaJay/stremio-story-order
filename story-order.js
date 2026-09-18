@@ -352,7 +352,7 @@ export function integrateStoryOrder(videos, providerEpisodes = [], config = {}) 
     return season !== 0 && !(season > 0);
   });
   ordered.push(...other);
-  return {
+  const proposed = {
     videos: ordered,
     mode: providerEpisodes?.length ? "provider+fallback" : "upstream-fallback",
     inserted: accepted.map(item => ({
@@ -364,6 +364,16 @@ export function integrateStoryOrder(videos, providerEpisodes = [], config = {}) 
       released: item.video.released || item.provider?.airstamp || item.provider?.airdate || null
     }))
   };
+  if (!verifyWatchedIdentityOrder(videos, proposed.videos)) {
+    return {
+      videos,
+      mode: "watched-state-safe-passthrough",
+      inserted: [],
+      blocked: proposed.inserted,
+      blockedReason: "STREMIO_WATCHED_IDENTITY_ORDER_WOULD_CHANGE"
+    };
+  }
+  return proposed;
 }
 
 export function verifyIdentityInvariant(before, after) {
@@ -371,6 +381,27 @@ export function verifyIdentityInvariant(before, after) {
   const right = [...(after || []).map(v => String(v.id || ""))].sort();
   if (left.length !== right.length) return false;
   return left.every((id, index) => id === right[index]);
+}
+
+export function watchedIdentityOrder(videos) {
+  return [...(videos || [])]
+    .map((video, sourceIndex) => ({video, sourceIndex}))
+    .sort((a, b) => {
+      const as = Number(a.video?.season ?? a.video?.seriesInfo?.season ?? a.video?.series_info?.season ?? -1);
+      const bs = Number(b.video?.season ?? b.video?.seriesInfo?.season ?? b.video?.series_info?.season ?? -1);
+      const ae = Number(a.video?.episode ?? a.video?.seriesInfo?.episode ?? a.video?.series_info?.episode ?? -1);
+      const be = Number(b.video?.episode ?? b.video?.seriesInfo?.episode ?? b.video?.series_info?.episode ?? -1);
+      const ar = timeOf(a.video?.released);
+      const br = timeOf(b.video?.released);
+      return as - bs || ae - be || ((Number.isFinite(ar) ? ar : -Infinity) - (Number.isFinite(br) ? br : -Infinity)) || a.sourceIndex - b.sourceIndex;
+    })
+    .map(({video}) => String(video?.id || ""));
+}
+
+export function verifyWatchedIdentityOrder(before, after) {
+  const left = watchedIdentityOrder(before);
+  const right = watchedIdentityOrder(after);
+  return left.length === right.length && left.every((id, index) => id === right[index]);
 }
 
 export function showOverrideFor(configOverrides, imdbId) {

@@ -134,6 +134,6 @@ Test-only hosts such as `*.example.com` and `demo-aiometadata.elfhosted.com` are
 
 ## Current release status
 
-**1.0.6 is the current public community release.** The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
+**1.0.7 is the current public community safety release.** Series episode relocation is temporarily disabled in the hosted service because changing season/episode coordinates can alter Stremio's watched-bitfield and native autoplay interpretation. The service currently passes series video arrays through unchanged while a safe/native alternate-order representation is pursued. The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

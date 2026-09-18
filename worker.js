@@ -2,10 +2,10 @@ import { encodeConfig, decodeConfig, defaultConfig, normalizeConfig } from "./co
 import { resolveSource, publicSourceChoices } from "./source-registry.js";
 import { getEpisodeEnrichment } from "./provider.js";
 import { fetchJsonResilient } from "./upstream.js";
-import { integrateStoryOrder, verifyIdentityInvariant, showOverrideFor } from "./story-order.js";
+import { integrateStoryOrder, verifyIdentityInvariant, verifyWatchedIdentityOrder, showOverrideFor } from "./story-order.js";
 import { configurationPage } from "./config-page.js";
 
-const VERSION = "1.0.6";
+const VERSION = "1.0.7";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
   issuer: "https://stremio-addons.net",
   signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
@@ -108,8 +108,9 @@ async function createConfiguration(request, env) {
   if (!upstream.payload) return { payload: null, status: upstream.status, diagnostics: { upstream } };
   const payload = structuredClone(upstream.payload);
   const meta = payload?.meta;
-  const diagnostics = { upstream: { source: upstream.source, stale: upstream.stale }, enrichment: null, inserted: [] };
+  const diagnostics = { upstream: { source: upstream.source, stale: upstream.stale }, enrichment: null, inserted: [], mode: "emergency-watched-state-safety-passthrough", reason: "EPISODE_REORDERING_TEMPORARILY_DISABLED" };
   if (!meta || !Array.isArray(meta.videos)) return { payload, status: 200, diagnostics };
+  return { payload, status: 200, diagnostics };
 
   const imdbId = imdbIdFromMeta(meta, requestedId);
   const tvdbId = tvdbIdFromMeta(meta);
@@ -126,8 +127,21 @@ async function createConfiguration(request, env) {
     return { payload, status: 200, diagnostics };
   }
 
+  const watchedSafe = verifyWatchedIdentityOrder(before, result.videos);
+  if (!watchedSafe || result.mode === "watched-state-safe-passthrough") {
+    diagnostics.identityInvariant = "pass";
+    diagnostics.watchedIdentityInvariant = watchedSafe ? "pass-through" : "failed-safe-noop";
+    diagnostics.mode = result.mode;
+    diagnostics.inserted = [];
+    diagnostics.blocked = result.blocked || [];
+    diagnostics.blockedReason = result.blockedReason || "STREMIO_WATCHED_IDENTITY_ORDER_WOULD_CHANGE";
+    diagnostics.imdbId = imdbId;
+    return { payload, status: 200, diagnostics };
+  }
+
   if (result.inserted.length) payload.meta = { ...meta, videos: result.videos };
   diagnostics.identityInvariant = "pass";
+  diagnostics.watchedIdentityInvariant = "pass";
   diagnostics.mode = result.mode;
   diagnostics.inserted = result.inserted;
   diagnostics.imdbId = imdbId;
