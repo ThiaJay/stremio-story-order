@@ -36,7 +36,7 @@ Story Order operates before stream discovery. It does not proxy Torrentio, AIOSt
 Accepted entries are assigned to a season using an explicit provider/manual season when reliable, otherwise chronology. Display episode numbers are regenerated while original video IDs remain unchanged.
 ## Confidence model
 
-Safe mode treats a normal-episode repair as higher risk than a special-to-special match. A Season 0 extra whose title merely contains a regular episode title is not sufficient. Regular repair also requires close chronology and rejects known extra/prequel/minisode labels.
+Safe mode treats a normal-episode repair as higher risk than a special-to-special match. A Season 0 extra whose title merely contains a regular episode title is not sufficient. Explicit ancillary labels such as `Episode Insider`, panels, behind-the-scenes material and `Inside ... Season/Series N` retrospectives are classified as non-story by default. Regular repair also requires close chronology and rejects known extra/prequel/minisode labels.
 
 Provider-special matching tolerates small date differences and title formatting differences. Runtime is cross-checked against both provider and upstream values when available.
 

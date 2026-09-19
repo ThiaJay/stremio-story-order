@@ -1,5 +1,5 @@
 const SHORT_FORM = /\b(prequel|minisode|webisode|tardisode|extra|short|trailer|preview|recap|prologue|behind[ -]the[ -]scenes|after[ -]?show|bloopers?|outtakes?|deleted scenes?|table read|interview|panel)\b/i;
-const NON_STORY = /\b(making of|best of|confidential|unleashed|commentary|documentary|concert|prom|reaction|retrospective|awards?|red carpet)\b/i;
+const NON_STORY = /\b(?:making of|best of|confidential|unleashed|commentary|documentary|concert|prom|reaction|retrospective|awards?|red carpet|episode insider)\b|\binside\b.{0,80}\b(?:season|series)\s*\d+\b/i;
 
 export const DEFAULT_ORDER_OPTIONS = Object.freeze({
   fullLength: true,

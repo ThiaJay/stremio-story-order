@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.8 - 2026-09-19
+
+Ancillary-special classification hardening.
+
+- Treats explicit `Episode Insider` entries as non-story material.
+- Treats titles of the form `Inside ... Season/Series N` as non-story material, covering behind-the-scenes season retrospectives without broadly rejecting narrative titles beginning with "Inside".
+- Adds a Dead City-shaped regression proving full-length Insider/Inside-season extras are excluded while genuine narrative full-length specials remain eligible to the ordering engine.
+- Keeps the hosted production path in watched-state-safe passthrough; no season/episode coordinates or watched identity order are changed.
+
 ## 1.0.7 - 2026-09-18
 
 Emergency watched-state/autoplay safety release.

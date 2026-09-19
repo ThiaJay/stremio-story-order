@@ -44,6 +44,8 @@ It is **not a stream addon**. It works independently of Torrentio, AIOStreams, M
 
 Stremio metadata commonly places Christmas specials, feature-length one-offs and other narrative episodes in Season 0. Autoplay then jumps from the last normal episode straight to the next numbered season.
 
+Story Order distinguishes narrative candidates from obvious ancillary material. Panels, behind-the-scenes programmes, explicit **Episode Insider** entries and season/series retrospectives such as "Inside ... Season 2" stay outside the narrative ordering candidates by default.
+
 Story Order can place those existing entries into the normal sequence without changing their underlying IDs. For example, a display entry may become Season 1 Episode 14 while its stream-facing ID remains `tt...:0:2`.
 
 The engine also handles normal episodes that a source has misclassified into Season 0 and post-series feature-length episodes such as *Jonathan Creek: Daemons' Roost*.
@@ -134,6 +136,6 @@ Test-only hosts such as `*.example.com` and `demo-aiometadata.elfhosted.com` are
 
 ## Current release status
 
-**1.0.7 is the current public community safety release.** Series episode relocation is temporarily disabled in the hosted service because changing season/episode coordinates can alter Stremio's watched-bitfield and native autoplay interpretation. The service currently passes series video arrays through unchanged while a safe/native alternate-order representation is pursued. The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
+**1.0.8 is the current public community safety release.** Series episode relocation is temporarily disabled in the hosted service because changing season/episode coordinates can alter Stremio's watched-bitfield and native autoplay interpretation. The service currently passes series video arrays through unchanged while a safe/native alternate-order representation is pursued. The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

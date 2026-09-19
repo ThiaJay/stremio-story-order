@@ -55,6 +55,21 @@ const provider=(id,name,airdate,runtime,season,type="significant_special",number
 
 {
   const videos=[
+    regular("dc:1:1",1,1,"2025-05-05",50,"Power Equals Power"),
+    special("dc:0:1",'Episode Insider "Power Equals Power"',"2025-05-06",50),
+    special("dc:0:2","Inside The Walking Dead: Dead City Season 2","2025-09-10",50),
+    special("dc:0:3","Holiday Story","2025-12-25",50),
+    special("dc:0:4","Inside No. 9 Christmas Special","2025-12-26",50)
+  ];
+  assert.deepEqual(
+    upstreamFallbackCandidates(videos).map(v=>v.id),
+    ["dc:0:3","dc:0:4"],
+    "ancillary Insider/Inside-season material must not be mistaken for narrative specials"
+  );
+}
+
+{
+  const videos=[
     regular("m:1:1",1,1,"2020-01-01",50,"One"),
     regular("m:1:2",1,2,"2020-01-08",50,"Two"),
     special("m:0:3","Tiny Prequel",null,3)
