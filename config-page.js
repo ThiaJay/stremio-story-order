@@ -4,13 +4,7 @@ function escapeHtml(value) {
   })[ch]);
 }
 
-function logoSvg() {
-  return `<svg viewBox="0 0 96 96" aria-hidden="true" focusable="false">
-  <defs><linearGradient id="so-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#20d9ff"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
-  <rect x="10" y="14" width="22" height="68" rx="8" fill="url(#so-g)"/><rect x="15" y="22" width="10" height="8" rx="2" fill="#09152f"/>
-  <rect x="15" y="36" width="10" height="8" rx="2" fill="#09152f"/><rect x="15" y="50" width="10" height="8" rx="2" fill="#09152f"/>
-  <rect x="15" y="64" width="10" height="8" rx="2" fill="#09152f"/><path d="M38 21 82 48 38 75Z" fill="url(#so-g)"/></svg>`;
-}
+export const BRAND_ICON_URL = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -20,7 +14,7 @@ a{color:#7bdcff}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding
 .hero{position:relative;overflow:hidden;border:1px solid #315084;background:linear-gradient(135deg,#0d2a58dd,#101b3aee 56%,#201552dd);border-radius:28px;padding:30px 32px;box-shadow:var(--shadow)}
 .hero:after{content:"";position:absolute;width:460px;height:190px;right:-110px;bottom:-125px;border:22px solid #437eff44;border-radius:50%;transform:rotate(-8deg)}
 .brand-row{display:flex;gap:22px;align-items:center;position:relative;z-index:1}.brand-row>div:last-child,.step-title>div:last-child{min-width:0}.logo-card{width:92px;height:92px;flex:0 0 auto;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#0c1830,#142b57);box-shadow:inset 0 0 0 1px #7adfff55,0 12px 35px #03081588}
-.logo-card svg{width:72px;height:72px}.eyebrow{color:#8fdfff;text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:800;margin:0 0 5px}h1{font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:0;letter-spacing:-.055em}.strap{font-size:clamp(1.05rem,2.4vw,1.45rem);color:#d8e4fb;margin:12px 0 0;max-width:700px}
+.logo-card img{width:72px;height:72px;display:block}.eyebrow{color:#8fdfff;text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:800;margin:0 0 5px}h1{font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:0;letter-spacing:-.055em}.strap{font-size:clamp(1.05rem,2.4vw,1.45rem);color:#d8e4fb;margin:12px 0 0;max-width:700px}
 .badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.badge{border:1px solid #42618e;background:#0e203f99;padding:6px 10px;border-radius:999px;color:#c9d9f5;font-size:.82rem}.badge.good{display:inline-flex;align-items:center;gap:7px;color:#8ff2cd;border-color:#3aa77c88;background:#0c332b88}
 .ok-mark{display:inline-block;width:7px;height:11px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);flex:0 0 auto}.ok-mark.large{width:8px;height:13px;margin:0 10px 2px 2px}
 `;
@@ -39,7 +33,7 @@ details{margin-top:14px;border:1px solid #263b64;border-radius:13px;background:#
 .feature-list{display:grid;gap:10px}.feature{display:flex;gap:10px;align-items:flex-start}.feature-icon{position:relative;width:30px;height:30px;border-radius:9px;background:#122a50;color:#8ddfff;flex:0 0 auto}.icon-play:before{content:"";position:absolute;left:11px;top:8px;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}.icon-link:before,.icon-link:after{content:"";position:absolute;width:11px;height:6px;border:2px solid currentColor;border-radius:6px;transform:rotate(-40deg)}.icon-link:before{left:5px;top:8px}.icon-link:after{left:13px;top:14px}.icon-refresh:before{content:"";position:absolute;inset:7px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%}.icon-refresh:after{content:"";position:absolute;right:5px;top:5px;border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;transform:rotate(-35deg)}.icon-private:before{content:"";position:absolute;left:8px;bottom:6px;width:12px;height:10px;border:2px solid currentColor;border-radius:2px}.icon-private:after{content:"";position:absolute;left:10px;top:5px;width:8px;height:8px;border:2px solid currentColor;border-bottom:0;border-radius:8px 8px 0 0}.feature b{display:block}.feature small{color:var(--muted)}
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;padding:0 4px;color:#7f91b2;font-size:.82rem}footer a{color:#9ebeff}.status{display:block;margin-top:10px;color:#ffd397;font-size:.88rem}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.choice-grid.profiles{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card svg{width:44px;height:44px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
+@media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card img{width:44px;height:44px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
 `;
 
 function styles() { return CSS + CSS_MORE + CSS_END; }
@@ -47,7 +41,7 @@ function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell">
-<header class="hero"><div class="brand-row"><div class="logo-card">${logoSvg()}</div><div>
+<header class="hero"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="72" height="72"></div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1><p class="strap">Puts TV episodes, specials and one-offs in the right watch order.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
 </div></div></header>
@@ -58,7 +52,7 @@ function pageHtml(initialToken, customOption, nonce) {
 <div class="quick-step"><span>4</span><b>Install</b>Approve it in Stremio and watch normally.</div></div>
 <div class="muted">For most users, the defaults are already right. Your stream addons stay exactly as they are.</div></div>
 <form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
-</div><footer><span>Story Order | Correct order. Complete stories.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
+</div><footer><span>Story Order | Puts TV episodes, specials and one-offs in the right watch order.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
 </div><script nonce="${nonce}">${clientScript()}</script></body></html>`;
 }
 function formSections(customOption) {

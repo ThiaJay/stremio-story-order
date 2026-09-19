@@ -3,7 +3,7 @@ import { resolveSource, publicSourceChoices } from "./source-registry.js";
 import { getEpisodeEnrichment } from "./provider.js";
 import { fetchJsonResilient } from "./upstream.js";
 import { integrateStoryOrder, verifyIdentityInvariant, verifyWatchedIdentityOrder, showOverrideFor } from "./story-order.js";
-import { configurationPage } from "./config-page.js";
+import { configurationPage, BRAND_ICON_URL } from "./config-page.js";
 
 const VERSION = "1.0.8";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
@@ -44,7 +44,7 @@ function errorResponse(error, status = 400) {
     headers: headers({
       "content-type": "text/html; charset=utf-8",
       "cache-control": "no-store",
-      "content-security-policy": `default-src 'none'; script-src 'nonce-${page.nonce}'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
+      "content-security-policy": `default-src 'none'; script-src 'nonce-${page.nonce}'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data: ${BRAND_ICON_URL}; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
       "permissions-policy": "camera=(), microphone=(), geolocation=(), payment=()"
     })
   });
@@ -66,7 +66,7 @@ function configuredManifest(upstreamManifest, source) {
   manifest.id = "org.stremio.story-order";
   manifest.name = "Story Order";
   manifest.version = VERSION;
-  manifest.description = "Fixes TV episode order in Stremio. Story Order places specials, feature-length one-offs and other misplaced episodes where they belong so they appear and autoplay in the proper sequence. Works independently of your stream addons.";
+  manifest.description = "Puts TV episodes, specials and one-offs in the right watch order. Story Order fixes TV episode order in Stremio so misplaced narrative episodes appear and autoplay in the proper sequence. Works independently of your stream addons.";
   manifest.logo = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
   manifest.background = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg";
   manifest.stremioAddonsConfig = { ...STREMIO_ADDONS_CONFIG };
