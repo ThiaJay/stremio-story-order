@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.9 - 2026-09-21
+
+Private AIOMetadata compatibility and release hardening.
+
+- Accepts current ElfHosted AIOMetadata manifest routes with one user or alias segment and an optional compressed configuration segment.
+- Accepts the public AIOMetadata host and private AIOMetadata hosts on the supported ElfHosted regional domains.
+- Keeps the allowlist AIOMetadata-specific and rejects lookalike domains, wrong app hosts, excessive route depth and encoded path separators.
+- Adds cross-platform regressions for the expanded manifest contract and malformed route cases.
+- Upgrades Wrangler to 4.135.0 and keeps high-severity dependency auditing plus Dependabot monitoring enabled.
+- Adds live production verification so source and hosted Worker divergence fails visibly.
+
+
 ## 1.0.8 - 2026-09-19
 
 Ancillary-special classification hardening.
