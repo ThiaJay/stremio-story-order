@@ -15,6 +15,32 @@ const manifest=await get("/manifest.json");
 assert.equal(manifest.name,"Story Order");
 assert.equal(manifest.id,"org.stremio.story-order");
 
+
+const liveOrigin="https://stremio-story-order.storyorder.workers.dev";
+const liveManifestResponse=await fetch(liveOrigin+"/manifest.json",{cache:"no-store"});
+assert.equal(liveManifestResponse.status,200);
+const liveManifest=await liveManifestResponse.json();
+assert.equal(liveManifest.id,"org.stremio.story-order");
+assert.equal(liveManifest.version,manifest.version);
+
+const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
+  method:"POST",
+  headers:{"content-type":"application/json"},
+  body:JSON.stringify({
+    source:{
+      kind:"aiometadata",
+      manifestUrl:"https://story-order-test-aiometadata.elfhosted.cc/stremio/12345678-1234-1234-1234-123456789abc/eyJwcm9maWxlIjoic2FmZSJ9/manifest.json"
+    }
+  })
+});
+assert.equal(
+  livePrivateConfigResponse.status,
+  200,
+  "live Story Order Worker does not yet accept the current private ElfHosted AIOMetadata manifest contract"
+);
+const livePrivateConfig=await livePrivateConfigResponse.json();
+assert.match(livePrivateConfig.token||"",/^v2\./);
+
 const popular=await get("/catalog/series/top.json");
 assert.ok(Array.isArray(popular.metas)&&popular.metas.length>0);
 
