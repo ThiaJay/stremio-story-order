@@ -32,6 +32,7 @@ function safeUrl(input) {
   if (BLOCKED_HOST.test(url.hostname) || /^\[.*\]$/.test(url.hostname) || /^\d+(?:\.\d+){3}$/.test(url.hostname)) {
     throw new Error("Local and IP-address metadata sources are not allowed");
   }
+  if (/%2f|%5c/i.test(url.pathname)) throw new Error("Encoded path separators are not allowed");
   const decodedPath = decodeURIComponent(url.pathname);
   if (decodedPath.includes("..") || decodedPath.includes("\\") || !decodedPath.endsWith("/manifest.json")) {
     throw new Error("Use a Stremio manifest.json URL");
