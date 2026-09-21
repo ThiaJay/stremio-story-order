@@ -43,7 +43,7 @@ for (const manifestUrl of [
   "https://paid-user-aiometadata.elfhosted.com/stremio/a/b/c/manifest.json",
   "https://paid-user-aiometadata.elfhosted.com/stremio/a%2Fb/manifest.json"
 ]) {
-  assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl},env),/valid ElfHosted AIOMetadata|Stremio manifest/);
+  assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl},env),/valid ElfHosted AIOMetadata|Stremio manifest|Encoded path separators/);
 }
 assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl:"http://demo-aiometadata.elfhosted.com/stremio/x/manifest.json"},env),/HTTPS/);
 assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://127.0.0.1/manifest.json"},{ENABLE_CUSTOM_UPSTREAM:"true",ALLOWED_UPSTREAM_HOSTS:"127.0.0.1"}),/Local and IP/);
