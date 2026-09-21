@@ -10,7 +10,8 @@ const claimed= configuredManifest({id:"upstream",name:"Upstream"},{label:"test"}
 assert.equal(claimed.stremioAddonsConfig?.issuer,"https://stremio-addons.net");
 assert.match(claimed.stremioAddonsConfig?.signature||"",/^eyJ/);
 
-assert.equal(claimed.version,"1.0.8");
+const packageVersion=JSON.parse(await readFile(new URL("./package.json",import.meta.url),"utf8")).version;
+assert.equal(claimed.version,packageVersion);
 const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
 assert.equal(claimed.logo,canonicalIcon);
 assert.equal(claimed.background,"https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg");
