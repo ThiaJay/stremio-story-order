@@ -1,6 +1,13 @@
 name: Live smoke
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - worker.js
+      - source-registry.js
+      - test-live.mjs
+      - .github/workflows/live-smoke.yml
   workflow_dispatch:
   schedule:
     - cron: '23 5 * * *'
