@@ -27,6 +27,24 @@ assert.deepEqual(await decodeConfig(token,env),cfg);
 await assert.rejects(()=>decodeConfig(token.slice(0,-2)+"xx",env),/Invalid configuration token/);
 
 assert.equal(resolveSource({kind:"cinemeta"},env).kind,"cinemeta");
+for (const manifestUrl of [
+  "https://aiometadata.elfhosted.com/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.com/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.cc/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.wine/stremio/MyAlias/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.cafe/stremio/12345678-1234-1234-1234-123456789abc/eyJwcm9maWxlIjoiYmFsYW5jZWQifQ/manifest.json"
+]) {
+  assert.equal(resolveSource({kind:"aiometadata",manifestUrl},env).kind,"aiometadata");
+}
+for (const manifestUrl of [
+  "https://paid-user-aiometadata.elfhosted.com.evil.example/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-other.elfhosted.com/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.invalid/stremio/12345678-1234-1234-1234-123456789abc/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.com/stremio/a/b/c/manifest.json",
+  "https://paid-user-aiometadata.elfhosted.com/stremio/a%2Fb/manifest.json"
+]) {
+  assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl},env),/valid ElfHosted AIOMetadata|Stremio manifest|Encoded path separators/);
+}
 assert.throws(()=>resolveSource({kind:"aiometadata",manifestUrl:"http://demo-aiometadata.elfhosted.com/stremio/x/manifest.json"},env),/HTTPS/);
 assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://127.0.0.1/manifest.json"},{ENABLE_CUSTOM_UPSTREAM:"true",ALLOWED_UPSTREAM_HOSTS:"127.0.0.1"}),/Local and IP/);
 assert.throws(()=>resolveSource({kind:"custom",manifestUrl:"https://addons.example.com/manifest.json"},env),/does not allow/);const custom=resolveSource(
