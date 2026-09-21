@@ -1,0 +1,53 @@
+name: Publish Story Order Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+      - worker.js
+      - CHANGELOG.md
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify live version matches source
+        shell: bash
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          live="$(curl -fsS https://stremio-story-order.storyorder.workers.dev/manifest.json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>process.stdout.write(JSON.parse(s).version||''))")"
+          if [ "$live" != "$version" ]; then
+            echo "::error::Refusing release because live version $live does not match source $version"
+            exit 1
+          fi
+      - name: Publish immutable GitHub release if absent
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          tag="v$version"
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "$tag already exists"
+            exit 0
+          fi
+          awk -v version="$version" '
+            $0 ~ "^## " version " " {capture=1; next}
+            capture && /^## / {exit}
+            capture {print}
+          ' CHANGELOG.md > release-notes.md
+          test -s release-notes.md || echo "See CHANGELOG.md for release details." > release-notes.md
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Story Order $tag" --notes-file release-notes.md
