@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "updatedAt": "2026-09-22",
+  "successor": {
+    "branch": "main",
+    "release": "v1.0.9",
+    "sourceCommit": "0c6007b2ddea0771c332c663dd64a113fd08a6a7"
+  },
+  "branches": [
+    {
+      "name": "fix/story-order-branding-20260919",
+      "tip": "1580c36392c22a9630339be93336a1c254e02ccb",
+      "reason": "Historical v1.0.8 branding branch superseded by released v1.0.9. Main already carries the canonical icon, strapline, configure-page image, CSP allowance and byte-identity branding tests."
+    }
+  ],
+  "preservation": "The exact historical tip SHA is retained here before branch deletion. Released v1.0.9 and main contain the carried branding invariants."
+}
