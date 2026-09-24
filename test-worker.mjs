@@ -15,7 +15,12 @@ const workerSource=await readFile(new URL("./worker.js",import.meta.url),"utf8")
 assert.doesNotMatch(
   workerSource,
   /\bintegrateStoryOrder\s*\(/,
-  "hosted Worker must not activate coordinate relocation until Stremio separates presentation order from canonical watched identity"
+  "hosted Worker must not activate coordinate relocation"
+);
+assert.match(
+  workerSource,
+  /storyOrderVersion:\s*1/,
+  "hosted Worker should publish only the versioned stable-ID presentation hint"
 );
 assert.equal(claimed.version,packageVersion);
 const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";

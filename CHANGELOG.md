@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.11 - 2026-09-24
+
+Stable-ID Story Mode presentation contract.
+
+- Publishes an additive `behaviorHints.storyOrder` list of stable video IDs with `storyOrderVersion: 1` when a meaningful narrative ordering is available.
+- Keeps the canonical upstream video array, video IDs and season/episode coordinates unchanged.
+- Excludes ancillary Season 0 material from the narrative sequence unless it independently qualifies as story material.
+- Preserves all ordinary regular episodes in the story sequence and fails closed on duplicate or incomplete plans.
+- Expands deterministic coverage for Christmas specials, short-form profile boundaries, misclassified regular episodes, future entries, manual placement and post-series feature-length episodes.
+- Keeps legacy clients safe because unknown behavior hints are additive and optional.
+
+
 ## 1.0.10 - 2026-09-24
 
 Story Mode watched-state safety hardening.

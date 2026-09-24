@@ -283,6 +283,87 @@ function applyManualPlacements(items, acceptedForSeason) {
   return items;
 }
 
+export function planStoryOrder(videos, providerEpisodes = [], config = {}) {
+  if (!Array.isArray(videos) || !videos.length) {
+    return { ids: [], inserted: [], mode: "unchanged" };
+  }
+  const options = resolveOptions(config.order || config);
+  const override = config.override || {};
+  const nowMs = Number.isFinite(config.nowMs) ? config.nowMs : Date.now();
+  const groups = regularGroups(videos);
+  const seasonZero = videos.filter(v => Number(v.season) === 0);
+  if (!groups.size || !seasonZero.length) {
+    return { ids: [], inserted: [], mode: "unchanged" };
+  }
+
+  const ranks = providerRanks(providerEpisodes);
+  const candidates = buildAccepted(videos, providerEpisodes, options, override, nowMs);
+  const accepted = [];
+  for (const item of candidates) {
+    if (!Number.isFinite(item.when) && !item.explicitSeason && !item.manual?.targetSeason && !item.manual?.beforeId && !item.manual?.afterId) continue;
+    const season = targetSeasonForItem(item, videos, groups);
+    if (!groups.has(season)) continue;
+    accepted.push({ ...item, targetSeason: season });
+  }
+  if (!accepted.length) return { ids: [], inserted: [], mode: "unchanged" };
+
+  const ids = [];
+  const seasons = [...groups.keys()].sort((a, b) => a - b);
+  for (const season of seasons) {
+    const regularItems = groups.get(season).map(video => ({
+      ...video,
+      __storyOrderInserted: false,
+      __storyOrderTime: videoTime(video),
+      __storyOrderRank: ranks.regular.get(`${season}:${Number(video.episode || video.number)}`) ?? Infinity
+    }));
+    const acceptedForSeason = accepted.filter(x => x.targetSeason === season);
+    const insertedItems = acceptedForSeason.map(item => ({
+      ...item.video,
+      __storyOrderInserted: true,
+      __storyOrderTime: item.when,
+      __storyOrderRank: item.provider?.id != null ? (ranks.other.get(item.provider.id) ?? Infinity) : Infinity,
+      __storyOrderSource: item.source
+    }));
+    const items = [...regularItems, ...insertedItems];
+
+    items.sort((a, b) => {
+      if (Number.isFinite(a.__storyOrderTime) && Number.isFinite(b.__storyOrderTime) && a.__storyOrderTime !== b.__storyOrderTime) {
+        return a.__storyOrderTime - b.__storyOrderTime;
+      }
+      if (Number.isFinite(a.__storyOrderRank) && Number.isFinite(b.__storyOrderRank) && a.__storyOrderRank !== b.__storyOrderRank) {
+        return a.__storyOrderRank - b.__storyOrderRank;
+      }
+      if (a.__storyOrderInserted !== b.__storyOrderInserted) return a.__storyOrderInserted ? 1 : -1;
+      return Number(a.__sourceIndex || 0) - Number(b.__sourceIndex || 0);
+    });
+
+    applyManualPlacements(items, acceptedForSeason);
+    ids.push(...items.map(item => String(item.id)));
+  }
+
+  if (new Set(ids).size !== ids.length || ids.some(id => !id)) {
+    return { ids: [], inserted: [], mode: "invalid-plan" };
+  }
+
+  const regularIds = videos.filter(video => Number(video.season) > 0).map(video => String(video.id));
+  if (regularIds.some(id => !ids.includes(id))) {
+    return { ids: [], inserted: [], mode: "invalid-plan" };
+  }
+
+  return {
+    ids,
+    mode: providerEpisodes?.length ? "provider+fallback" : "upstream-fallback",
+    inserted: accepted.map(item => ({
+      id: String(item.video.id),
+      title: videoTitle(item.video),
+      targetSeason: item.targetSeason,
+      source: item.source,
+      score: Number.isFinite(item.score) ? Number(item.score.toFixed(2)) : null,
+      released: item.video.released || item.provider?.airstamp || item.provider?.airdate || null
+    }))
+  };
+}
+
 export function integrateStoryOrder(videos, providerEpisodes = [], config = {}) {
   if (!Array.isArray(videos) || !videos.length) return { videos, inserted: [], mode: "unchanged" };
   const options = resolveOptions(config.order || config);
