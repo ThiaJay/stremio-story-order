@@ -117,6 +117,10 @@ See `SECURITY.md` and `PRIVACY.md` for the release threat model.
 
 A public stable ID client contract and acceptance fixture for Android mobile and Android TV or Fire TV are available in [docs/ANDROID-INTEGRATION.md](docs/ANDROID-INTEGRATION.md). The reference is presentation only and preserves canonical watched identity.
 
+## Cross title story references
+
+A safe, disabled-by-default cross title presentation contract is documented in [docs/CROSS-TITLE-INTEGRATION.md](docs/CROSS-TITLE-INTEGRATION.md). It models films and separate titles as navigation references rather than synthetic series episodes. Story Order does not publish this hint in production until a client proves media-type switching, watched-state isolation and Continue Watching isolation.
+
 ## Development
 
 Requires Node.js 22+.

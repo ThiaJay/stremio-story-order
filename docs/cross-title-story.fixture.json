@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "parentVideos": [
+    {
+      "id": "tt1234567:2:4",
+      "season": 2,
+      "episode": 4
+    },
+    {
+      "id": "tt1234567:2:5",
+      "season": 2,
+      "episode": 5
+    }
+  ],
+  "valid": {
+    "storyReferencesVersion": 1,
+    "storyReferences": [
+      {
+        "type": "movie",
+        "metaId": "tt7654321",
+        "videoId": "tt7654321",
+        "afterId": "tt1234567:2:4",
+        "label": "The Story Film"
+      }
+    ]
+  },
+  "invalid": {
+    "unknownAnchor": {
+      "storyReferencesVersion": 1,
+      "storyReferences": [
+        {
+          "type": "movie",
+          "metaId": "tt7654321",
+          "afterId": "tt1234567:9:9"
+        }
+      ]
+    },
+    "twoAnchors": {
+      "storyReferencesVersion": 1,
+      "storyReferences": [
+        {
+          "type": "movie",
+          "metaId": "tt7654321",
+          "beforeId": "tt1234567:2:5",
+          "afterId": "tt1234567:2:4"
+        }
+      ]
+    },
+    "noAnchor": {
+      "storyReferencesVersion": 1,
+      "storyReferences": [
+        {
+          "type": "movie",
+          "metaId": "tt7654321"
+        }
+      ]
+    },
+    "unsupportedType": {
+      "storyReferencesVersion": 1,
+      "storyReferences": [
+        {
+          "type": "podcast",
+          "metaId": "pod1",
+          "afterId": "tt1234567:2:4"
+        }
+      ]
+    }
+  }
+}
