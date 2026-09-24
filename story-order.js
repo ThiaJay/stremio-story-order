@@ -364,23 +364,62 @@ export function integrateStoryOrder(videos, providerEpisodes = [], config = {}) 
       released: item.video.released || item.provider?.airstamp || item.provider?.airdate || null
     }))
   };
-  if (!verifyWatchedIdentityOrder(videos, proposed.videos)) {
+  const watchedIdentitySafe = verifyWatchedIdentityOrder(videos, proposed.videos);
+  const canonicalCoordinatesSafe = verifyCanonicalVideoCoordinatesInvariant(videos, proposed.videos);
+  if (!watchedIdentitySafe || !canonicalCoordinatesSafe) {
     return {
       videos,
       mode: "watched-state-safe-passthrough",
       inserted: [],
       blocked: proposed.inserted,
-      blockedReason: "STREMIO_WATCHED_IDENTITY_ORDER_WOULD_CHANGE"
+      blockedReason: !watchedIdentitySafe
+        ? "STREMIO_WATCHED_IDENTITY_ORDER_WOULD_CHANGE"
+        : "STREMIO_CANONICAL_VIDEO_COORDINATES_WOULD_CHANGE"
     };
   }
   return proposed;
 }
 
+function stableVideoIds(videos) {
+  return (videos || []).map(video => String(video?.id || ""));
+}
+
 export function verifyIdentityInvariant(before, after) {
-  const left = [...(before || []).map(v => String(v.id || ""))].sort();
-  const right = [...(after || []).map(v => String(v.id || ""))].sort();
-  if (left.length !== right.length) return false;
-  return left.every((id, index) => id === right[index]);
+  const left = stableVideoIds(before);
+  const right = stableVideoIds(after);
+  if (left.length !== right.length || left.some(id => !id) || right.some(id => !id)) return false;
+  if (new Set(left).size !== left.length || new Set(right).size !== right.length) return false;
+  const sortedLeft = [...left].sort();
+  const sortedRight = [...right].sort();
+  return sortedLeft.every((id, index) => id === sortedRight[index]);
+}
+
+function coordinateValue(value) {
+  if (value == null || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : String(value);
+}
+
+function canonicalVideoCoordinates(video) {
+  const nested = video?.seriesInfo || video?.series_info || {};
+  return {
+    season: coordinateValue(video?.season ?? nested?.season),
+    episode: coordinateValue(video?.episode ?? nested?.episode),
+    number: coordinateValue(video?.number)
+  };
+}
+
+export function verifyCanonicalVideoCoordinatesInvariant(before, after) {
+  if (!verifyIdentityInvariant(before, after)) return false;
+  const expected = new Map((before || []).map(video => [String(video.id), canonicalVideoCoordinates(video)]));
+  return (after || []).every(video => {
+    const left = expected.get(String(video.id));
+    const right = canonicalVideoCoordinates(video);
+    return left &&
+      left.season === right.season &&
+      left.episode === right.episode &&
+      left.number === right.number;
+  });
 }
 
 export function watchedIdentityOrder(videos) {
@@ -399,6 +438,7 @@ export function watchedIdentityOrder(videos) {
 }
 
 export function verifyWatchedIdentityOrder(before, after) {
+  if (!verifyIdentityInvariant(before, after)) return false;
   const left = watchedIdentityOrder(before);
   const right = watchedIdentityOrder(after);
   return left.length === right.length && left.every((id, index) => id === right[index]);
