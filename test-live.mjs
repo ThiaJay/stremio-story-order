@@ -41,11 +41,26 @@ const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store
 assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
-assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.15/);
-assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.15/);
+assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.16/);
+assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.16/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
+
+const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.16",{cache:"no-store"});
+assert.equal(liveIconResponse.status,200);
+const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
+assert.equal(liveIconBytes.length,15850,"live compact icon must match the approved master size");
+assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","live compact icon must be a PNG");
+assert.equal(liveIconBytes.readUInt32BE(16),320);
+assert.equal(liveIconBytes.readUInt32BE(20),320);
+
+const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.svg?v=1.0.16",{cache:"no-store"});
+assert.equal(liveHeroResponse.status,200);
+const liveHero=await liveHeroResponse.text();
+assert.equal(liveHero.length,30715,"live cinematic hero must match the approved master");
+assert.match(liveHero,/data:image\/webp;base64,/);
+assert.doesNotMatch(liveHero,/MIXED METADATA|ONE NARRATIVE PATH/);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
   method:"POST",

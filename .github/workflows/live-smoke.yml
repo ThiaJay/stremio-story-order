@@ -5,8 +5,11 @@ on:
     branches: [main]
     paths:
       - worker.js
+      - config-page.js
       - source-registry.js
       - test-live.mjs
+      - public/logo.png
+      - 'public/branding/**'
       - .github/workflows/live-smoke.yml
   workflow_dispatch:
   schedule:

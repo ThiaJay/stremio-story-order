@@ -5,7 +5,7 @@
 Reconciled branding and integrity release.
 
 - Carries forward explainable Story Order decision diagnostics and the approved cinematic branding.
-- Replaces the incorrect file-size heuristic for the compact 320x320 logo with an exact Git blob integrity check for approved master `30a32e7f0cde11bf646e2eee0fcc80cb6f817e77`.
+- Replaces the incorrect file-size heuristic for the compact 320x320 logo with an exact Git blob integrity check for approved master `92068e099691bae94f1b1636c7ad8b3a5d012bc8`.
 - Keeps PNG signature and 320x320 dimension checks in addition to exact byte identity.
 - Cache-busts the approved icon and hero URLs to the 1.0.16 release.
 - Extends live smoke to verify decision reason and confidence diagnostics.
