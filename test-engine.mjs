@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   integrateStoryOrder,
+  planStoryOrder,
   verifyIdentityInvariant,
   verifyCanonicalVideoCoordinatesInvariant,
   verifyWatchedIdentityOrder,
@@ -146,5 +147,95 @@ const provider=(id,name,airdate,runtime,season,type="significant_special",number
   assert.deepEqual(videos,snapshot,"ordering analysis must never mutate upstream video metadata");
   assert.deepEqual(out.videos,snapshot,"blocked relocation must return the canonical video array unchanged");
 }
+
+
+{
+  const videos=[
+    regular("who:1:13",1,13,"2005-06-18",45,"The Parting of the Ways"),
+    regular("who:2:1",2,1,"2006-04-15",45,"New Earth"),
+    special("who:0:1","The Christmas Invasion","2005-12-25",60),
+    special("who:0:2","Episode Insider: Christmas","2005-12-26",60)
+  ];
+  const plan=planStoryOrder(videos,[
+    provider(501,"The Christmas Invasion","2005-12-25",60,1,"significant_special")
+  ],{order:{profile:"safe"},nowMs:Date.parse("2006-05-01T00:00:00Z")});
+  assert.deepEqual(plan.ids,["who:1:13","who:0:1","who:2:1"]);
+  assert.equal(plan.inserted.length,1);
+  assert.equal(plan.inserted[0].id,"who:0:1");
+  assert.equal(videos.find(v=>v.id==="who:0:1").season,0,"planning must not rewrite canonical Season 0 identity");
+}
+
+{
+  const videos=[
+    regular("short:1:1",1,1,"2020-01-01",50,"One"),
+    regular("short:1:2",1,2,"2020-01-08",50,"Two"),
+    special("short:0:1","Webisode Prequel","2020-01-05",6)
+  ];
+  const eps=[provider(601,"Webisode Prequel","2020-01-05",6,1,"significant_special")];
+  assert.deepEqual(
+    planStoryOrder(videos,eps,{order:{shortForm:"exclude"},nowMs:Date.parse("2021-01-01")}).ids,
+    [],
+    "Safe-style short-form exclusion must not publish a story hint"
+  );
+  assert.deepEqual(
+    planStoryOrder(videos,eps,{order:{shortForm:"significant"},nowMs:Date.parse("2021-01-01")}).ids,
+    ["short:1:1","short:0:1","short:1:2"]
+  );
+}
+
+{
+  const videos=[
+    regular("repair:1:1",1,1,"2020-01-01",50,"One"),
+    regular("repair:1:3",1,3,"2020-01-15",50,"Three"),
+    special("repair:0:2","Two","2020-01-08",50)
+  ];
+  const eps=[provider(701,"Two","2020-01-08",50,1,"regular",2)];
+  const plan=planStoryOrder(videos,eps,{order:{providerRegularRepairs:true},nowMs:Date.parse("2021-01-01")});
+  assert.deepEqual(plan.ids,["repair:1:1","repair:0:2","repair:1:3"]);
+  assert.equal(plan.inserted[0].source,"provider");
+}
+
+{
+  const videos=[
+    regular("future:1:1",1,1,"2020-01-01",50,"One"),
+    regular("future:1:2",1,2,"2020-01-08",50,"Two"),
+    special("future:0:1","Future Christmas","2999-12-25",60)
+  ];
+  const eps=[provider(801,"Future Christmas","2999-12-25",60,1,"significant_special")];
+  assert.deepEqual(
+    planStoryOrder(videos,eps,{order:{future:"leave"},nowMs:Date.parse("2026-09-24")}).ids,
+    [],
+    "future narrative material stays out of the current story sequence"
+  );
+}
+
+{
+  const videos=[
+    regular("manual:1:1",1,1,"2020-01-01",50,"One"),
+    regular("manual:1:2",1,2,"2020-01-08",50,"Two"),
+    special("manual:0:9","Feature","2021-12-01",90)
+  ];
+  const plan=planStoryOrder(videos,[],{
+    order:{upstreamFallback:false},
+    override:{include:[{id:"manual:0:9",beforeId:"manual:1:2"}]},
+    nowMs:Date.parse("2022-01-01")
+  });
+  assert.deepEqual(plan.ids,["manual:1:1","manual:0:9","manual:1:2"]);
+}
+
+{
+  const videos=[
+    regular("post:1:1",1,1,"2016-01-01",60,"One"),
+    regular("post:1:2",1,2,"2016-01-08",60,"Two"),
+    special("post:0:1","Daemons' Roost","2016-12-28",90)
+  ];
+  const plan=planStoryOrder(videos,[],{
+    order:{upstreamFallback:true},
+    nowMs:Date.parse("2017-01-01")
+  });
+  assert.deepEqual(plan.ids,["post:1:1","post:1:2","post:0:1"]);
+}
+
+console.log("PASS: Story Order expanded narrative regression corpus");
 
 console.log("PASS: Story Order watched-state-safe engine suite");
