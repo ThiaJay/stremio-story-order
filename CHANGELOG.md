@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.13 - 2026-09-24
+
+Guarded per-series override helper.
+
+- Adds a form-based helper for Include and Exclude rules so users do not need to hand-write override JSON.
+- Validates the series IMDb ID and stable video ID input before changing the generated configuration.
+- Supports optional target season and before or after stable-ID anchors for include rules.
+- Rejects conflicting before and after anchors and invalid target seasons.
+- Deduplicates repeated exclusions and identical inclusion rules.
+- Keeps the generated advanced JSON visible and editable before installation.
+- Stores only the same existing override structure inside the encrypted configuration token.
+- Does not fetch account data, watched state or private catalogue contents and does not change Story Order matching semantics.
+
 ## 1.0.12 - 2026-09-24
 
 Privacy-safe Story Mode capability status.
