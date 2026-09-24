@@ -3,7 +3,7 @@ import { Buffer } from "node:buffer";
 import { encodeConfig, decodeConfig, normalizeConfig } from "./config-token.js";
 import { resolveSource } from "./source-registry.js";
 import { fetchJsonResilient, assertResourcePath, readJsonResponse, cinemetaCatalogRedirect } from "./upstream.js";
-import { configurationPage } from "./config-page.js";
+import { configurationPage, mergeOverrideRule } from "./config-page.js";
 import { safeTvMazeRedirect } from "./provider.js";
 
 class MemoryKV {
@@ -109,12 +109,28 @@ await assert.rejects(
   /too large/
 );
 
+{
+  let overrides=mergeOverrideRule({},{
+    seriesId:"tt0436992",videoId:"tt0436992:0:2",action:"include",targetSeason:"2",afterId:"tt0436992:2:4"
+  });
+  assert.deepEqual(overrides.tt0436992.include,[{id:"tt0436992:0:2",targetSeason:2,afterId:"tt0436992:2:4"}]);
+  overrides=mergeOverrideRule(overrides,{seriesId:"tt0436992",videoId:"tt0436992:0:99",action:"exclude"});
+  overrides=mergeOverrideRule(overrides,{seriesId:"tt0436992",videoId:"tt0436992:0:99",action:"exclude"});
+  assert.deepEqual(overrides.tt0436992.exclude,["tt0436992:0:99"],"helper must deduplicate exclusions");
+  assert.throws(()=>mergeOverrideRule({}, {seriesId:"not-imdb",videoId:"x",action:"exclude"}),/IMDb ID/);
+  assert.throws(()=>mergeOverrideRule({}, {seriesId:"tt0436992",videoId:"x",action:"include",beforeId:"a",afterId:"b"}),/either a before anchor or an after anchor/);
+  assert.throws(()=>mergeOverrideRule({}, {seriesId:"tt0436992",videoId:"x",action:"include",targetSeason:"0"}),/whole number/);
+}
+
 const page=configurationPage({choices:["cinemeta","aiometadata"]});
 assert.ok(page.html.includes("Story Order"));
 assert.ok(!/<script[^>]+src=/i.test(page.html));
 assert.ok(!/google-analytics|segment\.com|plausible\.io/i.test(page.html));
 assert.match(page.html,/no Stremio AuthKey/i);
 assert.match(page.html,/Service status/);
+assert.match(page.html,/Per-series override helper/);
+assert.match(page.html,/Add override rule/);
+assert.match(page.html,/Advanced override JSON/);
 assert.match(page.html,/\/_story\/status\.json/);
 assert.doesNotMatch(page.html,/authKey|STREMIO_AUTHKEY/);
 assert.ok([...page.html].every(ch=>ch.charCodeAt(0)<128),"configure page contains non-ASCII UI glyphs");
