@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.16 - 2026-09-24
+
+Reconciled branding and integrity release.
+
+- Carries forward explainable Story Order decision diagnostics and the approved cinematic branding.
+- Replaces the incorrect file-size heuristic for the compact 320x320 logo with an exact Git blob integrity check for approved master `30a32e7f0cde11bf646e2eee0fcc80cb6f817e77`.
+- Keeps PNG signature and 320x320 dimension checks in addition to exact byte identity.
+- Cache-busts the approved icon and hero URLs to the 1.0.16 release.
+- Extends live smoke to verify decision reason and confidence diagnostics.
+- Includes the public Android client contract and the disabled-by-default cross-title reference contract.
+- Does not change Story Order acceptance thresholds, canonical videos or watched identity.
+
 ## 1.0.15 - 2026-09-24
 
 Explainable Story Order decisions and brand asset restoration.
