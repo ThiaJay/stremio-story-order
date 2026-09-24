@@ -5,6 +5,8 @@ function escapeHtml(value) {
 }
 
 export const BRAND_ICON_URL = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
+export const BRAND_ASSET_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2";
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -36,20 +38,35 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin
 @media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card img{width:44px;height:44px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END; }
+const CSS_BRAND_REFRESH = `
+.hero-refresh{display:grid;grid-template-columns:minmax(0,.86fr) minmax(420px,1.14fr);gap:26px;align-items:center;padding:28px;isolation:isolate}
+.hero-refresh:after{opacity:.55;z-index:-1}.hero-copy{position:relative;z-index:2;min-width:0}.hero-copy .brand-row{gap:18px}
+.brand-line{margin:16px 0 0;font-size:clamp(1.25rem,2.6vw,1.8rem);line-height:1.12;font-weight:850;letter-spacing:-.025em;background:linear-gradient(90deg,#f7fbff 0,#8ee7ff 42%,#ffca67 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-refresh .strap{margin-top:8px;font-size:clamp(.98rem,1.8vw,1.18rem);max-width:560px;color:#c7d5ef}
+.hero-visual{margin:0;position:relative;z-index:1;border-radius:20px;overflow:hidden;border:1px solid #315084;background:#050a17;box-shadow:0 18px 52px #02071388}
+.hero-visual img{display:block;width:100%;height:auto;aspect-ratio:1500/660;object-fit:cover}
+.quick-step{min-height:142px}.quick-icon{display:block;width:38px;height:38px;margin:0 0 8px;object-fit:contain}.quick-step .step-number{position:absolute;top:12px;right:12px;margin:0;width:24px;height:24px}
+.profile-icon{display:block;width:38px;height:38px;margin:0 0 10px;object-fit:contain}.choice-box{position:relative}
+.feature-icon.asset{display:block;object-fit:contain;padding:4px;background:#122a50}.order-note{margin:14px 0 0;padding:12px 13px;border-radius:12px;border:1px solid #315084;background:linear-gradient(135deg,#0b2142,#101a39);color:#cbdaf3;font-size:.86rem}.order-note strong{display:block;color:#fff;margin-bottom:3px}
+@media(max-width:900px){.hero-refresh{grid-template-columns:1fr}.hero-visual{order:-1}.hero-visual img{max-height:340px}.hero-copy .brand-row{justify-content:flex-start}}
+@media(max-width:620px){.hero-refresh{padding:14px}.hero-visual{border-radius:14px}.hero-visual img{aspect-ratio:4/3;object-fit:cover;object-position:63% center}.brand-line{font-size:1.28rem}.quick-step{min-height:132px}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="referrer" content="no-referrer"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
+<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell">
-<header class="hero"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="72" height="72"></div><div>
-<p class="eyebrow">A Stremio addon</p><h1>Story Order</h1><p class="strap">Puts TV episodes, specials and one-offs in the right watch order.</p>
+<header class="hero hero-refresh"><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="72" height="72"></div><div>
+<p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
+<p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
-</div></div></header>
+</div><figure class="hero-visual"><img src="${brandAsset("story-order-order-flow.svg")}" alt="Mixed episode metadata becoming one ordered narrative path" width="1500" height="660"></figure></header>
 <div class="grid"><main class="panel"><div class="panel-pad">
-<div class="quick"><div class="quick-step"><span>1</span><b>Choose source</b>Most people leave Cinemeta selected.</div>
-<div class="quick-step"><span>2</span><b>Choose profile</b>Safe is the recommended default.</div>
-<div class="quick-step"><span>3</span><b>Create link</b>Story Order makes your install URL.</div>
-<div class="quick-step"><span>4</span><b>Install</b>Approve it in Stremio and watch normally.</div></div>
+<div class="quick"><div class="quick-step"><img class="quick-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"><span class="step-number">1</span><b>Choose source</b>Most people leave Cinemeta selected.</div>
+<div class="quick-step"><img class="quick-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"><span class="step-number">2</span><b>Choose profile</b>Safe is the recommended default.</div>
+<div class="quick-step"><img class="quick-icon" src="${brandAsset("step-3-link.svg")}" alt="" aria-hidden="true"><span class="step-number">3</span><b>Create link</b>Story Order makes your install URL.</div>
+<div class="quick-step"><img class="quick-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"><span class="step-number">4</span><b>Install</b>Approve it in Stremio and watch normally.</div></div>
 <div class="muted">For most users, the defaults are already right. Your stream addons stay exactly as they are.</div></div>
 <form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
 </div><footer><span>Story Order | Puts TV episodes, specials and one-offs in the right watch order.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
@@ -65,10 +82,10 @@ ${customOption}</div>
 </section>
 <section class="section"><div class="step-title"><div class="step-num">2</div><div><h2>How much should Story Order include?</h2><p>Safe handles the common cases without pulling short-form extras into autoplay.</p></div></div>
 <div class="choice-grid profiles">
-<label class="choice"><input type="radio" name="profile" value="safe" checked><span class="choice-box"><strong>Safe</strong><small>Full episodes, specials and one-offs. Keeps minisodes and prequels in Specials.</small><span class="recommended">Recommended</span></span></label>
-<label class="choice"><input type="radio" name="profile" value="balanced"><span class="choice-box"><strong>Balanced</strong><small>Also includes provider-confirmed significant short-form story entries.</small></span></label>
-<label class="choice"><input type="radio" name="profile" value="complete"><span class="choice-box"><strong>Complete story</strong><small>Includes more confirmed short-form story material.</small></span></label>
-<label class="choice"><input type="radio" name="profile" value="custom"><span class="choice-box"><strong>Custom</strong><small>Fine-tune matching, extras and per-series overrides.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="safe" checked><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-safe.svg")}" alt="" aria-hidden="true"><strong>Safe</strong><small>Full episodes, specials and one-offs. Keeps minisodes and prequels in Specials.</small><span class="recommended">Recommended</span></span></label>
+<label class="choice"><input type="radio" name="profile" value="balanced"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-balanced.svg")}" alt="" aria-hidden="true"><strong>Balanced</strong><small>Also includes provider-confirmed significant short-form story entries.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="complete"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-complete.svg")}" alt="" aria-hidden="true"><strong>Complete story</strong><small>Includes more confirmed short-form story material.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="custom"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-custom.svg")}" alt="" aria-hidden="true"><strong>Custom</strong><small>Fine-tune matching, extras and per-series overrides.</small></span></label>
 </div>
 <div class="warning">Short-form episodes are more likely to have no playable stream. Safe is the best starting point for most people.</div>
 ${advancedOptions()}</section>${installSection()}`;
@@ -102,13 +119,13 @@ function sidePanel() {
 <div class="episode highlight"><span class="epno">14</span><strong>The Christmas Invasion</strong><span class="tick tick-play" aria-label="next"></span></div><div class="episode"><span class="epno">15</span><span>New Earth</span></div></div>
 <div class="example"><b>Jonathan Creek</b><div class="episode"><span class="epno">3</span><span>The Curse of the Bronze Lamp</span><span class="tick tick-ok" aria-label="correct"></span></div>
 <div class="episode highlight"><span class="epno">4</span><strong>Daemons' Roost</strong><span class="tick tick-play" aria-label="next"></span></div></div>
-<p class="muted">The original episode IDs stay intact, so your installed stream addons still receive the same episode identity.</p></section>
+<p class="muted">The original episode IDs stay intact, so your installed stream addons still receive the same episode identity.</p><p class="order-note"><strong>Same programme. Same episode identities. Better sequence.</strong> Story Order fixes the narrative path rather than recommending something else.</p></section>
 <section class="panel side-card"><h3>Service status</h3><div id="serviceState" class="service-state" aria-live="polite"><span class="service-dot" aria-hidden="true"></span><div class="service-copy"><b id="serviceStateTitle">Checking Story Order...</b><small id="serviceStateDetail">Reading the public capability status.</small></div></div></section>
 <section class="panel side-card"><h3>Designed to stay out of the way</h3><div class="feature-list">
-<div class="feature"><span class="feature-icon icon-play" aria-hidden="true"></span><div><b>Use Stremio normally</b><small>No separate player or extra launch step.</small></div></div>
-<div class="feature"><span class="feature-icon icon-link" aria-hidden="true"></span><div><b>Stream-addon independent</b><small>Torrentio, AIOStreams, Maelstrom and others stay separate.</small></div></div>
-<div class="feature"><span class="feature-icon icon-refresh" aria-hidden="true"></span><div><b>Outage aware</b><small>Cached ordering and conservative fallback keep metadata useful when enrichment is unavailable.</small></div></div>
-<div class="feature"><span class="feature-icon icon-private" aria-hidden="true"></span><div><b>No Stremio account access</b><small>No AuthKey, password or account session required.</small></div></div>
+<div class="feature"><img class="feature-icon asset" src="${brandAsset("feature-ids-preserved.svg")}" alt="" aria-hidden="true"><div><b>Use Stremio normally</b><small>No separate player or extra launch step.</small></div></div>
+<div class="feature"><img class="feature-icon asset" src="${brandAsset("feature-stream-independent.svg")}" alt="" aria-hidden="true"><div><b>Stream-addon independent</b><small>Torrentio, AIOStreams, Maelstrom and others stay separate.</small></div></div>
+<div class="feature"><img class="feature-icon asset" src="${brandAsset("feature-outage-aware.svg")}" alt="" aria-hidden="true"><div><b>Outage aware</b><small>Cached ordering and conservative fallback keep metadata useful when enrichment is unavailable.</small></div></div>
+<div class="feature"><img class="feature-icon asset" src="${brandAsset("feature-private.svg")}" alt="" aria-hidden="true"><div><b>No Stremio account access</b><small>No AuthKey, password or account session required.</small></div></div>
 </div></section></aside>`;
 }
 export function configurationPage({ token = "", choices = ["cinemeta", "aiometadata"] } = {}) {
@@ -142,7 +159,7 @@ async function loadServiceStatus(){
     box.classList.add("live");
     title.textContent="Live | v"+String(s.version||"");
     detail.textContent=s.storyOrderContract?.version===1&&s.storyOrderContract?.canonicalVideoCoordinatesPreserved===true
-      ?"Stable-ID Story Mode | canonical watched identity preserved"
+      ?"Stable-ID Story Order | canonical watched identity preserved"
       :"Story Order service available";
   }catch{
     box.classList.remove("live");

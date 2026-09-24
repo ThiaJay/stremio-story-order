@@ -1,8 +1,19 @@
 # Changelog
 
+## 1.0.13 - 2026-09-24
+
+Story Order identity and configure page refresh.
+
+- Rebuilds the configure page around what Story Order actually does, turning mixed episode metadata into one clear narrative path.
+- Adds a scalable vector hero, favicon, setup icons, profile icons and trust icons using the new cyan, blue and gold Story Order visual system.
+- Refreshes the canonical Stremio addon icon while preserving the existing public asset URL and alias byte equality.
+- Adds the supporting brand line "Correct order. Complete stories." without replacing the functional public description.
+- Preserves the existing live capability status and corrects stale Story Mode wording to Story Order.
+
+
 ## 1.0.12 - 2026-09-24
 
-Privacy-safe Story Mode capability status.
+Privacy-safe Story Order capability status.
 
 Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `cd0e1d8b2e9170b0aa1b73fcece2253f4b27e76680e69f1ead317a8a98960df1` and the public manifest reported 1.0.12.
 
@@ -16,7 +27,7 @@ Production acceptance completed on 24 September 2026. The live Worker bundle mat
 
 ## 1.0.11 - 2026-09-24
 
-Stable-ID Story Mode presentation contract.
+Stable-ID Story Order presentation contract.
 
 Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `137c59b2112bb181e2bc9cda0234dc1cffbf1b3a5af7c0ed0bc94120d2a83c06`, the public manifest reported 1.0.11 and the live stable-ID safety integration suite passed.
 
@@ -30,7 +41,7 @@ Production acceptance completed on 24 September 2026. The live Worker bundle mat
 
 ## 1.0.10 - 2026-09-24
 
-Story Mode watched-state safety hardening.
+Story Order watched-state safety hardening.
 
 Production acceptance completed on 24 September 2026. The public Story Order hostname and the Cloudflare account hostname both served version 1.0.10 after deployment, and the deployed Worker bundle matched SHA-256 `487aa6f1806e2d89ebfaf45494a48c5944db7f96a246fa580cf07ab3c7b4766f`.
 
