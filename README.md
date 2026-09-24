@@ -109,6 +109,10 @@ Example:
 
 See `SECURITY.md` and `PRIVACY.md` for the release threat model.
 
+## Android client integration
+
+A public stable ID client contract and acceptance fixture for Android mobile and Android TV or Fire TV are available in [docs/ANDROID-INTEGRATION.md](docs/ANDROID-INTEGRATION.md). The reference is presentation only and preserves canonical watched identity.
+
 ## Development
 
 Requires Node.js 22+.
