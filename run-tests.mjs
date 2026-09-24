@@ -4,7 +4,8 @@ const deterministic = [
   "test-engine.mjs",
   "test-security.mjs",
   "test-worker.mjs",
-  "test-customization.mjs"
+  "test-customization.mjs",
+  "test-android-contract.mjs"
 ];
 const files = process.argv.includes("--live") ? [...deterministic, "test-live.mjs"] : deterministic;
 
