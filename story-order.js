@@ -215,7 +215,47 @@ function cleanInternal(video) {
   for (const key of Object.keys(copy)) if (key.startsWith("__storyOrder")) delete copy[key];
   delete copy.__sourceIndex;
   return copy;
-}function buildAccepted(videos, providerEpisodes, options, override, nowMs) {
+}export function explainStoryOrderDecision(item) {
+  const source = String(item?.source || "");
+  const providerType = String(item?.provider?.type || "").toLowerCase();
+  const score = Number(item?.score);
+
+  if (source === "provider+override") {
+    return {
+      confidence: "manual",
+      reason: "provider-match-confirmed-by-manual-override"
+    };
+  }
+  if (source === "manual-override") {
+    return {
+      confidence: "manual",
+      reason: "manual-override"
+    };
+  }
+  if (source === "upstream-fallback") {
+    return {
+      confidence: "inferred",
+      reason: "full-length-date-runtime-inference"
+    };
+  }
+
+  const confidence = Number.isFinite(score)
+    ? score >= 10 ? "high" : score >= 6 ? "medium" : "low"
+    : "low";
+
+  if (providerType === "regular") {
+    return { confidence, reason: "provider-regular-episode-repair" };
+  }
+  if (providerType === "significant_special") {
+    return { confidence, reason: "provider-significant-special" };
+  }
+  if (providerType === "insignificant_special") {
+    return { confidence, reason: "provider-insignificant-special" };
+  }
+  return { confidence, reason: "provider-special-match" };
+}
+
+function buildAccepted(videos, providerEpisodes, options, override, nowMs) {
   const seasonZero = videos.filter(v => Number(v.season) === 0);
   const providerMatches = matchProviderEpisodes(providerEpisodes || [], seasonZero, videos, options, nowMs);
   const acceptedById = new Map();
@@ -359,6 +399,7 @@ export function planStoryOrder(videos, providerEpisodes = [], config = {}) {
       targetSeason: item.targetSeason,
       source: item.source,
       score: Number.isFinite(item.score) ? Number(item.score.toFixed(2)) : null,
+      ...explainStoryOrderDecision(item),
       released: item.video.released || item.provider?.airstamp || item.provider?.airdate || null
     }))
   };
@@ -442,6 +483,7 @@ export function integrateStoryOrder(videos, providerEpisodes = [], config = {}) 
       targetSeason: item.targetSeason,
       source: item.source,
       score: Number.isFinite(item.score) ? Number(item.score.toFixed(2)) : null,
+      ...explainStoryOrderDecision(item),
       released: item.video.released || item.provider?.airstamp || item.provider?.airdate || null
     }))
   };
