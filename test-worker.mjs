@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import { readFile } from "node:fs/promises";
-import worker, { configuredManifest } from "./worker.js";
+import worker, { configuredManifest, serviceStatus } from "./worker.js";
 
 const env={CONFIG_SECRET:Buffer.alloc(32,9).toString("base64url")};
 const ctx={waitUntil(p){p.catch(()=>{})}};
@@ -23,6 +23,15 @@ assert.match(
   "hosted Worker should publish only the versioned stable-ID presentation hint"
 );
 assert.equal(claimed.version,packageVersion);
+const directStatus=serviceStatus("cinemeta");
+assert.equal(directStatus.version,packageVersion);
+assert.equal(directStatus.status,"live");
+assert.equal(directStatus.storyOrderContract.version,1);
+assert.equal(directStatus.storyOrderContract.canonicalVideoCoordinatesPreserved,true);
+assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
+assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
+assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
+assert.equal(directStatus.privacy.accountAccess,false);
 const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
 assert.equal(claimed.logo,canonicalIcon);
 assert.equal(claimed.background,"https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg");
@@ -75,6 +84,18 @@ response=await worker.fetch(new Request("https://story.test/api/config",{
   body:JSON.stringify({source:{kind:"custom",manifestUrl:"https://addons.example.com/manifest.json"}})
 }),env,ctx);
 assert.equal(response.status,400);
+
+response=await worker.fetch(new Request("https://story.test/_story/status.json"),env,ctx);
+assert.equal(response.status,200);
+assert.match(response.headers.get("cache-control"),/max-age=60/);
+const statusPayload=await response.json();
+assert.equal(statusPayload.version,packageVersion);
+assert.equal(statusPayload.source,"cinemeta");
+assert.equal(statusPayload.storyOrderContract.representation,"stable-video-id-presentation-hint");
+
+response=await worker.fetch(new Request("https://story.test/_story/status.json",{method:"HEAD"}),env,ctx);
+assert.equal(response.status,200);
+assert.equal((await response.text()).length,0);
 
 response=await worker.fetch(new Request("https://story.test/manifest.json",{method:"POST"}),env,ctx);
 assert.equal(response.status,405);
