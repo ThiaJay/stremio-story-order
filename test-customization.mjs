@@ -29,9 +29,15 @@ for(const profile of ["safe","balanced"]){
   const dbg=await debug(token,"tt0436992");
   assert.equal(m.videos.find(v=>v.id==="tt0436992:0:1").season,0);
   assert.equal(m.videos.find(v=>v.id==="tt0436992:0:2").season,0);
-  assert.equal(dbg.mode,"emergency-watched-state-safety-passthrough");
-  assert.equal(dbg.reason,"EPISODE_REORDERING_TEMPORARILY_DISABLED");
-  assert.deepEqual(dbg.inserted,[]);
+  assert.ok(["stable-id-story-order-hint","canonical-video-passthrough"].includes(dbg.mode));
+  if(dbg.mode==="stable-id-story-order-hint"){
+    assert.equal(dbg.reason,"PRESENTATION_ORDER_PUBLISHED_WITH_CANONICAL_IDENTITIES");
+    assert.ok(Array.isArray(dbg.storyOrder)&&dbg.storyOrder.length>0);
+    assert.deepEqual(m.behaviorHints?.storyOrder,dbg.storyOrder);
+    assert.equal(m.behaviorHints?.storyOrderVersion,1);
+  }else{
+    assert.equal(dbg.reason,"CANONICAL_VIDEO_COORDINATES_PRESERVED");
+  }
 }
 
 const manualToken=await configured({
@@ -41,8 +47,15 @@ const manualToken=await configured({
 const manual=await meta(manualToken,"tt0436992");
 const manualDebug=await debug(manualToken,"tt0436992");
 assert.equal(manual.videos.find(v=>v.id==="tt0436992:0:69").season,0);
-assert.equal(manualDebug.mode,"emergency-watched-state-safety-passthrough");
-assert.equal(manualDebug.reason,"EPISODE_REORDERING_TEMPORARILY_DISABLED");
-assert.deepEqual(manualDebug.inserted,[]);
+assert.equal(manualDebug.mode,"stable-id-story-order-hint");
+assert.equal(manualDebug.reason,"PRESENTATION_ORDER_PUBLISHED_WITH_CANONICAL_IDENTITIES");
+assert.equal(manual.behaviorHints?.storyOrderVersion,1);
+assert.deepEqual(manual.behaviorHints?.storyOrder,manualDebug.storyOrder);
+assert.ok(manualDebug.storyOrder.includes("tt0436992:0:69"));
+assert.equal(
+  manualDebug.storyOrder.indexOf("tt0436992:0:69")+1,
+  manualDebug.storyOrder.indexOf("tt0436992:7:1"),
+  "manual placement should be expressed by stable ID order without changing canonical episode coordinates"
+);
 
-console.log("PASS: Story Order profile/override emergency safety suite");
+console.log("PASS: Story Order profile/override stable-ID safety suite");
