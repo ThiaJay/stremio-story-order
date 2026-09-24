@@ -5,7 +5,7 @@ import { fetchJsonResilient } from "./upstream.js";
 import { planStoryOrder, showOverrideFor } from "./story-order.js";
 import { configurationPage, BRAND_ICON_URL } from "./config-page.js";
 
-const VERSION = "1.0.11";
+const VERSION = "1.0.12";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
   issuer: "https://stremio-addons.net",
   signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
@@ -170,6 +170,27 @@ function validResource(resource) {
   return resource === "/manifest.json" || /^\/(catalog|meta|subtitles)\//.test(resource);
 }
 
+function serviceStatus(sourceKind = "cinemeta") {
+  return {
+    service: "Story Order",
+    version: VERSION,
+    status: "live",
+    source: String(sourceKind || "unknown"),
+    storyOrderContract: {
+      version: 1,
+      representation: "stable-video-id-presentation-hint",
+      canonicalVideoCoordinatesPreserved: true,
+      canonicalVideoIdsPreserved: true,
+      watchedIdentityMutation: false
+    },
+    privacy: {
+      stremioAuthKeyRequired: false,
+      accountAccess: false,
+      analytics: false
+    }
+  };
+}
+
 function configPageFor(token, env) {
   return htmlResponse(configurationPage({ token, choices: publicSourceChoices(env) }));
 }
@@ -218,6 +239,10 @@ async function handleConfigApi(request, env, url) {
         return finish(json(built.manifest, 200, cachePolicy(route.resource, degraded)));
       }
 
+      if (route.resource === "/_story/status.json") {
+        return finish(json(serviceStatus(source.kind), 200, "public, max-age=60"));
+      }
+
       const debugMatch = route.resource.match(/^\/_story\/debug\/series\/(.+)\.json$/);
       if (debugMatch) {
         const id = decodeURIComponent(debugMatch[1]);
@@ -243,4 +268,4 @@ async function handleConfigApi(request, env, url) {
   }
 };
 
-export { seriesPayload, manifestFor, configuredManifest };
+export { seriesPayload, manifestFor, configuredManifest, serviceStatus };
