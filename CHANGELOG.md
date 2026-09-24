@@ -4,6 +4,8 @@
 
 Guarded per-series override helper.
 
+Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `d9a646227ba34547279d25040452db7ad81e49ceb00af4d36628f9a63c4ac414` and the public manifest reported 1.0.14.
+
 - Adds a form-based helper for Include and Exclude rules so users do not need to hand-write override JSON.
 - Validates the series IMDb ID and stable video ID input before changing the generated configuration.
 - Supports optional target season and before or after stable-ID anchors for include rules.
