@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import worker, { configuredManifest, serviceStatus } from "./worker.js";
 
@@ -46,7 +47,15 @@ const iconBytes=await readFile(new URL("./public/logo.png",import.meta.url));
 assert.equal(iconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","logo must be a real PNG");
 assert.equal(iconBytes.readUInt32BE(16),320,"logo width must preserve the approved compact master");
 assert.equal(iconBytes.readUInt32BE(20),320,"logo height must preserve the approved compact master");
-assert.ok(iconBytes.length>15000,"logo is suspiciously small and may be a degraded placeholder");
+const iconGitBlobSha=createHash("sha1")
+  .update(Buffer.from(`blob ${iconBytes.length}\0`))
+  .update(iconBytes)
+  .digest("hex");
+assert.equal(
+  iconGitBlobSha,
+  "30a32e7f0cde11bf646e2eee0fcc80cb6f817e77",
+  "logo bytes must match the approved compact master"
+);
 const [heroPrimary,heroCompat]=await Promise.all([
  readFile(new URL("./public/branding/v3/story-order-hero.svg",import.meta.url),"utf8"),
  readFile(new URL("./public/branding/v2/story-order-order-flow.svg",import.meta.url),"utf8")
