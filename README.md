@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.16 is the current release candidate.** It reconciles the explainable Story Order diagnostics with the approved cinematic brand assets and replaces the faulty size heuristic with exact approved logo integrity. **1.0.15 remains the live production version until 1.0.16 passes guarded deployment and live smoke acceptance.** Cross-title story references remain a tested but disabled client contract and are not emitted in production.
+**1.0.16 is the current production release.** It reconciles explainable Story Order decisions with the approved cinematic branding, guarded override helper, stable-ID presentation contract, Android client reference and privacy-safe capability status. Production acceptance completed on 24 September 2026. The deployed Worker bundle matched SHA-256 `1769bb461ccf0bc14055d076be0565d6d42bbbdee4329404be15e0a4f51a6db6` and the public manifest reported 1.0.16. Canonical video IDs and season or episode coordinates remain unchanged. Cross-title story references remain a tested but disabled client contract and are not emitted in production.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.
