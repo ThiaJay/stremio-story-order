@@ -4,6 +4,52 @@ function escapeHtml(value) {
   })[ch]);
 }
 
+export function mergeOverrideRule(current, input = {}) {
+  const overrides = current && typeof current === "object" && !Array.isArray(current)
+    ? structuredClone(current)
+    : {};
+  const seriesId = String(input.seriesId || "").trim();
+  const videoId = String(input.videoId || "").trim();
+  const action = String(input.action || "").trim();
+  const beforeId = String(input.beforeId || "").trim();
+  const afterId = String(input.afterId || "").trim();
+  const rawTargetSeason = String(input.targetSeason ?? "").trim();
+
+  if (!/^tt\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
+  if (!videoId || videoId.length > 512) throw new Error("Enter a valid video ID.");
+  if (!["include","exclude"].includes(action)) throw new Error("Choose Include or Exclude.");
+  if (beforeId && afterId) throw new Error("Choose either a before anchor or an after anchor, not both.");
+
+  const existing = overrides[seriesId] && typeof overrides[seriesId] === "object"
+    ? structuredClone(overrides[seriesId])
+    : {};
+
+  if (action === "exclude") {
+    const exclude = Array.isArray(existing.exclude) ? existing.exclude.map(String) : [];
+    existing.exclude = [...new Set([...exclude, videoId])];
+  } else {
+    const include = Array.isArray(existing.include)
+      ? existing.include.filter(rule => rule && typeof rule === "object").map(rule => ({...rule}))
+      : [];
+    const rule = { id: videoId };
+    if (rawTargetSeason) {
+      const targetSeason = Number(rawTargetSeason);
+      if (!Number.isInteger(targetSeason) || targetSeason < 1 || targetSeason > 999) {
+        throw new Error("Target season must be a whole number from 1 to 999.");
+      }
+      rule.targetSeason = targetSeason;
+    }
+    if (beforeId) rule.beforeId = beforeId;
+    if (afterId) rule.afterId = afterId;
+    const key = JSON.stringify(rule);
+    if (!include.some(item => JSON.stringify(item) === key)) include.push(rule);
+    existing.include = include;
+  }
+
+  overrides[seriesId] = existing;
+  return overrides;
+}
+
 export const BRAND_ICON_URL = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
 export const BRAND_ASSET_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2";
 const brandAsset = name => `${BRAND_ASSET_BASE}/${name}`;
@@ -27,6 +73,7 @@ const CSS_MORE = `
 .choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice-grid.profiles{grid-template-columns:repeat(4,minmax(0,1fr))}.choice{position:relative;display:block}.choice input{position:absolute;opacity:0;pointer-events:none}.choice-box{display:block;height:100%;padding:15px;border:1px solid #2b426c;background:#0b1830;border-radius:14px;transition:.18s ease;cursor:pointer}.choice-box strong{display:block;color:#fff;margin-bottom:4px}.choice-box small{display:block;color:#aebcd7;line-height:1.35}.choice input:checked+.choice-box{border-color:#5cbcff;background:linear-gradient(145deg,#102b54,#171c49);box-shadow:0 0 0 2px #3e9cff33,inset 0 0 28px #4d65ff18}.choice input:focus-visible+.choice-box{outline:3px solid #a6ddff;outline-offset:2px}.recommended{display:inline-block;margin-top:9px;padding:3px 7px;border-radius:999px;background:#114f42;color:#9af0d1;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
 .field{margin-top:14px}.field label{display:block;margin:0 0 6px;font-size:.88rem;color:#c9d5eb}.field input,.field select,.field textarea{width:100%;font:inherit;color:#fff;background:#08152b;border:1px solid #314971;border-radius:11px;padding:10px 12px}.field textarea{min-height:120px;resize:vertical}.hidden{display:none!important}.muted{color:var(--muted)}
 .checks{display:grid;gap:10px;margin-top:14px}.check{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:#09162c;border:1px solid #22375e}.check input{margin-top:4px}.warning{margin-top:14px;padding:12px 14px;border:1px solid #8a612c88;border-left:4px solid var(--warn);border-radius:10px;background:#3a280f55;color:#efd7ad;font-size:.86rem}
+.override-helper{margin-top:16px;padding:14px;border:1px solid #29436f;border-radius:14px;background:#0a1730}.override-helper h4{margin:0 0 5px}.override-helper p{margin:0;color:var(--muted);font-size:.86rem}.override-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.secondary{padding:9px 12px;border:1px solid #36527f;border-radius:10px;background:#0d1c37;color:#e2ebfb;font:inherit;font-weight:750;cursor:pointer}.secondary:hover{filter:brightness(1.08)}.secondary:focus-visible{outline:3px solid #b9e7ff;outline-offset:2px}.helper-status{display:block;margin-top:9px;color:#a9d9ff;font-size:.84rem}
 `;const CSS_END = `
 details{margin-top:14px;border:1px solid #263b64;border-radius:13px;background:#09162c}summary{cursor:pointer;padding:13px 14px;font-weight:750;color:#d7e3fa}details[open] summary{border-bottom:1px solid #263b64}.advanced{padding:14px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .primary{width:100%;margin-top:18px;padding:14px 18px;border:0;border-radius:13px;background:linear-gradient(100deg,#168cff,#7657ee);color:white;font:inherit;font-weight:850;cursor:pointer;box-shadow:0 10px 32px #2f66ff44}.primary:hover{filter:brightness(1.08)}.primary:focus-visible{outline:3px solid #b9e7ff;outline-offset:3px}
@@ -102,7 +149,16 @@ function advancedOptions() {
 <label class="check"><input id="includeFuture" type="checkbox"><span>Reorder unaired/future entries too</span></label></div>
 <div class="two"><div class="field"><label for="minRuntimeRatio">Minimum runtime ratio</label><input id="minRuntimeRatio" type="number" min="0.2" max="1" step="0.05" value="0.5"></div>
 <div class="field"><label for="minFullLengthMinutes">Minimum full-length minutes</label><input id="minFullLengthMinutes" type="number" min="3" max="180" step="1" value="20"></div></div>
-<div class="field"><label for="overrides">Per-series override JSON</label><textarea id="overrides" spellcheck="false" placeholder='{"tt1234567":{"exclude":["tt1234567:0:4"]}}'></textarea><div class="muted">Optional. Overrides preserve the original video IDs and stay inside your encrypted configuration token.</div></div>
+<div class="override-helper"><h4>Per-series override helper</h4><p>Build a safe stable-ID rule without writing JSON by hand. Use IDs already shown by your metadata source.</p>
+<div class="two"><div class="field"><label for="overrideSeriesId">Series IMDb ID</label><input id="overrideSeriesId" type="text" autocomplete="off" placeholder="tt0436992"></div>
+<div class="field"><label for="overrideVideoId">Video ID</label><input id="overrideVideoId" type="text" autocomplete="off" placeholder="tt0436992:0:2"></div></div>
+<div class="two"><div class="field"><label for="overrideAction">Action</label><select id="overrideAction"><option value="include">Include in story order</option><option value="exclude">Exclude from story order</option></select></div>
+<div class="field"><label for="overrideTargetSeason">Target season (optional)</label><input id="overrideTargetSeason" type="number" min="1" max="999" step="1" placeholder="2"></div></div>
+<div class="two"><div class="field"><label for="overrideBeforeId">Place before video ID (optional)</label><input id="overrideBeforeId" type="text" autocomplete="off"></div>
+<div class="field"><label for="overrideAfterId">Place after video ID (optional)</label><input id="overrideAfterId" type="text" autocomplete="off"></div></div>
+<div class="override-actions"><button id="addOverrideRule" class="secondary" type="button">Add override rule</button><button id="clearOverrideHelper" class="secondary" type="button">Clear helper</button></div>
+<span id="overrideHelperStatus" class="helper-status" aria-live="polite"></span></div>
+<div class="field"><label for="overrides">Advanced override JSON</label><textarea id="overrides" spellcheck="false" placeholder='{"tt1234567":{"exclude":["tt1234567:0:4"]}}'></textarea><div class="muted">The helper writes here. You can still edit the JSON directly. Rules preserve original video IDs and stay inside your encrypted configuration token.</div></div>
 </div></details>`;
 }
 
@@ -138,6 +194,51 @@ export function configurationPage({ token = "", choices = ["cinemeta", "aiometad
 
 function clientScript() {
   return `
+const mergeOverrideRule=function mergeOverrideRule(current, input = {}) {
+  const overrides = current && typeof current === "object" && !Array.isArray(current)
+    ? structuredClone(current)
+    : {};
+  const seriesId = String(input.seriesId || "").trim();
+  const videoId = String(input.videoId || "").trim();
+  const action = String(input.action || "").trim();
+  const beforeId = String(input.beforeId || "").trim();
+  const afterId = String(input.afterId || "").trim();
+  const rawTargetSeason = String(input.targetSeason ?? "").trim();
+
+  if (!/^tt\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
+  if (!videoId || videoId.length > 512) throw new Error("Enter a valid video ID.");
+  if (!["include","exclude"].includes(action)) throw new Error("Choose Include or Exclude.");
+  if (beforeId && afterId) throw new Error("Choose either a before anchor or an after anchor, not both.");
+
+  const existing = overrides[seriesId] && typeof overrides[seriesId] === "object"
+    ? structuredClone(overrides[seriesId])
+    : {};
+
+  if (action === "exclude") {
+    const exclude = Array.isArray(existing.exclude) ? existing.exclude.map(String) : [];
+    existing.exclude = [...new Set([...exclude, videoId])];
+  } else {
+    const include = Array.isArray(existing.include)
+      ? existing.include.filter(rule => rule && typeof rule === "object").map(rule => ({...rule}))
+      : [];
+    const rule = { id: videoId };
+    if (rawTargetSeason) {
+      const targetSeason = Number(rawTargetSeason);
+      if (!Number.isInteger(targetSeason) || targetSeason < 1 || targetSeason > 999) {
+        throw new Error("Target season must be a whole number from 1 to 999.");
+      }
+      rule.targetSeason = targetSeason;
+    }
+    if (beforeId) rule.beforeId = beforeId;
+    if (afterId) rule.afterId = afterId;
+    const key = JSON.stringify(rule);
+    if (!include.some(item => JSON.stringify(item) === key)) include.push(rule);
+    existing.include = include;
+  }
+
+  overrides[seriesId] = existing;
+  return overrides;
+};
 const $=id=>document.getElementById(id);
 const form=$("configForm");
 const radioValue=name=>document.querySelector('input[name="'+name+'"]:checked')?.value||"";
@@ -174,7 +275,34 @@ function setConfig(c){ const source=c.source||{};setRadio("sourceKind",source.ki
   $("includeNonStory").checked=o.includeNonStory===true;$("minRuntimeRatio").value=o.minRuntimeRatio??0.5;$("minFullLengthMinutes").value=o.minFullLengthMinutes??20;
   $("includeFuture").checked=o.future==="include";$("overrides").value=Object.keys(c.overrides||{}).length?JSON.stringify(c.overrides,null,2):""; }
 async function loadExisting(){const token=document.body.dataset.token;if(!token)return;try{const r=await fetch("/api/config/"+encodeURIComponent(token));if(r.ok)setConfig(await r.json())}catch{}}
-loadExisting();` + clientScriptTail();
+loadExisting();
+function clearOverrideHelper(){
+  ["overrideSeriesId","overrideVideoId","overrideTargetSeason","overrideBeforeId","overrideAfterId"].forEach(id=>$(id).value="");
+  $("overrideAction").value="include";
+}
+$("addOverrideRule").addEventListener("click",()=>{
+  const status=$("overrideHelperStatus");
+  let current={};
+  try{
+    const text=$("overrides").value.trim();
+    if(text)current=JSON.parse(text);
+    current=mergeOverrideRule(current,{
+      seriesId:$("overrideSeriesId").value,
+      videoId:$("overrideVideoId").value,
+      action:$("overrideAction").value,
+      targetSeason:$("overrideTargetSeason").value,
+      beforeId:$("overrideBeforeId").value,
+      afterId:$("overrideAfterId").value
+    });
+    $("overrides").value=JSON.stringify(current,null,2);
+    status.textContent="Override rule added. Review the generated JSON below if you want.";
+    clearOverrideHelper();
+  }catch(err){
+    status.textContent=err?.message||String(err);
+  }
+});
+$("clearOverrideHelper").addEventListener("click",()=>{clearOverrideHelper();$("overrideHelperStatus").textContent="";});
+` + clientScriptTail();
 }
 function clientScriptTail() {
   return `
