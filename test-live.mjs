@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.11 stable-ID Story Mode contract and canonical identity parity.
+// Production smoke validates the live 1.0.12 stable-ID Story Mode contract and public capability status and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -23,6 +23,19 @@ assert.equal(liveManifestResponse.status,200);
 const liveManifest=await liveManifestResponse.json();
 assert.equal(liveManifest.id,"org.stremio.story-order");
 assert.equal(liveManifest.version,manifest.version);
+
+const liveStatusResponse=await fetch(liveOrigin+"/_story/status.json",{cache:"no-store"});
+assert.equal(liveStatusResponse.status,200);
+const liveStatus=await liveStatusResponse.json();
+assert.equal(liveStatus.status,"live");
+assert.equal(liveStatus.version,manifest.version);
+assert.equal(liveStatus.storyOrderContract?.version,1);
+assert.equal(liveStatus.storyOrderContract?.representation,"stable-video-id-presentation-hint");
+assert.equal(liveStatus.storyOrderContract?.canonicalVideoCoordinatesPreserved,true);
+assert.equal(liveStatus.storyOrderContract?.canonicalVideoIdsPreserved,true);
+assert.equal(liveStatus.storyOrderContract?.watchedIdentityMutation,false);
+assert.equal(liveStatus.privacy?.stremioAuthKeyRequired,false);
+assert.equal(liveStatus.privacy?.accountAccess,false);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
   method:"POST",
