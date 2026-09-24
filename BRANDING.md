@@ -22,12 +22,15 @@ The supporting line reinforces the visual identity. It does not replace the func
 - `public/branding/marketplace-background.jpg` must remain byte-identical to `public/background.jpg`.
 - `public/branding/story-order-social-preview.jpg` is the raster social sharing artwork.
 
-## Scalable configure page assets
+## Configure page assets
 
-The `public/branding/v2` directory is the current scalable interface asset set.
+The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-- `story-order-glyph.svg` is the compact vector mark and favicon.
-- `story-order-order-flow.svg` is the configure page hero. It shows mixed episode metadata becoming one narrative watch path.
+The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embeds the approved cinematic Story Order master and must not be replaced by a schematic or placeholder diagram.
+
+- `story-order-glyph.svg` is the compact vector favicon.
+- `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
+- `public/branding/v2/story-order-order-flow.svg` must remain byte-identical to the v3 hero for backward compatibility.
 - `step-1-source.svg` through `step-4-install.svg` support the setup sequence.
 - `profile-safe.svg`, `profile-balanced.svg`, `profile-complete.svg` and `profile-custom.svg` identify ordering profiles.
 - `feature-ids-preserved.svg`, `feature-stream-independent.svg`, `feature-outage-aware.svg` and `feature-private.svg` support the trust and behaviour cards.

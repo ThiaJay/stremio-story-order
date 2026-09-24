@@ -2,13 +2,16 @@
 
 ## 1.0.15 - 2026-09-24
 
-Explainable Story Order decisions.
+Explainable Story Order decisions and brand asset restoration.
 
 - Adds a compact confidence class and stable reason to each inserted-item diagnostic.
 - Distinguishes provider regular episode repairs, significant and insignificant specials, upstream date/runtime inference and manual overrides.
 - Manual overrides remain explicitly identified rather than being presented as automatic confidence.
 - Provider confidence uses the existing matching evidence and score without changing acceptance thresholds.
 - Diagnostic explanations do not alter the published stable-ID storyOrder sequence, canonical videos or watched identity.
+- Restores the approved cinematic addon icon after a degraded derivative was published.
+- Replaces the superseded schematic metadata-flow hero with the approved cinematic Story Order journey artwork.
+- Cache busts public branding URLs and adds image integrity gates so placeholder or undersized release assets fail tests.
 
 ## 1.0.14 - 2026-09-24
 

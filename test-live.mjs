@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.14 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
+// Production smoke validates the live 1.0.15 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -41,6 +41,8 @@ const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store
 assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
+assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.15/);
+assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.15/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);

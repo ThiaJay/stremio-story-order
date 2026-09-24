@@ -50,9 +50,11 @@ export function mergeOverrideRule(current, input = {}) {
   return overrides;
 }
 
-export const BRAND_ICON_URL = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
-export const BRAND_ASSET_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2";
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}`;
+export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.15`;
+export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.svg?v=1.0.15`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.15`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -62,7 +64,7 @@ a{color:#7bdcff}.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding
 .hero{position:relative;overflow:hidden;border:1px solid #315084;background:linear-gradient(135deg,#0d2a58dd,#101b3aee 56%,#201552dd);border-radius:28px;padding:30px 32px;box-shadow:var(--shadow)}
 .hero:after{content:"";position:absolute;width:460px;height:190px;right:-110px;bottom:-125px;border:22px solid #437eff44;border-radius:50%;transform:rotate(-8deg)}
 .brand-row{display:flex;gap:22px;align-items:center;position:relative;z-index:1}.brand-row>div:last-child,.step-title>div:last-child{min-width:0}.logo-card{width:92px;height:92px;flex:0 0 auto;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#0c1830,#142b57);box-shadow:inset 0 0 0 1px #7adfff55,0 12px 35px #03081588}
-.logo-card img{width:72px;height:72px;display:block}.eyebrow{color:#8fdfff;text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:800;margin:0 0 5px}h1{font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:0;letter-spacing:-.055em}.strap{font-size:clamp(1.05rem,2.4vw,1.45rem);color:#d8e4fb;margin:12px 0 0;max-width:700px}
+.logo-card img{width:86px;height:86px;display:block;border-radius:18px}.eyebrow{color:#8fdfff;text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:800;margin:0 0 5px}h1{font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:0;letter-spacing:-.055em}.strap{font-size:clamp(1.05rem,2.4vw,1.45rem);color:#d8e4fb;margin:12px 0 0;max-width:700px}
 .badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.badge{border:1px solid #42618e;background:#0e203f99;padding:6px 10px;border-radius:999px;color:#c9d9f5;font-size:.82rem}.badge.good{display:inline-flex;align-items:center;gap:7px;color:#8ff2cd;border-color:#3aa77c88;background:#0c332b88}
 .ok-mark{display:inline-block;width:7px;height:11px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);flex:0 0 auto}.ok-mark.large{width:8px;height:13px;margin:0 10px 2px 2px}
 `;
@@ -82,7 +84,7 @@ details{margin-top:14px;border:1px solid #263b64;border-radius:13px;background:#
 .service-state{display:flex;gap:10px;align-items:center;padding:12px 13px;border:1px solid #2d4775;background:#08152b;border-radius:12px}.service-dot{width:10px;height:10px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 4px #ffffff0a}.service-state.live .service-dot{background:var(--good);box-shadow:0 0 0 4px #47d7a222}.service-copy{min-width:0}.service-copy b{display:block}.service-copy small{display:block;color:var(--muted);margin-top:2px}.feature-list{display:grid;gap:10px}.feature{display:flex;gap:10px;align-items:flex-start}.feature-icon{position:relative;width:30px;height:30px;border-radius:9px;background:#122a50;color:#8ddfff;flex:0 0 auto}.icon-play:before{content:"";position:absolute;left:11px;top:8px;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}.icon-link:before,.icon-link:after{content:"";position:absolute;width:11px;height:6px;border:2px solid currentColor;border-radius:6px;transform:rotate(-40deg)}.icon-link:before{left:5px;top:8px}.icon-link:after{left:13px;top:14px}.icon-refresh:before{content:"";position:absolute;inset:7px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%}.icon-refresh:after{content:"";position:absolute;right:5px;top:5px;border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;transform:rotate(-35deg)}.icon-private:before{content:"";position:absolute;left:8px;bottom:6px;width:12px;height:10px;border:2px solid currentColor;border-radius:2px}.icon-private:after{content:"";position:absolute;left:10px;top:5px;width:8px;height:8px;border:2px solid currentColor;border-bottom:0;border-radius:8px 8px 0 0}.feature b{display:block}.feature small{color:var(--muted)}
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;padding:0 4px;color:#7f91b2;font-size:.82rem}footer a{color:#9ebeff}.status{display:block;margin-top:10px;color:#ffd397;font-size:.88rem}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.choice-grid.profiles{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card img{width:44px;height:44px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
+@media(max-width:620px){.shell{width:min(calc(100% - 20px),1120px);padding-top:14px}.hero{padding:20px 16px;border-radius:20px}.brand-row{align-items:flex-start;gap:13px}.logo-card{width:56px;height:56px;border-radius:15px}.logo-card img{width:50px;height:50px;border-radius:12px}h1{font-size:2rem}.strap{font-size:1rem}.quick{grid-template-columns:repeat(2,minmax(0,1fr))}.choice-grid,.choice-grid.profiles,.side-stack,.two{grid-template-columns:1fr}.section{padding:20px 16px}.panel-pad{padding:18px}.quick-step,.strap,.step-title,.choice-box,.side-card{overflow-wrap:anywhere}}
 `;
 
 const CSS_BRAND_REFRESH = `
@@ -108,7 +110,7 @@ function pageHtml(initialToken, customOption, nonce) {
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
 <p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
-</div><figure class="hero-visual"><img src="${brandAsset("story-order-order-flow.svg")}" alt="Mixed episode metadata becoming one ordered narrative path" width="1500" height="660"></figure></header>
+</div><figure class="hero-visual"><img src="${BRAND_HERO_URL}" alt="Story Order cinematic portal with a film path through different story worlds" width="900" height="396"></figure></header>
 <div class="grid"><main class="panel"><div class="panel-pad">
 <div class="quick"><div class="quick-step"><img class="quick-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"><span class="step-number">1</span><b>Choose source</b>Most people leave Cinemeta selected.</div>
 <div class="quick-step"><img class="quick-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"><span class="step-number">2</span><b>Choose profile</b>Safe is the recommended default.</div>

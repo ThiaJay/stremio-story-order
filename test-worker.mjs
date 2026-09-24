@@ -32,8 +32,9 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
-const brandAssetBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.15";
+const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
+const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
 assert.equal(claimed.background,"https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/background.jpg");
 assert.match(claimed.description,/^Puts TV episodes, specials and one-offs in the right watch order\./);
@@ -41,19 +42,32 @@ for(const [alias,canonical] of [["logo.png","branding/app-icon.png"],["backgroun
  const [a,b]=await Promise.all([readFile(new URL("./public/"+alias,import.meta.url)),readFile(new URL("./public/"+canonical,import.meta.url))]);
  assert.deepEqual(a,b,alias+" must match the canonical release asset");
 }
+const iconBytes=await readFile(new URL("./public/logo.png",import.meta.url));
+assert.equal(iconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","logo must be a real PNG");
+assert.equal(iconBytes.readUInt32BE(16),320,"logo width must preserve the approved compact master");
+assert.equal(iconBytes.readUInt32BE(20),320,"logo height must preserve the approved compact master");
+assert.ok(iconBytes.length>15000,"logo is suspiciously small and may be a degraded placeholder");
+const [heroPrimary,heroCompat]=await Promise.all([
+ readFile(new URL("./public/branding/v3/story-order-hero.svg",import.meta.url),"utf8"),
+ readFile(new URL("./public/branding/v2/story-order-order-flow.svg",import.meta.url),"utf8")
+]);
+assert.equal(heroCompat,heroPrimary,"legacy hero URL must mirror the approved primary hero");
+assert.ok(heroPrimary.length>20000,"hero is suspiciously small and may be a placeholder");
+assert.match(heroPrimary,/data:image\/webp;base64,/,"hero must embed the approved cinematic master");
+assert.doesNotMatch(heroPrimary,/MIXED METADATA|ONE NARRATIVE PATH/,"superseded schematic hero must not return");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
 assert.match(response.headers.get("content-security-policy"),/default-src 'none'/);
 const csp=response.headers.get("content-security-policy");
-assert.equal(csp.split("; ").find(rule=>rule.startsWith("img-src ")),"img-src 'self' data: "+canonicalIcon+" "+brandAssetBase+"/");
+assert.equal(csp.split("; ").find(rule=>rule.startsWith("img-src ")),"img-src 'self' data: "+brandPublicBase+"/");
 assert.match(csp,/script-src 'nonce-[^']+'/);
 assert.match(csp,/frame-ancestors 'none'/);
 const html=await response.text();
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/story-order-order-flow\.svg/);
+assert.match(html,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.15/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);
