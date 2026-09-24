@@ -1,3 +1,4 @@
+// Production smoke validates the live 1.0.10 watched-state-safe passthrough as well as source parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
