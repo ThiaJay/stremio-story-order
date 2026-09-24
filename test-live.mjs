@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.15 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
+// Production smoke validates the live 1.0.16 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -90,6 +90,10 @@ for(const id of ["tt0436992","tt0118363"]){
     assert.equal(wrapped.meta.behaviorHints?.storyOrderVersion,1);
     assert.deepEqual(wrapped.meta.behaviorHints?.storyOrder,dbg.storyOrder);
     assert.ok(Array.isArray(dbg.storyOrder)&&dbg.storyOrder.length>0);
+    for(const item of dbg.inserted||[]){
+      assert.match(String(item.reason||""),/^(provider-|full-length-date-runtime-inference|manual-override)/);
+      assert.ok(["high","medium","low","manual","inferred"].includes(item.confidence));
+    }
   }else{
     assert.equal(dbg.reason,"CANONICAL_VIDEO_COORDINATES_PRESERVED");
   }
