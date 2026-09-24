@@ -4,6 +4,8 @@
 
 Story Mode watched-state safety hardening.
 
+Production acceptance completed on 24 September 2026. The public Story Order hostname and the Cloudflare account hostname both served version 1.0.10 after deployment, and the deployed Worker bundle matched SHA-256 `487aa6f1806e2d89ebfaf45494a48c5944db7f96a246fa580cf07ab3c7b4766f`.
+
 - Removes the unreachable episode-relocation path from the hosted Worker so production cannot be re-enabled accidentally by deleting an early return.
 - Treats canonical season, episode and number coordinates as immutable while Stremio watched identity remains coupled to episode ordering.
 - Rejects missing or duplicate stable video IDs as ambiguous rather than attempting an unsafe watched-order comparison.
