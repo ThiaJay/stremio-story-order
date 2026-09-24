@@ -11,6 +11,12 @@ assert.equal(claimed.stremioAddonsConfig?.issuer,"https://stremio-addons.net");
 assert.match(claimed.stremioAddonsConfig?.signature||"",/^eyJ/);
 
 const packageVersion=JSON.parse(await readFile(new URL("./package.json",import.meta.url),"utf8")).version;
+const workerSource=await readFile(new URL("./worker.js",import.meta.url),"utf8");
+assert.doesNotMatch(
+  workerSource,
+  /\bintegrateStoryOrder\s*\(/,
+  "hosted Worker must not activate coordinate relocation until Stremio separates presentation order from canonical watched identity"
+);
 assert.equal(claimed.version,packageVersion);
 const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png";
 assert.equal(claimed.logo,canonicalIcon);
