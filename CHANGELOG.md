@@ -4,6 +4,8 @@
 
 Stable-ID Story Mode presentation contract.
 
+Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `137c59b2112bb181e2bc9cda0234dc1cffbf1b3a5af7c0ed0bc94120d2a83c06`, the public manifest reported 1.0.11 and the live stable-ID safety integration suite passed.
+
 - Publishes an additive `behaviorHints.storyOrder` list of stable video IDs with `storyOrderVersion: 1` when a meaningful narrative ordering is available.
 - Keeps the canonical upstream video array, video IDs and season/episode coordinates unchanged.
 - Excludes ancillary Season 0 material from the narrative sequence unless it independently qualifies as story material.
