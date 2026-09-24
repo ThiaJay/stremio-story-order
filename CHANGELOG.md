@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.12 - 2026-09-24
+
+Privacy-safe Story Mode capability status.
+
+- Adds `/_story/status.json` with the live Story Order version and versioned stable-ID presentation contract.
+- Explicitly reports that canonical video IDs and season/episode coordinates are preserved and that the service does not mutate watched identity.
+- Adds a compact live status card to the configuration page.
+- Exposes no Stremio AuthKey, account state, catalogue contents, title history or user configuration.
+- Keeps the endpoint cache short and supports HEAD consistently with the rest of the hosted service.
+- Adds deterministic endpoint, privacy and configuration-page regression coverage.
+- Does not change Story Order classification, planning, metadata source behaviour or canonical video arrays.
+
 ## 1.0.11 - 2026-09-24
 
 Stable-ID Story Mode presentation contract.
