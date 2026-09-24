@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.15 - 2026-09-24
+
+Explainable Story Order decisions.
+
+- Adds a compact confidence class and stable reason to each inserted-item diagnostic.
+- Distinguishes provider regular episode repairs, significant and insignificant specials, upstream date/runtime inference and manual overrides.
+- Manual overrides remain explicitly identified rather than being presented as automatic confidence.
+- Provider confidence uses the existing matching evidence and score without changing acceptance thresholds.
+- Diagnostic explanations do not alter the published stable-ID storyOrder sequence, canonical videos or watched identity.
+
 ## 1.0.14 - 2026-09-24
 
 Guarded per-series override helper.
