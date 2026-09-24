@@ -15,7 +15,7 @@ export function mergeOverrideRule(current, input = {}) {
   const afterId = String(input.afterId || "").trim();
   const rawTargetSeason = String(input.targetSeason ?? "").trim();
 
-  if (!/^tt\\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
+  if (!/^tt\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
   if (!videoId || videoId.length > 512) throw new Error("Enter a valid video ID.");
   if (!["include","exclude"].includes(action)) throw new Error("Choose Include or Exclude.");
   if (beforeId && afterId) throw new Error("Choose either a before anchor or an after anchor, not both.");
@@ -188,7 +188,7 @@ const mergeOverrideRule=function mergeOverrideRule(current, input = {}) {
   const afterId = String(input.afterId || "").trim();
   const rawTargetSeason = String(input.targetSeason ?? "").trim();
 
-  if (!/^tt\\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
+  if (!/^tt\d{5,12}$/.test(seriesId)) throw new Error("Series ID must be an IMDb ID such as tt0436992.");
   if (!videoId || videoId.length > 512) throw new Error("Enter a valid video ID.");
   if (!["include","exclude"].includes(action)) throw new Error("Choose Include or Exclude.");
   if (beforeId && afterId) throw new Error("Choose either a before anchor or an after anchor, not both.");
