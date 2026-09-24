@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.12 stable-ID Story Mode contract and public capability status and canonical identity parity.
+// Production smoke validates the live 1.0.14 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -36,6 +36,14 @@ assert.equal(liveStatus.storyOrderContract?.canonicalVideoIdsPreserved,true);
 assert.equal(liveStatus.storyOrderContract?.watchedIdentityMutation,false);
 assert.equal(liveStatus.privacy?.stremioAuthKeyRequired,false);
 assert.equal(liveStatus.privacy?.accountAccess,false);
+
+const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store"});
+assert.equal(liveConfigureResponse.status,200);
+const liveConfigureHtml=await liveConfigureResponse.text();
+assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
+assert.match(liveConfigureHtml,/Per-series override helper/);
+assert.match(liveConfigureHtml,/Add override rule/);
+assert.match(liveConfigureHtml,/Advanced override JSON/);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
   method:"POST",
