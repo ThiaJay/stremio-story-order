@@ -4,6 +4,8 @@
 
 Privacy-safe Story Mode capability status.
 
+Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `cd0e1d8b2e9170b0aa1b73fcece2253f4b27e76680e69f1ead317a8a98960df1` and the public manifest reported 1.0.12.
+
 - Adds `/_story/status.json` with the live Story Order version and versioned stable-ID presentation contract.
 - Explicitly reports that canonical video IDs and season/episode coordinates are preserved and that the service does not mutate watched identity.
 - Adds a compact live status card to the configuration page.
