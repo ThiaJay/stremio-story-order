@@ -76,7 +76,7 @@ const html=await response.text();
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.15/);
+assert.match(html,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.16/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);
