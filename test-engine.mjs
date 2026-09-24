@@ -5,6 +5,7 @@ import {
   verifyIdentityInvariant,
   verifyCanonicalVideoCoordinatesInvariant,
   verifyWatchedIdentityOrder,
+  explainStoryOrderDecision,
   watchedIdentityOrder,
   upstreamFallbackCandidates
 } from "./story-order.js";
@@ -237,5 +238,33 @@ const provider=(id,name,airdate,runtime,season,type="significant_special",number
 }
 
 console.log("PASS: Story Order expanded narrative regression corpus");
+
+
+{
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"manual-override",provider:null,score:null}),
+    {confidence:"manual",reason:"manual-override"}
+  );
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"provider+override",provider:{type:"significant_special"},score:13}),
+    {confidence:"manual",reason:"provider-match-confirmed-by-manual-override"}
+  );
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"upstream-fallback",provider:null,score:null}),
+    {confidence:"inferred",reason:"full-length-date-runtime-inference"}
+  );
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"provider",provider:{type:"regular"},score:11}),
+    {confidence:"high",reason:"provider-regular-episode-repair"}
+  );
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"provider",provider:{type:"significant_special"},score:7}),
+    {confidence:"medium",reason:"provider-significant-special"}
+  );
+  assert.deepEqual(
+    explainStoryOrderDecision({source:"provider",provider:{type:"insignificant_special"},score:4}),
+    {confidence:"low",reason:"provider-insignificant-special"}
+  );
+}
 
 console.log("PASS: Story Order watched-state-safe engine suite");

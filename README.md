@@ -72,6 +72,10 @@ For the metadata source itself, successful movie/series metadata may be cached f
 
 A stream-provider outage is separate. Story Order preserves video IDs, so every installed stream addon can still try to resolve the same episode. An independent metadata addon cannot know whether another installed stream addon currently has a playable copy; Safe mode therefore avoids short-form entries most likely to have poor stream coverage.
 
+## Decision explanations
+
+Story Order diagnostics explain why each inserted narrative item was accepted. Decisions report the evidence source, matching score when available, a compact confidence class and a stable reason such as provider significant special, provider regular episode repair, manual override or full length date/runtime inference. These fields are diagnostic only and never alter canonical video IDs or watched identity.
+
 ## What Story Order will not silently do
 
 Story Order never creates or deletes video identities during automatic ordering. Provider-only episodes that do not exist in the selected metadata source are not synthesized.
@@ -146,6 +150,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.14 is the current production release.** It combines the refreshed Story Order identity and configure page with the guarded per-series override helper, the stable-ID presentation contract and the privacy-safe capability status. Production acceptance completed on 24 September 2026. The deployed Worker bundle matched SHA-256 `d9a646227ba34547279d25040452db7ad81e49ceb00af4d36628f9a63c4ac414` and the public manifest reported 1.0.14. Canonical video IDs and season or episode coordinates remain unchanged. The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
+**1.0.15 is the current release candidate.** It adds explainable Story Order decisions without changing episode membership, stable IDs or watched identity. **1.0.14 remains the accepted production release until 1.0.15 passes deployment acceptance.** It combines the refreshed Story Order identity and configure page with the guarded per-series override helper, the stable-ID presentation contract and the privacy-safe capability status. Production acceptance completed on 24 September 2026. The deployed Worker bundle matched SHA-256 `d9a646227ba34547279d25040452db7ad81e49ceb00af4d36628f9a63c4ac414` and the public manifest reported 1.0.14. Canonical video IDs and season or episode coordinates remain unchanged. The hosted configuration page is https://stremio-story-order.storyorder.workers.dev/configure and the default standalone manifest is https://stremio-story-order.storyorder.workers.dev/manifest.json.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.
