@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.10 watched-state-safe passthrough as well as source parity.
+// Production smoke validates the live 1.0.11 stable-ID Story Mode contract and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -51,6 +51,7 @@ for(const path of ["/manifest.json","/meta/series/tt0436992.json","/catalog/seri
   assert.equal((await response.text()).length,0);
 }
 
+let hintedSeries=0;
 for(const id of ["tt0436992","tt0118363"]){
   const wrapped=await get("/meta/series/"+id+".json");
   const upstreamResponse=await fetch("https://v3-cinemeta.strem.io/meta/series/"+id+".json",{cache:"no-store"});
@@ -59,11 +60,20 @@ for(const id of ["tt0436992","tt0118363"]){
   assert.deepEqual(watchedIdentityOrder(wrapped.meta.videos),watchedIdentityOrder(upstream.meta.videos));
   assert.deepEqual(wrapped.meta.videos,upstream.meta.videos);
   const dbg=await get("/_story/debug/series/"+id+".json");
-  assert.equal(dbg.mode,"emergency-watched-state-safety-passthrough");
-  assert.equal(dbg.reason,"EPISODE_REORDERING_TEMPORARILY_DISABLED");
+  assert.ok(["stable-id-story-order-hint","canonical-video-passthrough"].includes(dbg.mode));
+  if(dbg.mode==="stable-id-story-order-hint"){
+    hintedSeries++;
+    assert.equal(dbg.reason,"PRESENTATION_ORDER_PUBLISHED_WITH_CANONICAL_IDENTITIES");
+    assert.equal(wrapped.meta.behaviorHints?.storyOrderVersion,1);
+    assert.deepEqual(wrapped.meta.behaviorHints?.storyOrder,dbg.storyOrder);
+    assert.ok(Array.isArray(dbg.storyOrder)&&dbg.storyOrder.length>0);
+  }else{
+    assert.equal(dbg.reason,"CANONICAL_VIDEO_COORDINATES_PRESERVED");
+  }
 }
+assert.ok(hintedSeries>=1,"live Story Order should publish at least one validated stable-ID narrative sequence");
 
 const movie=await get("/meta/movie/tt0133093.json");
 assert.equal(movie.meta.name,"The Matrix");
 
-console.log("PASS: Story Order live emergency safety integration suite");
+console.log("PASS: Story Order live stable-ID safety integration suite");
