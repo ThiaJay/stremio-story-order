@@ -5,7 +5,7 @@ import { fetchJsonResilient } from "./upstream.js";
 import { planStoryOrder, showOverrideFor } from "./story-order.js";
 import { configurationPage, BRAND_ICON_URL } from "./config-page.js";
 
-const VERSION = "1.0.12";
+const VERSION = "1.0.13";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
   issuer: "https://stremio-addons.net",
   signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
