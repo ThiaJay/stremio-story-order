@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   integrateStoryOrder,
   verifyIdentityInvariant,
+  verifyCanonicalVideoCoordinatesInvariant,
   verifyWatchedIdentityOrder,
   watchedIdentityOrder,
   upstreamFallbackCandidates
@@ -108,6 +109,42 @@ const provider=(id,name,airdate,runtime,season,type="significant_special",number
   const out=integrateStoryOrder(source,[provider(9,"Black Canary","1998-12-24",120,2)],{});
   assert.equal(out.mode,"watched-state-safe-passthrough");
   assert.deepEqual(watchedIdentityOrder(out.videos),ids);
+}
+
+{
+  const before=[
+    regular("coord:1:1",1,1,"2020-01-01",50,"One"),
+    regular("coord:1:2",1,2,"2020-01-08",50,"Two")
+  ];
+  const sameIdentityOrder=[
+    {...before[0],episode:10,number:10},
+    {...before[1],episode:20,number:20}
+  ];
+  assert.equal(verifyIdentityInvariant(before,sameIdentityOrder),true);
+  assert.equal(verifyWatchedIdentityOrder(before,sameIdentityOrder),true,"relative watched identity order alone is not a sufficient production guard");
+  assert.equal(verifyCanonicalVideoCoordinatesInvariant(before,sameIdentityOrder),false,"canonical episode coordinates must remain immutable in safety mode");
+}
+
+{
+  const duplicateBefore=[
+    regular("dup:1:1",1,1,"2020-01-01",50,"One"),
+    regular("dup:1:1",1,2,"2020-01-08",50,"Duplicate")
+  ];
+  const duplicateAfter=structuredClone(duplicateBefore);
+  assert.equal(verifyIdentityInvariant(duplicateBefore,duplicateAfter),false,"duplicate stable IDs make watched identity ambiguous");
+  assert.equal(verifyWatchedIdentityOrder(duplicateBefore,duplicateAfter),false);
+}
+
+{
+  const videos=[
+    regular("immutable:1:1",1,1,"2020-01-01",50,"One"),
+    regular("immutable:1:2",1,2,"2020-01-08",50,"Two"),
+    special("immutable:0:7","Holiday Story","2020-01-05",55)
+  ];
+  const snapshot=structuredClone(videos);
+  const out=integrateStoryOrder(videos,[provider(77,"Holiday Story","2020-01-05",55,1)],{order:{profile:"safe"}});
+  assert.deepEqual(videos,snapshot,"ordering analysis must never mutate upstream video metadata");
+  assert.deepEqual(out.videos,snapshot,"blocked relocation must return the canonical video array unchanged");
 }
 
 console.log("PASS: Story Order watched-state-safe engine suite");

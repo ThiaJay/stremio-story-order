@@ -1,11 +1,9 @@
 import { encodeConfig, decodeConfig, defaultConfig, normalizeConfig } from "./config-token.js";
 import { resolveSource, publicSourceChoices } from "./source-registry.js";
-import { getEpisodeEnrichment } from "./provider.js";
 import { fetchJsonResilient } from "./upstream.js";
-import { integrateStoryOrder, verifyIdentityInvariant, verifyWatchedIdentityOrder, showOverrideFor } from "./story-order.js";
 import { configurationPage, BRAND_ICON_URL } from "./config-page.js";
 
-const VERSION = "1.0.9";
+const VERSION = "1.0.10";
 const STREMIO_ADDONS_CONFIG = Object.freeze({
   issuer: "https://stremio-addons.net",
   signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FaDf7hoYiC8hvtwSmN30PQ.mtnxarf04PR-5yTg-14UxmLYcnOJFn8ATQsLvlOX47JouFo9xSVwebh8_OCptIRD9i7uJBKn2b7iPaQ11duUzEKe_uIS9tKNYL5o6zb_ENxs_qn1r4lrHFWg40w6Mt9D.sLJQDol-6J0cvZqrJdBKBw"
@@ -48,17 +46,6 @@ function errorResponse(error, status = 400) {
       "permissions-policy": "camera=(), microphone=(), geolocation=(), payment=()"
     })
   });
-}
-
-function imdbIdFromMeta(meta, requestedId) {
-  const candidates = [meta?.imdb_id, meta?._imdbId, meta?.behaviorHints?.imdbId, requestedId];
-  return candidates.find(value => /^tt\d+$/.test(String(value || ""))) || null;
-}
-
-function tvdbIdFromMeta(meta) {
-  const candidates = [meta?.tvdb_id, meta?._tvdbId, meta?.behaviorHints?.tvdbId];
-  const value = candidates.find(x => /^\d+$/.test(String(x || "")));
-  return value ? String(value) : null;
 }
 
 function configuredManifest(upstreamManifest, source) {
@@ -108,43 +95,19 @@ async function createConfiguration(request, env) {
   if (!upstream.payload) return { payload: null, status: upstream.status, diagnostics: { upstream } };
   const payload = structuredClone(upstream.payload);
   const meta = payload?.meta;
-  const diagnostics = { upstream: { source: upstream.source, stale: upstream.stale }, enrichment: null, inserted: [], mode: "emergency-watched-state-safety-passthrough", reason: "EPISODE_REORDERING_TEMPORARILY_DISABLED" };
+  const diagnostics = {
+    upstream: { source: upstream.source, stale: upstream.stale },
+    enrichment: null,
+    inserted: [],
+    mode: "emergency-watched-state-safety-passthrough",
+    reason: "EPISODE_REORDERING_TEMPORARILY_DISABLED"
+  };
   if (!meta || !Array.isArray(meta.videos)) return { payload, status: 200, diagnostics };
-  return { payload, status: 200, diagnostics };
 
-  const imdbId = imdbIdFromMeta(meta, requestedId);
-  const tvdbId = tvdbIdFromMeta(meta);
-  const enrichment = await getEpisodeEnrichment({ imdbId, tvdbId }, env, ctx);
-  diagnostics.enrichment = { source: enrichment.source, error: enrichment.error || null };
-
-  const before = meta.videos;
-  const result = integrateStoryOrder(before, enrichment.episodes, {
-    order: config.order,
-    override: showOverrideFor(config.overrides, imdbId)
-  });
-  if (!verifyIdentityInvariant(before, result.videos)) {
-    diagnostics.identityInvariant = "failed-safe-noop";
-    return { payload, status: 200, diagnostics };
-  }
-
-  const watchedSafe = verifyWatchedIdentityOrder(before, result.videos);
-  if (!watchedSafe || result.mode === "watched-state-safe-passthrough") {
-    diagnostics.identityInvariant = "pass";
-    diagnostics.watchedIdentityInvariant = watchedSafe ? "pass-through" : "failed-safe-noop";
-    diagnostics.mode = result.mode;
-    diagnostics.inserted = [];
-    diagnostics.blocked = result.blocked || [];
-    diagnostics.blockedReason = result.blockedReason || "STREMIO_WATCHED_IDENTITY_ORDER_WOULD_CHANGE";
-    diagnostics.imdbId = imdbId;
-    return { payload, status: 200, diagnostics };
-  }
-
-  if (result.inserted.length) payload.meta = { ...meta, videos: result.videos };
-  diagnostics.identityInvariant = "pass";
-  diagnostics.watchedIdentityInvariant = "pass";
-  diagnostics.mode = result.mode;
-  diagnostics.inserted = result.inserted;
-  diagnostics.imdbId = imdbId;
+  // Production deliberately returns the upstream video array unchanged. Stremio currently
+  // derives watched identity and native autoplay semantics from canonical episode coordinates.
+  // Story-order planning remains isolated in story-order.js until presentation order can be
+  // separated from canonical watched identity.
   return { payload, status: 200, diagnostics };
 }
 

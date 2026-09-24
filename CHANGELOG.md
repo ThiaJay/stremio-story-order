@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.10 - 2026-09-24
+
+Story Mode watched-state safety hardening.
+
+- Removes the unreachable episode-relocation path from the hosted Worker so production cannot be re-enabled accidentally by deleting an early return.
+- Treats canonical season, episode and number coordinates as immutable while Stremio watched identity remains coupled to episode ordering.
+- Rejects missing or duplicate stable video IDs as ambiguous rather than attempting an unsafe watched-order comparison.
+- Keeps the ordering engine available for development while requiring fail-safe passthrough whenever watched identity or canonical coordinates would change.
+- Adds regressions for same-order coordinate mutation, duplicate IDs and input immutability.
+- Adds a source-level production gate proving the hosted Worker does not call the relocation engine.
+
+
 ## 1.0.9 - 2026-09-21
 
 Private AIOMetadata compatibility and release hardening.
