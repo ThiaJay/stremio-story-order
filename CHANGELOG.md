@@ -4,6 +4,8 @@
 
 Reconciled branding and integrity release.
 
+Production acceptance completed on 24 September 2026. The live Worker bundle matched SHA-256 `1769bb461ccf0bc14055d076be0565d6d42bbbdee4329404be15e0a4f51a6db6` and the public manifest reported 1.0.16.
+
 - Carries forward explainable Story Order decision diagnostics and the approved cinematic branding.
 - Replaces the incorrect file-size heuristic for the compact 320x320 logo with an exact Git blob integrity check for approved master `92068e099691bae94f1b1636c7ad8b3a5d012bc8`.
 - Keeps PNG signature and 320x320 dimension checks in addition to exact byte identity.
