@@ -53,8 +53,8 @@ const iconGitBlobSha=createHash("sha1")
   .digest("hex");
 assert.equal(
   iconGitBlobSha,
-  "30a32e7f0cde11bf646e2eee0fcc80cb6f817e77",
-  "logo bytes must match the approved compact master"
+  "92068e099691bae94f1b1636c7ad8b3a5d012bc8",
+  "checked-out logo bytes must match the approved compact master"
 );
 const [heroPrimary,heroCompat]=await Promise.all([
  readFile(new URL("./public/branding/v3/story-order-hero.svg",import.meta.url),"utf8"),
