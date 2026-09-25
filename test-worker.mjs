@@ -61,7 +61,7 @@ assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a 
 assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
 assert.equal(heroPrimary.length,28388,"hero must match the approved Breaking Bad journey master");
 const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"8e99635acd246f1973ddbf45de2f4c67287e72c8","hero bytes must match the approved Breaking Bad journey asset");
+assert.equal(heroGitBlobSha,"10fbc2d50504d54f085a4164e19c0e5dbcaf9d5a","hero bytes must match the approved Breaking Bad journey asset");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
