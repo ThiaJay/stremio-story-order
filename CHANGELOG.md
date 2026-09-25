@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.20 - 2026-09-25
+
+Full concept page implementation.
+
+- Implements the approved cinematic mockup more completely with a branded navigation bar, three large setup stages, stronger installation emphasis and a more editorial Story Order page rhythm.
+- Keeps Breaking Bad as the narrative example while preserving Story Order owned hero artwork rather than depending on third party promotional artwork.
+- Preserves the spacious responsive layout, accessibility, existing configuration behaviour and stable episode identity contract.
+
 ## 1.0.19 - 2026-09-25
 
 Optically centred Story Order emblem.
