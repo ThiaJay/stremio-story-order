@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.17";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.18";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -59,9 +59,9 @@ assert.equal(
 const heroPrimary=await readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url));
 assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a real WebP");
 assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
-assert.ok(heroPrimary.length>7000,"hero file is unexpectedly small");
+assert.equal(heroPrimary.length,28482,"hero must match the approved 1000x375 panoramic master");
 const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"f898ac82cc64695570a6e53036a19dd523d76ed5","hero bytes must match the current direct WebP asset");
+assert.equal(heroGitBlobSha,"cddde00199bc6f2a26a0903d01d2564856e896e9","hero bytes must match the approved direct WebP asset");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.18 - 2026-09-25
+
+Direct panoramic hero repair.
+
+- Publishes the exact 1000 by 375 panoramic Story Order artwork generated from the approved cinematic master.
+- Serves the hero directly as WebP instead of relying on an SVG embedded image path.
+- Locks the hero to 28,482 bytes and Git blob `cddde00199bc6f2a26a0903d01d2564856e896e9` so degraded substitutes fail CI.
+- Keeps the legacy hero SVG paths as lightweight compatibility wrappers pointing to the canonical WebP.
+- Retains the spacious 1.0.17 configure layout and all Story Order ordering behaviour unchanged.
+
+
 ## 1.0.17 - 2026-09-25
 
 Panoramic Story Order presentation refresh.

@@ -30,11 +30,14 @@ The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embe
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
-- `public/branding/v2/story-order-order-flow.svg` must remain byte-identical to `public/branding/v3/story-order-hero.svg` for backward compatibility.
+- `public/branding/v2/story-order-order-flow.svg` and `public/branding/v3/story-order-hero.svg` are compatibility wrappers that point to the canonical WebP.
 - Approved v1.0.17 hero Git blob SHA: `4665a9c1cf5ec5bb861632d4964f90187b5f8659`.
 - `step-1-source.svg` through `step-4-install.svg` support the setup sequence.
 - `profile-safe.svg`, `profile-balanced.svg`, `profile-complete.svg` and `profile-custom.svg` identify ordering profiles.
 - `feature-ids-preserved.svg`, `feature-stream-independent.svg`, `feature-outage-aware.svg` and `feature-private.svg` support the trust and behaviour cards.
+
+- Approved hero size is 28,482 bytes. Approved hero Git blob is `cddde00199bc6f2a26a0903d01d2564856e896e9`.
+- Approved hero SHA-256 is `884e53a7965c3a706beaa52b508f305a19604533af86a8af0d090164410763a5`.
 
 ## Meaning
 
