@@ -61,7 +61,7 @@ assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","liv
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
-for(const [name,size] of [["hero-01.webp",8260],["hero-02.webp",7952],["hero-03.webp",7994],["hero-04.webp",7948],["hero-05.webp",8218]]){
+for(const [name,size] of [["hero-01.webp",8260],["hero-02.webp",7952],["hero-03.webp",7994],["hero-04.webp",7948],["hero-05.webp",8607]]){
  const response=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/"+name+"?v=1.0.24",{cache:"no-store"});
  assert.equal(response.status,200,name+" live status");
  const bytes=Buffer.from(await response.arrayBuffer());

@@ -61,7 +61,7 @@ const heroTiles=[
   ["hero-02.webp",7952,"f7ca4bd23bf0e2f1b610a9177dbe6c2b53329f8c"],
   ["hero-03.webp",7994,"585d1b40ab70cd16fce3603398394f3d37e5ff04"],
   ["hero-04.webp",7948,"11b41b85a19f4600949f8840fd044eebc31fd711"],
-  ["hero-05.webp",8218,"7d00fdb9e00cfc27607f3f4dd8909fc2487f05c3"]
+  ["hero-05.webp",8607,"7d00fdb9e00cfc27607f3f4dd8909fc2487f05c3"]
 ];
 for(const [name,size,sha] of heroTiles){
  const bytes=await readFile(new URL("./public/branding/v4/"+name,import.meta.url));
