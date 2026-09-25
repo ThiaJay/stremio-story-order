@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.26 - 2026-09-25
+
+Safer programme example branding.
+
+- Replaces the periodic-table style Breaking Bad title treatment in the example card with a plain Story Order branded series label.
+- Keeps the Breaking Bad narrative example and Granite State to Felina to El Camino sequence unchanged.
+- Adds regression checks preventing the previous Br and Ba tile treatment from returning.
+- Leaves the approved cinematic hero, ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.25 - 2026-09-25
 
 Canonical icon centring consistency.

@@ -51,17 +51,17 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.25`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.26`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.25`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.26`;
 export const BRAND_HERO_TILES = [
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.25`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.25`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.25`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.25`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.25`
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.26`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.26`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.26`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.26`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.26`
 ];
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.25`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.26`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -167,13 +167,13 @@ const CSS_BREAKING_JOURNEY = `
 .hero-visual:after{content:"Stay with the story. Follow the characters.";max-width:220px}
 .concept-steps{position:relative}.concept-steps:before{content:"";position:absolute;left:9%;right:9%;top:43px;height:2px;background:linear-gradient(90deg,#32d7ff55,#7657ee88,#ffb74d66);filter:drop-shadow(0 0 8px #37c8ff55);z-index:0}.concept-step{z-index:1;border-radius:24px}.concept-step:nth-child(1){transform:translateY(5px)}.concept-step:nth-child(3){transform:translateY(-5px)}
 .section{border-radius:26px}.section:after{content:"";position:absolute;left:0;top:26px;bottom:26px;width:3px;border-radius:4px;background:linear-gradient(180deg,#32d7ff,#655cf0 55%,#ffb74d);opacity:.6;box-shadow:0 0 18px #32d7ff30}
-.breaking-card{overflow:hidden}.breaking-card:before{background:radial-gradient(circle at 90% 10%,#d3a31b18,transparent 35%),linear-gradient(145deg,#0b2035,#08162b 62%,#15152d)}.bb-banner{position:relative;display:flex;align-items:end;justify-content:space-between;gap:12px;margin:16px 0 13px;padding:14px 15px;border:1px solid #4c6c46;border-radius:14px;background:linear-gradient(100deg,#082719,#2e3d12 56%,#8d6813);overflow:hidden}.bb-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 53%,#f4c04c20 54%,transparent 70%)}.bb-mark{position:relative;z-index:1;font-size:1.08rem;font-weight:850;letter-spacing:.01em}.bb-mark b{display:inline-grid;place-items:center;min-width:28px;padding:2px 4px;margin-right:1px;border:1px solid #dff6dcaa;background:#1b7044;color:#fff}.bb-banner small{position:relative;z-index:1;color:#e8ddb1}
+.breaking-card{overflow:hidden}.breaking-card:before{background:radial-gradient(circle at 90% 10%,#d3a31b18,transparent 35%),linear-gradient(145deg,#0b2035,#08162b 62%,#15152d)}.series-example-banner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 13px;padding:13px 14px;border:1px solid #355b8e;border-radius:14px;background:linear-gradient(110deg,#0a1b36,#10244a 58%,#201a48);overflow:hidden}.series-example-banner:before{content:"";position:absolute;width:96px;height:96px;right:-28px;top:-48px;border:1px solid #53d8ff26;border-radius:50%;box-shadow:0 0 0 20px #665cff0a}.series-example-banner:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#32d7ff,#655cf0 58%,#ffb74d);opacity:.8}.example-title{position:relative;z-index:1;font-size:1.02rem;font-weight:900;letter-spacing:.035em;color:#fff}.example-title:before{content:"Series";display:inline-block;margin-right:8px;padding:3px 6px;border:1px solid #4b6e9d;border-radius:7px;background:#0a1730;color:#8fdfff;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;vertical-align:2px}.series-example-banner small{position:relative;z-index:1;color:#aebddb}
 .sequence-compare{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}.sequence-column{display:grid;gap:7px;min-width:0}.sequence-label{color:#8fdfff;text-transform:uppercase;letter-spacing:.12em;font-size:.66rem;font-weight:850}.sequence-column.before .sequence-label{color:#e8a989}.sequence-item{display:grid;grid-template-columns:22px minmax(0,1fr);column-gap:7px;align-items:center;padding:8px 9px;border:1px solid #29446e;border-radius:11px;background:#071329}.sequence-item span{grid-row:1/3;display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:#10294e;color:#9ec6ff;font-weight:850;font-size:.72rem}.sequence-item b{font-size:.78rem;overflow-wrap:anywhere}.sequence-item small{color:#7188ad;font-size:.68rem}.sequence-item.misplaced{border-color:#9a6046;background:linear-gradient(145deg,#251318,#1a1725)}.sequence-item.misplaced span{background:#6c2c25;color:#ffd2bb}.sequence-item.story-next{border-color:#4fcfa4;background:linear-gradient(145deg,#0a2924,#0b2032);box-shadow:0 0 22px #35d9a51a}.sequence-item.story-next span{background:#125b47;color:#95f2cf}.sequence-arrow{font-size:2rem;color:#54bfff;text-shadow:0 0 18px #36b9ff}.journey-caption{margin:14px 0 0;padding:10px 12px;border-left:3px solid #ffbd51;color:#c8d6ee;background:#0a162a99;font-size:.82rem;font-style:italic}
 .trust-card{background:linear-gradient(155deg,#0a1830,#0b1528 70%,#15172f)}
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
-@media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.bb-banner{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.25 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.26 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -310,7 +310,7 @@ function installSection() {
 }
 function sidePanel() {
   return `<aside id="examples" class="side-stack"><section class="panel side-card preview-card breaking-card"><p class="side-kicker">What changes</p><h3>One story. Correct sequence.</h3><p class="muted">Story Order keeps you with the characters and puts follow-on stories where the narrative actually continues.</p>
-<div class="bb-banner"><span class="bb-mark"><b>Br</b>eaking <b>Ba</b>d</span><small>Story Order example</small></div>
+<div class="series-example-banner"><span class="example-title">Breaking Bad</span><small>Story Order example</small></div>
 <div class="sequence-compare"><div class="sequence-column before"><span class="sequence-label">Before</span><div class="sequence-item misplaced"><span>1</span><b>El Camino</b><small>2019</small></div><div class="sequence-item"><span>2</span><b>S05E15</b><small>Granite State</small></div><div class="sequence-item"><span>3</span><b>S05E16</b><small>Felina</small></div></div><span class="sequence-arrow" aria-hidden="true">&rsaquo;</span><div class="sequence-column after"><span class="sequence-label">With Story Order</span><div class="sequence-item"><span>1</span><b>S05E15</b><small>Granite State</small></div><div class="sequence-item"><span>2</span><b>S05E16</b><small>Felina</small></div><div class="sequence-item story-next"><span>3</span><b>El Camino</b><small>The story continues</small></div></div></div>
 <p class="journey-caption">Follow the story with the characters. Felina flows directly into El Camino.</p>
 <p class="order-note"><strong>Same episode IDs. Better narrative path.</strong> Your installed stream addons still receive the original episode identity.</p></section>
