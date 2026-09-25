@@ -1,4 +1,4 @@
-// Production smoke verifies the accepted live 1.0.20 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
+// Production smoke verifies the accepted live 1.0.21 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -48,23 +48,27 @@ assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
 assert.match(liveConfigureHtml,/class="concept-steps"/);
 assert.match(liveConfigureHtml,/class="flow"/);
+assert.match(liveConfigureHtml,/Breaking Bad/);
+assert.match(liveConfigureHtml,/Felina/);
+assert.match(liveConfigureHtml,/El Camino/);
+assert.match(liveConfigureHtml,/sequence-compare/);
 
-const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.20",{cache:"no-store"});
+const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.21",{cache:"no-store"});
 assert.equal(liveIconResponse.status,200);
 const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
-assert.equal(liveIconBytes.length,19237,"live compact icon must match the approved master size");
+assert.equal(liveIconBytes.length,24654,"live compact icon must match the approved centred master size");
 assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","live compact icon must be a PNG");
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
-const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.webp?v=1.0.20",{cache:"no-store"});
+const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.webp?v=1.0.21",{cache:"no-store"});
 assert.equal(liveHeroResponse.status,200);
 const liveHero=Buffer.from(await liveHeroResponse.arrayBuffer());
 assert.equal(liveHero.length,28482,"live hero must match the approved 1000x375 panoramic master");
 assert.equal(liveHero.subarray(0,4).toString("ascii"),"RIFF");
 assert.equal(liveHero.subarray(8,12).toString("ascii"),"WEBP");
 
-const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.20",{cache:"no-store"});
+const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.21",{cache:"no-store"});
 assert.equal(legacyHeroResponse.status,200);
 const legacyHero=await legacyHeroResponse.text();
 assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.20/);

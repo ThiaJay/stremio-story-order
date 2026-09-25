@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.21 - 2026-09-25
+
+Breaking Bad narrative journey and centred emblem.
+
+- Replaces the generic narrative example with a clear Breaking Bad sequence showing Granite State, Felina and El Camino in the intended story order.
+- Makes the right rail explicitly compare a misplaced follow-on with the corrected Story Order path.
+- Strengthens the page identity with a connected journey treatment, cinematic section spine and Breaking Bad themed example panel.
+- Replaces the canonical addon icon with an optically centred Story Order portal master so the play graphic no longer appears right biased.
+- Keeps the caravan journey hero, viewer-led story concept, existing stream addon independence and stable-ID safety contract.
+
 ## 1.0.20 - 2026-09-25
 
 Full concept page implementation.
