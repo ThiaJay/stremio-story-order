@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.31 is the current production release.** It keeps the continuous 1114 by 305 hero from 1.0.30 and completes the visual alignment pass across setup badges, numbered section headings and profile icons. The Breaking Bad example rail now uses a dedicated Story Order narrative-path treatment rather than the previous generic gradient background. The plain Breaking Bad identification remains in place. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.32 is the current production release.** It keeps the continuous hero and cinematic Breaking Bad example rail, while correcting the remaining alignment regression from 1.0.31. Number badges, setup icons, section headings, profile icons, sequence numbers and arrows are now centred as complete boxes with no manual glyph nudges. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

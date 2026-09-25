@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.32 - 2026-09-25
+
+Alignment lock.
+
+- Removes the manual one pixel numeral shift introduced in 1.0.31.
+- Centres complete number, icon and text boxes instead of nudging individual glyphs.
+- Locks setup badges, section numbers, profile icons, sequence numbers and directional arrows to explicit centre alignment.
+- Keeps the accepted cinematic narrative-path background in the Breaking Bad example rail unchanged.
+- Keeps the continuous 1114 by 305 hero unchanged.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.31 - 2026-09-25
 
 Visual alignment and cinematic example rail.
