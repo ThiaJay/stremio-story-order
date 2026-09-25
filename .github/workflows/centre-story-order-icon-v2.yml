@@ -1,0 +1,38 @@
+name: Centre Story Order Icon V2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.centre-story-order-icon-v2'
+      - '.github/workflows/centre-story-order-icon-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  centre:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: python3 -m pip install --quiet pillow opencv-python-headless numpy
+      - run: python3 scripts/centre-story-order-icon.py
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test
+      - run: npm audit --audit-level=high
+      - name: Commit centred master
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Story Order Release Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/logo.png public/branding/app-icon.png public/branding/v3/story-order-app-icon.png config-page.js worker.js package.json package-lock.json test-worker.mjs test-live.mjs BRANDING.md CHANGELOG.md
+          git commit -m "fix: optically centre Story Order emblem"
+          git push origin HEAD:main
