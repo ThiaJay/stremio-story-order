@@ -1,39 +1,24 @@
 name: Rebuild Story Order Cinematic Hero
-
 on:
   push:
     branches:
       - repair/v1.0.22-cinematic-hero
-    paths:
-      - '.hero-v22/**'
-      - '.github/workflows/rebuild-v22-hero.yml'
-      - 'test-worker.mjs'
-
 permissions:
   contents: write
-
 jobs:
   rebuild:
-    if: github.event.head_commit.message == 'ops: stage verified Story Order 1.0.22 hero'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Reconstruct verified hero
-        shell: bash
         run: |
           set -euo pipefail
           cat .hero-v22/part00 .hero-v22/part01 .hero-v22/part02 .hero-v22/part03 .hero-v22/part04 .hero-v22/part05 .hero-v22/part06 .hero-v22/part07 .hero-v22/part08 .hero-v22/part09 .hero-v22/part10 .hero-v22/part11 .hero-v22/part12 .hero-v22/part13 | base64 -d > public/branding/v3/story-order-hero.webp
           test "$(wc -c < public/branding/v3/story-order-hero.webp)" -eq 28388
-          test "$(sha256sum public/branding/v3/story-order-hero.webp | awk '{print $1}')" = "191f285ea4015775118806f28bd0b86c0b6a302a7b9862c3ca97e097fd6f3851"
-          node - <<'NODE'
-          const fs=require('fs'),crypto=require('crypto');
-          const b=fs.readFileSync('public/branding/v3/story-order-hero.webp');
-          const h=crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\0')).update(b).digest('hex');
-          if(h!=='10fbc2d50504d54f085a4164e19c0e5dbcaf9d5a') throw new Error(h);
-          if(b.subarray(0,4).toString()!=='RIFF'||b.subarray(8,12).toString()!=='WEBP') throw new Error('not webp');
-          NODE
+          test "$(sha256sum public/branding/v3/story-order-hero.webp | cut -d' ' -f1)" = "191f285ea4015775118806f28bd0b86c0b6a302a7b9862c3ca97e097fd6f3851"
+          test "$(head -c 4 public/branding/v3/story-order-hero.webp)" = "RIFF"
       - name: Verify release
         run: |
           npm ci --ignore-scripts
@@ -41,7 +26,6 @@ jobs:
           npm test
           npm audit --audit-level=high
       - name: Commit repaired hero
-        shell: bash
         run: |
           set -euo pipefail
           git config user.name "Story Order Release Bot"
