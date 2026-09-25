@@ -68,7 +68,7 @@ p.write_text(s, encoding="utf-8")
 
 p = Path("test-worker.mjs")
 s = p.read_text(encoding="utf-8")
-s = s.replace("logo.png?v=1.0.18", "logo.png?v=1.0.19")
+s = s.replace("1.0.18", "1.0.19")
 s = re.sub(r'assert\.equal\(\s*iconGitBlobSha,\s*"[0-9a-f]{40}",', 'assert.equal(\n  iconGitBlobSha,\n  "' + gitsha + '",', s, count=1)
 p.write_text(s, encoding="utf-8")
 
