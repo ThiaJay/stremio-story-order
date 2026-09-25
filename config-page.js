@@ -53,7 +53,7 @@ export function mergeOverrideRule(current, input = {}) {
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.17`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.17`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.svg?v=1.0.17`;
 const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.17`;
 
 const CSS = `

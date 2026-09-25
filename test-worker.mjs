@@ -56,20 +56,17 @@ assert.equal(
   "92068e099691bae94f1b1636c7ad8b3a5d012bc8",
   "checked-out logo bytes must match the approved compact master"
 );
-const [heroPrimary,heroCompat,heroCompatV3]=await Promise.all([
- readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url)),
- readFile(new URL("./public/branding/v2/story-order-order-flow.svg",import.meta.url),"utf8"),
- readFile(new URL("./public/branding/v3/story-order-hero.svg",import.meta.url),"utf8")
+const [heroPrimary,heroCompat]=await Promise.all([
+ readFile(new URL("./public/branding/v3/story-order-hero.svg",import.meta.url),"utf8"),
+ readFile(new URL("./public/branding/v2/story-order-order-flow.svg",import.meta.url),"utf8")
 ]);
-assert.equal(heroPrimary.length,51910,"hero must match the approved panoramic WebP master");
-assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a real WebP");
-assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
-const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"f898ac82cc64695570a6e53036a19dd523d76ed5","hero bytes must match the approved panoramic master");
-for(const wrapper of [heroCompat,heroCompatV3]){
- assert.match(wrapper,/story-order-hero\.webp\?v=1\.0\.17/,"compatibility hero must point to the approved panoramic master");
- assert.doesNotMatch(wrapper,/MIXED METADATA|ONE NARRATIVE PATH/,"superseded schematic hero must not return");
-}
+assert.equal(heroCompat,heroPrimary,"legacy hero URL must mirror the approved panoramic master");
+assert.equal(heroPrimary.length,20419,"hero must match the approved panoramic master");
+assert.match(heroPrimary,/data:image\/webp;base64,/,"hero must embed the approved cinematic panorama");
+assert.doesNotMatch(heroPrimary,/MIXED METADATA|ONE NARRATIVE PATH/,"superseded schematic hero must not return");
+const heroBytes=Buffer.from(heroPrimary,"utf8");
+const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroBytes.length}\0`)).update(heroBytes).digest("hex");
+assert.equal(heroGitBlobSha,"4665a9c1cf5ec5bb861632d4964f90187b5f8659","hero bytes must match the approved panoramic master");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
@@ -82,7 +79,7 @@ const html=await response.text();
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.17/);
+assert.match(html,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.17/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);

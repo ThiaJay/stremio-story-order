@@ -41,8 +41,8 @@ const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store
 assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
-assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.17/);
-assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.16/);
+assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.svg\?v=1\.0\.17/);
+assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.17/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
@@ -57,18 +57,17 @@ assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","liv
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
-const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.webp?v=1.0.17",{cache:"no-store"});
+const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.svg?v=1.0.17",{cache:"no-store"});
 assert.equal(liveHeroResponse.status,200);
-const liveHero=Buffer.from(await liveHeroResponse.arrayBuffer());
-assert.equal(liveHero.length,51910,"live cinematic hero must match the approved panoramic master");
-assert.equal(liveHero.subarray(0,4).toString("ascii"),"RIFF");
-assert.equal(liveHero.subarray(8,12).toString("ascii"),"WEBP");
+const liveHero=await liveHeroResponse.text();
+assert.equal(liveHero.length,20419,"live cinematic hero must match the approved panoramic master");
+assert.match(liveHero,/data:image\/webp;base64,/);
+assert.doesNotMatch(liveHero,/MIXED METADATA|ONE NARRATIVE PATH/);
 
 const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.17",{cache:"no-store"});
 assert.equal(legacyHeroResponse.status,200);
 const legacyHero=await legacyHeroResponse.text();
-assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.17/);
-assert.doesNotMatch(legacyHero,/MIXED METADATA|ONE NARRATIVE PATH/);
+assert.equal(legacyHero,liveHero,"legacy hero URL must mirror the approved panoramic master");
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
   method:"POST",
