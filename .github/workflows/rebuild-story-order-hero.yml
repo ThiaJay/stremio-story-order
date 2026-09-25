@@ -35,7 +35,7 @@ jobs:
           if(b.subarray(0,4).toString('ascii')!=='RIFF') process.exit(2);
           if(b.subarray(8,12).toString('ascii')!=='WEBP') process.exit(3);
           const sha=crypto.createHash('sha256').update(b).digest('hex');
-          if(sha!=='eef9cc0a57ee696c8cd0d7d3c153f9b2e92e52c1f3de343950c8ce918948d36a') process.exit(4);
+          if(sha!=='c4c75444946f0185220963fdba4120ec7b831bbfbe7a62b8b8c407192c9d0c9f') process.exit(4);
           console.log('hero_sha256',sha);
           NODE
       - name: Verify full Story Order release
