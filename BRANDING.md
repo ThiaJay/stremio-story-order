@@ -41,6 +41,8 @@ The live configure hero is the approved Breaking Bad journey artwork delivered a
 
 The configure hero must show the viewer moving with the Breaking Bad story world toward the corrected sequence and desert caravan. The five live tiles reproduce that signed off composition without relying on a single oversized repository transfer.
 
+The Breaking Bad example card identifies the programme in plain text using Story Order's own interface styling. Do not reproduce the programme's periodic table title treatment or add atomic number tiles to that card.
+
 ## Meaning
 
 The visual system must communicate ordering rather than recommendation. Story Order keeps the same programme and the same underlying episode identities while publishing a narrative presentation order for episodes, specials and one-offs.
