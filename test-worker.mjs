@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.27";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.28";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -63,13 +63,14 @@ const heroTiles=[
   ["hero-02.webp",7952,"f7ca4bd23bf0e2f1b610a9177dbe6c2b53329f8c"],
   ["hero-03.webp",7994,"585d1b40ab70cd16fce3603398394f3d37e5ff04"],
   ["hero-04.webp",7948,"11b41b85a19f4600949f8840fd044eebc31fd711"],
-  ["hero-05.webp",8607,"7d00fdb9e00cfc27607f3f4dd8909fc2487f05c3"]
+  ["hero-05.webp",8218,"d975842db2e1a9e487cb1cfd2a71dcc2739e5da6"]
 ];
 for(const [name,size,sha] of heroTiles){
  const bytes=await readFile(new URL("./public/branding/v4/"+name,import.meta.url));
  assert.equal(bytes.length,size,name+" size");
  assert.equal(bytes.subarray(0,4).toString("ascii"),"RIFF",name+" must be WebP");
  assert.equal(bytes.subarray(8,12).toString("ascii"),"WEBP",name+" must be WebP");
+ assert.equal(bytes.readUInt32LE(4)+8,bytes.length,name+" RIFF length must match the actual file length");
  const actual=createHash("sha1").update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest("hex");
  assert.equal(actual,sha,name+" bytes must match approved Breaking Bad journey tile");
 }
@@ -91,16 +92,20 @@ assert.doesNotMatch(html,/translateX\(-3px\)/,"configure page must not apply a s
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v4\/story-order-hero-master\.svg\?v=1\.0\.27/);
+assert.match(html,/branding\/v4\/story-order-hero-master\.svg\?v=1\.0\.28/);
 assert.match(html,/class="hero-master"/);
 assert.doesNotMatch(html,/class="hero-tiles"/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);
 assert.match(html,/AIOMetadata/);
-assert.match(html,/class="hero hero-refresh"/);
+assert.match(html,/class="hero hero-refresh hero-production"/);
+assert.match(html,/class="hero-story-flow"/);
+assert.match(html,/class="hero-series-label"/);
 assert.match(html,/class="concept-steps"/);
-assert.match(html,/concept-steps:before\{display:none!important\}/,"setup strip must not draw the old connector rule");
+assert.match(html,/class="concept-icon"/);
+assert.match(html,/concept-step:not\(:last-child\):after\{content:">"/,"setup strip should use one consistent directional cue");
+assert.match(html,/border:0!important;border-radius:0;background:transparent!important/,"release override must neutralise legacy internal dividers");
 assert.match(html,/class="flow"/);
 assert.match(html,/Breaking Bad/);
 assert.match(html,/class="example-title">Breaking Bad</);
