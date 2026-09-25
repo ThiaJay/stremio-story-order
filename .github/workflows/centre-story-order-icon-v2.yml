@@ -36,3 +36,4 @@ jobs:
           git add public/logo.png public/branding/app-icon.png public/branding/v3/story-order-app-icon.png config-page.js worker.js package.json package-lock.json test-worker.mjs test-live.mjs BRANDING.md CHANGELOG.md
           git commit -m "fix: optically centre Story Order emblem"
           git push origin HEAD:main
+# trigger 2026-09-25
