@@ -44,7 +44,7 @@ The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embe
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` use the optically centred v1.0.21 portal master. Git blob `8d50c42091c24fc80ef5e1a200359f8e4cfce2ac`.\n
 The configure hero uses the approved Breaking Bad journey artwork from the signed-off mockup. It must show the viewer moving with the story world toward the corrected sequence and desert caravan, not a generic landscape or abstract episode ribbon.
 
-## Meaning
+The live configure hero is delivered as five seamless verified WebP tiles under `public/branding/v4/`. Together they reproduce the approved Breaking Bad caravan journey without relying on a single oversized repository transfer.\n\n## Meaning
 
 The visual system must communicate ordering rather than recommendation. Story Order keeps the same programme and the same underlying episode identities while publishing a narrative presentation order for episodes, specials and one-offs.
 

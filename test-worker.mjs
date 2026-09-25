@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.23";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.24";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -56,12 +56,21 @@ assert.equal(
   "ed91dc7c10b5454482e562c4d085effc7d0e0bc0",
   "checked-out logo bytes must match the approved compact master"
 );
-const heroPrimary=await readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url));
-assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a real WebP");
-assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
-assert.equal(heroPrimary.length,46622,"hero must match the approved Breaking Bad journey master");
-const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"5ff8adc87d32c218ea3855935d77a08867dc33f6","hero bytes must match the approved Breaking Bad journey asset");
+const heroTiles=[
+  ["hero-01.webp",8260,"1b6665edbf79458b31046698d2575b8c38139012"],
+  ["hero-02.webp",7952,"f7ca4bd23bf0e2f1b610a9177dbe6c2b53329f8c"],
+  ["hero-03.webp",7994,"585d1b40ab70cd16fce3603398394f3d37e5ff04"],
+  ["hero-04.webp",7948,"11b41b85a19f4600949f8840fd044eebc31fd711"],
+  ["hero-05.webp",8218,"7d00fdb9e00cfc27607f3f4dd8909fc2487f05c3"]
+];
+for(const [name,size,sha] of heroTiles){
+ const bytes=await readFile(new URL("./public/branding/v4/"+name,import.meta.url));
+ assert.equal(bytes.length,size,name+" size");
+ assert.equal(bytes.subarray(0,4).toString("ascii"),"RIFF",name+" must be WebP");
+ assert.equal(bytes.subarray(8,12).toString("ascii"),"WEBP",name+" must be WebP");
+ const actual=createHash("sha1").update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest("hex");
+ assert.equal(actual,sha,name+" bytes must match approved Breaking Bad journey tile");
+}
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
@@ -74,7 +83,7 @@ const html=await response.text();
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.22/);
+assert.match(html,/branding\/v4\/hero-01\.webp\?v=1\.0\.24/);\nassert.match(html,/branding\/v4\/hero-05\.webp\?v=1\.0\.24/);\nassert.match(html,/class="hero-tiles"/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);

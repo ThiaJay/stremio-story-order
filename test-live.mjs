@@ -1,4 +1,4 @@
-// Production smoke verifies the accepted live 1.0.23 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
+// Production smoke verifies the accepted live 1.0.24 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -41,8 +41,8 @@ const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store
 assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
-assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.22/);
-assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.22/);
+assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.24/);
+assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.24/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
@@ -53,7 +53,7 @@ assert.match(liveConfigureHtml,/Felina/);
 assert.match(liveConfigureHtml,/El Camino/);
 assert.match(liveConfigureHtml,/sequence-compare/);
 
-const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.23",{cache:"no-store"});
+const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.24",{cache:"no-store"});
 assert.equal(liveIconResponse.status,200);
 const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
 assert.equal(liveIconBytes.length,19237,"live compact icon must match the approved master size");
@@ -61,17 +61,19 @@ assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","liv
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
-const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.webp?v=1.0.23",{cache:"no-store"});
-assert.equal(liveHeroResponse.status,200);
-const liveHero=Buffer.from(await liveHeroResponse.arrayBuffer());
-assert.equal(liveHero.length,46622,"live hero must match the approved Breaking Bad journey master");
-assert.equal(liveHero.subarray(0,4).toString("ascii"),"RIFF");
-assert.equal(liveHero.subarray(8,12).toString("ascii"),"WEBP");
+for(const [name,size] of [["hero-01.webp",8260],["hero-02.webp",7952],["hero-03.webp",7994],["hero-04.webp",7948],["hero-05.webp",8218]]){
+ const response=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/"+name+"?v=1.0.24",{cache:"no-store"});
+ assert.equal(response.status,200,name+" live status");
+ const bytes=Buffer.from(await response.arrayBuffer());
+ assert.equal(bytes.length,size,name+" live size");
+ assert.equal(bytes.subarray(0,4).toString("ascii"),"RIFF");
+ assert.equal(bytes.subarray(8,12).toString("ascii"),"WEBP");
+}
 
-const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.23",{cache:"no-store"});
+const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.24",{cache:"no-store"});
 assert.equal(legacyHeroResponse.status,200);
 const legacyHero=await legacyHeroResponse.text();
-assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.22/);
+assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.24/);
 assert.doesNotMatch(legacyHero,/MIXED METADATA|ONE NARRATIVE PATH/);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{

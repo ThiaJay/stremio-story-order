@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.24 - 2026-09-25
+
+Approved hero delivery hardening.
+
+- Publishes the signed-off Breaking Bad caravan journey as five seamless verified WebP tiles, avoiding the repository transfer truncation that blocked the full single-file master.
+- Reassembles the five tiles into the full cinematic 1000 by 375 hero in the browser with no visible gaps.
+- Keeps the connected three-stage setup journey and the visible Breaking Bad before-and-after Felina to El Camino explanation.
+- Leaves ordering logic, stable episode IDs, privacy and stream-addon independence unchanged.
+
 ## 1.0.23 - 2026-09-25
 
 Approved Breaking Bad cinematic concept.

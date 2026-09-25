@@ -51,10 +51,17 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.23`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.24`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.23`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.23`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.24`;
+export const BRAND_HERO_TILES = [
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.24`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.24`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.24`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.24`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.24`
+];
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.24`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -166,7 +173,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.bb-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.23 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.24 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -210,7 +217,11 @@ const CSS_BREAKING_JOURNEY = `
 `;
 
 const CSS_APPROVED_CONCEPT = `
-.hero-visual img{object-position:right center}
+.hero-visual img{object-position:center}
+.hero-tiled{overflow:hidden}
+.hero-tiles{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);width:100%;height:100%}
+.hero-tiles img{display:block;width:100%;height:100%;min-width:0;object-fit:cover;object-position:center;border:0;border-radius:0}
+.hero-tiles img+img{margin-left:-1px;width:calc(100% + 1px)}
 .hero-refresh:before{background:linear-gradient(90deg,#061124 0%,#071124f8 23%,#071124df 36%,#0711248f 48%,#0711242e 63%,transparent 78%),linear-gradient(0deg,#071124d4 0%,transparent 40%)}
 .hero-visual:after{display:none!important}
 .concept-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:14px 16px;border:1px solid #2e5384;border-radius:22px;background:linear-gradient(145deg,#0a1830ee,#0b1730e8);box-shadow:0 18px 50px #02071342}
@@ -237,7 +248,7 @@ function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
-<header class="hero hero-refresh"><figure class="hero-visual"><img src="${BRAND_HERO_URL}" alt="A viewer follows the Breaking Bad story path from misplaced episodes through Story Order towards Felina, El Camino and the desert caravan" width="1000" height="320"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
+<header class="hero hero-refresh"><figure class="hero-visual hero-tiled" aria-label="A viewer follows the Breaking Bad story path from misplaced episodes through Story Order towards Felina, El Camino and the desert caravan"><div class="hero-tiles">${BRAND_HERO_TILES.map((src,index)=>`<img src="${src}" alt="" aria-hidden="true" width="200" height="375" data-hero-tile="${index+1}">`).join("")}</div></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
 <p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
