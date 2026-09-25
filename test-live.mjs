@@ -46,7 +46,7 @@ assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.20/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
-assert.match(liveConfigureHtml,/class="journey-strip"/);
+assert.match(liveConfigureHtml,/class="concept-steps"/);
 assert.match(liveConfigureHtml,/class="flow"/);
 
 const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.20",{cache:"no-store"});
