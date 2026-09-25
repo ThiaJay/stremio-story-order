@@ -128,7 +128,7 @@ assert.match(html,/class="concept-icon-frame"/);
 assert.match(html,/class="concept-num"><span>1<\/span><\/span>/);
 assert.match(html,/class="step-num"><span>1<\/span><\/div>/);
 assert.match(html,/class="profile-icon-frame"/);
-assert.match(html,/height:68px!important;min-height:68px!important/);
+assert.match(html,/height:68px!important;\s*min-height:68px!important/);
 assert.match(html,/border-top:2px solid #49cfff!important/);
 assert.match(html,/transform:translateY\(-50%\) rotate\(45deg\)!important/);
 assert.match(html,/choice-grid\.profiles \.choice-box:before\{top:23px!important\}/);

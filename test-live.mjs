@@ -58,7 +58,7 @@ assert.match(liveConfigureHtml,/class="concept-icon-frame"/);
 assert.match(liveConfigureHtml,/class="concept-num"><span>1<\/span><\/span>/);
 assert.match(liveConfigureHtml,/class="step-num"><span>1<\/span><\/div>/);
 assert.match(liveConfigureHtml,/class="profile-icon-frame"/);
-assert.match(liveConfigureHtml,/height:68px!important;min-height:68px!important/);
+assert.match(liveConfigureHtml,/height:68px!important;\s*min-height:68px!important/);
 assert.match(liveConfigureHtml,/border-top:2px solid #49cfff!important/);
 assert.match(liveConfigureHtml,/transform:translateY\(-50%\) rotate\(45deg\)!important/);
 assert.match(liveConfigureHtml,/choice-grid\.profiles \.choice-box:before\{top:23px!important\}/);
