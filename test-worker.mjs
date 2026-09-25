@@ -82,6 +82,8 @@ assert.match(html,/AIOMetadata/);
 assert.match(html,/class="hero hero-refresh"/);
 assert.match(html,/class="journey-strip"/);
 assert.match(html,/class="flow"/);
+assert.match(html,/Breaking Bad/);
+assert.doesNotMatch(html,/Doctor Who/);
 assert.match(html,/name="sourceKind"/);
 assert.match(html,/name="profile"/);
 assert.match(html,/Install Story Order/);

@@ -1,5 +1,13 @@
 # Changelog
 
+## Interface refinement - 2026-09-25
+
+Breaking Bad example and cinematic interface refinement.
+
+- Replaces the Doctor Who preview with Breaking Bad.
+- Adds a more distinctive Story Order visual language to cards, selected profiles, the setup journey and narrative preview.
+- Preserves the roomy layout and all existing functionality.
+
 ## 1.0.18 - 2026-09-25
 
 Direct panoramic hero repair.
