@@ -20,7 +20,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo HERO_PART_HASHES
+          sha256sum .hero-final/part*
           cat .hero-final/part* | tr -d '\n\r' | base64 -d > /tmp/story-order-hero.webp
+          echo HERO_DECODED_HASH
+          sha256sum /tmp/story-order-hero.webp
           python3 - <<'PY'
           import hashlib, pathlib
           p=pathlib.Path("/tmp/story-order-hero.webp")
