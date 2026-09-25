@@ -127,7 +127,7 @@ assert.ok(page.html.includes("Story Order"));
 assert.ok(!/<script[^>]+src=/i.test(page.html));
 assert.ok(!/google-analytics|segment\.com|plausible\.io/i.test(page.html));
 assert.match(page.html,/no Stremio AuthKey/i);
-assert.match(page.html,/Service status/);
+assert.match(page.html,/id="serviceState"/);\nassert.match(page.html,/No Stremio account access/);
 assert.match(page.html,/Per-series override helper/);
 assert.match(page.html,/Add override rule/);
 assert.match(page.html,/Advanced override JSON/);
