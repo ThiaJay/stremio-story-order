@@ -275,7 +275,7 @@ const CSS_RELEASE_130 = `
 @media(max-width:620px){.hero-continuous{aspect-ratio:1114/305;min-height:0!important;border-radius:18px}.hero-continuous .hero-approved{object-fit:contain!important}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_129 + CSS_RELEASE_130; }
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><link rel="preload" as="image" href="${BRAND_HERO_CONTINUOUS_URL}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
@@ -415,20 +415,6 @@ function applyProfile(){ const p=radioValue("profile"); if(p==="safe"){ $("short
 document.querySelectorAll('input[name="sourceKind"]').forEach(x=>x.addEventListener("change",sourceVisibility));
 document.querySelectorAll('input[name="profile"]').forEach(x=>x.addEventListener("change",applyProfile));
 sourceVisibility();applyProfile();
-async function revealHeroArt(){
-  const hero=document.querySelector(".hero-production");
-  const imgs=[...document.querySelectorAll(".hero-tile")];
-  if(!hero||!imgs.length)return;
-  const waitFor=img=>new Promise(resolve=>{
-    const finish=async ok=>{if(ok&&typeof img.decode==="function"){try{await img.decode()}catch{}}resolve(ok&&img.naturalWidth>0)};
-    if(img.complete){finish(img.naturalWidth>0);return}
-    img.addEventListener("load",()=>finish(true),{once:true});
-    img.addEventListener("error",()=>finish(false),{once:true});
-  });
-  const ready=await Promise.all(imgs.map(waitFor));
-  if(ready.every(Boolean))hero.classList.add("hero-art-ready");
-}
-revealHeroArt();
 async function loadServiceStatus(){
   const box=$("serviceState"),title=$("serviceStateTitle"),detail=$("serviceStateDetail");
   if(!box||!title||!detail)return;
