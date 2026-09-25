@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.30";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.31";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -67,6 +67,11 @@ assert.equal(continuousHero.subarray(8,12).toString("ascii"),"WEBP");
 assert.equal(continuousHero.readUInt32LE(4)+8,continuousHero.length,"continuous hero RIFF length");
 const continuousHeroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${continuousHero.length}\0`)).update(continuousHero).digest("hex");
 assert.equal(continuousHeroGitBlobSha,"0382c90fc2835027cd25296feac4b57339eafa2d","continuous hero bytes must match the approved master");
+const examplePath=await readFile(new URL("./public/branding/v5/example-story-path.svg",import.meta.url),"utf8");
+assert.match(examplePath,/viewBox="0 0 390 250"/);
+assert.match(examplePath,/id="path"/);
+assert.match(examplePath,/M168 228 C214 208/);
+assert.equal((examplePath.match(/<rect/g)||[]).length>=4,true,"example rail visual must include framed story cards");
 const heroTiles=[
   ["hero-01.webp",8260,"1b6665edbf79458b31046698d2575b8c38139012"],
   ["hero-02.webp",7952,"f7ca4bd23bf0e2f1b610a9177dbe6c2b53329f8c"],
@@ -101,7 +106,7 @@ assert.doesNotMatch(html,/translateX\(-3px\)/,"configure page must not apply a s
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v5\/story-order-hero-approved\.webp\?v=1\.0\.30/);
+assert.match(html,/branding\/v5\/story-order-hero-approved\.webp\?v=1\.0\.31/);
 assert.match(html,/class="hero-approved"/);
 assert.match(html,/rel="preload" as="image"/);
 assert.doesNotMatch(html,/class="hero-tiles"/);
@@ -120,6 +125,11 @@ assert.doesNotMatch(html,/hero-art-ready/);
 assert.match(html,/class="concept-steps"/);
 assert.match(html,/class="concept-icon"/);
 assert.match(html,/class="concept-icon-frame"/);
+assert.match(html,/class="concept-num"><span>1<\/span><\/span>/);
+assert.match(html,/class="step-num"><span>1<\/span><\/div>/);
+assert.match(html,/class="profile-icon-frame"/);
+assert.match(html,/concept-num>span,.step-num>span\{display:block;line-height:1/);
+assert.match(html,/transform:translateY\(-1px\)/);
 assert.match(html,/\.concept-icon-frame\{display:grid;width:36px;height:36px;place-items:center/);
 assert.match(html,/\.step-title\{align-items:center\}/);
 assert.match(html,/concept-step:not\(:last-child\):after\{content:">"/,"setup strip should use one consistent directional cue");
@@ -127,6 +137,8 @@ assert.match(html,/border:0!important;border-radius:0;background:transparent!imp
 assert.match(html,/class="flow"/);
 assert.match(html,/Breaking Bad/);
 assert.match(html,/class="example-title">Breaking Bad</);
+assert.match(html,/branding\/v5\/example-story-path\.svg\?v=1\.0\.31/);
+assert.match(html,/\.breaking-card:before\{content:"";position:absolute;inset:0/);
 assert.doesNotMatch(html,/<b>Br<\/b>eaking <b>Ba<\/b>d|bb-mark/,"series example must use Story Order styling rather than the programme title treatment");
 assert.match(html,/S05E16/);
 assert.match(html,/Felina/);

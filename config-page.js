@@ -51,12 +51,13 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.30`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.31`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.30`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.30`;
-export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.30`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.30`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.31`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.31`;
+export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.31`;
+export const BRAND_EXAMPLE_PATH_URL = `${BRAND_PUBLIC_BASE}/branding/v5/example-story-path.svg?v=1.0.31`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.31`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -168,7 +169,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.30 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.31 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -275,31 +276,62 @@ const CSS_RELEASE_130 = `
 @media(max-width:620px){.hero-continuous{aspect-ratio:1114/305;min-height:0!important;border-radius:18px}.hero-continuous .hero-approved{object-fit:contain!important}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130; }
+const CSS_RELEASE_131 = `
+.concept-num,.step-num{display:grid!important;place-items:center!important;padding:0!important;line-height:1!important}
+.concept-num>span,.step-num>span{display:block;line-height:1;font-variant-numeric:tabular-nums;transform:translateY(-1px)}
+.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px;align-items:center}
+.concept-num{justify-self:center!important;align-self:center!important}
+.concept-copy{display:flex;min-height:42px;justify-content:center}
+.concept-icon-frame{display:grid!important;width:36px;height:36px;place-items:center;align-self:center;justify-self:center}
+.concept-icon{display:block;width:28px;height:28px;margin:0!important;object-fit:contain;object-position:center}
+.concept-step:not(:last-child):after{top:50%;transform:translateY(-50%);line-height:1}
+.step-title{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;align-items:center}
+.step-num{width:36px;height:36px;align-self:center;justify-self:center}
+.step-title>div:last-child{display:flex;min-height:40px;flex-direction:column;justify-content:center}
+.step-title h2{margin:0 0 3px!important;line-height:1.18}.step-title p{margin:0;line-height:1.35}
+.profile-icon-frame{display:grid;width:34px;height:34px;place-items:center;margin:0 0 8px}
+.profile-icon-frame .profile-icon{display:block;width:30px;height:30px;margin:0!important;object-fit:contain;object-position:center}
+.choice-box strong{line-height:1.2}
+.sequence-item span{line-height:1;padding-bottom:1px}
+.breaking-card{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(155deg,#08162c 0%,#071329 63%,#111733 100%)}
+.breaking-card:before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(180deg,#06132910 0%,#07132920 44%,#071329ef 73%,#071329 100%),url("${BRAND_EXAMPLE_PATH_URL}");background-repeat:no-repeat;background-position:right top;background-size:100% 100%,100% auto;opacity:.95;pointer-events:none}
+.breaking-card:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 82% 12%,#2ec8ff16,transparent 34%),linear-gradient(90deg,#071329d9 0%,#071329b8 47%,transparent 78%);box-shadow:inset 0 0 0 1px #4e86b61c}
+.breaking-card>*{position:relative;z-index:2}
+.breaking-card .muted{max-width:29ch;color:#aebfda}
+.series-example-banner{background:linear-gradient(110deg,#081a34e8,#10234ae5 58%,#201a48df);backdrop-filter:blur(7px);border-color:#3a6596}
+.sequence-item{background:#071329e8;backdrop-filter:blur(4px)}
+.sequence-item.misplaced{background:linear-gradient(145deg,#29151be8,#171624e8)}
+.sequence-item.story-next{background:linear-gradient(145deg,#0a2d27e8,#0a1d30e8)}
+.journey-caption{background:#071329b8}
+.order-note{background:linear-gradient(145deg,#0b1934ef,#15214bef)}
+@media(max-width:900px){.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px}.breaking-card:before{background-size:100% 100%,cover}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130 + CSS_RELEASE_131; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><link rel="preload" as="image" href="${BRAND_HERO_CONTINUOUS_URL}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
 <header class="hero hero-production hero-continuous"><figure class="hero-visual" aria-label="Story Order Breaking Bad example showing Granite State, Felina and El Camino in narrative order"><img class="hero-approved" src="${BRAND_HERO_CONTINUOUS_URL}" alt="" aria-hidden="true" width="1114" height="305" loading="eager" decoding="async" fetchpriority="high"></figure><div class="sr-only"><h1>Story Order</h1><p>Correct order. Complete stories. Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p><p>Breaking Bad example. Granite State, Felina, El Camino.</p></div></header>
-<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num">2</span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num">3</span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></span></article></div>
+<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num"><span>1</span></span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num"><span>2</span></span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num"><span>3</span></span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></span></article></div>
 <div class="grid"><main class="flow"><form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
 </div><footer><span>Story Order | Puts TV episodes, specials and one-offs in the right watch order.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
 </div><script nonce="${nonce}">${clientScript()}</script></body></html>`;
 }
 function formSections(customOption) {
-  return `<section class="section"><div class="step-title"><div class="step-num">1</div><div><h2>Where should Story Order get series information?</h2><p>Leave Cinemeta selected unless you already use AIOMetadata or another supported metadata addon.</p></div></div>
+  return `<section class="section"><div class="step-title"><div class="step-num"><span>1</span></div><div><h2>Where should Story Order get series information?</h2><p>Leave Cinemeta selected unless you already use AIOMetadata or another supported metadata addon.</p></div></div>
 <div class="choice-grid">
 <label class="choice"><input type="radio" name="sourceKind" value="cinemeta" checked><span class="choice-box"><strong>Cinemeta - simplest</strong><small>No extra setup. Recommended for most people.</small><span class="recommended">Recommended</span></span></label>
 <label class="choice"><input type="radio" name="sourceKind" value="aiometadata"><span class="choice-box"><strong>AIOMetadata</strong><small>Use your existing configured AIOMetadata setup and let Story Order fix its episode sequence.</small></span></label>
 ${customOption}</div>
 <div id="manifestRow" class="field hidden"><label for="manifestUrl">Metadata addon manifest URL</label><input id="manifestUrl" type="url" inputmode="url" autocomplete="off" placeholder="https://.../manifest.json"><div class="muted">Your source URL is encrypted into the Story Order install URL.</div></div>
 </section>
-<section class="section"><div class="step-title"><div class="step-num">2</div><div><h2>How much should Story Order include?</h2><p>Safe handles the common cases without pulling short-form extras into autoplay.</p></div></div>
+<section class="section"><div class="step-title"><div class="step-num"><span>2</span></div><div><h2>How much should Story Order include?</h2><p>Safe handles the common cases without pulling short-form extras into autoplay.</p></div></div>
 <div class="choice-grid profiles">
-<label class="choice"><input type="radio" name="profile" value="safe" checked><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-safe.svg")}" alt="" aria-hidden="true"><strong>Safe</strong><small>Full episodes, specials and one-offs. Keeps minisodes and prequels in Specials.</small><span class="recommended">Recommended</span></span></label>
-<label class="choice"><input type="radio" name="profile" value="balanced"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-balanced.svg")}" alt="" aria-hidden="true"><strong>Balanced</strong><small>Also includes provider-confirmed significant short-form story entries.</small></span></label>
-<label class="choice"><input type="radio" name="profile" value="complete"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-complete.svg")}" alt="" aria-hidden="true"><strong>Complete story</strong><small>Includes more confirmed short-form story material.</small></span></label>
-<label class="choice"><input type="radio" name="profile" value="custom"><span class="choice-box"><img class="profile-icon" src="${brandAsset("profile-custom.svg")}" alt="" aria-hidden="true"><strong>Custom</strong><small>Fine-tune matching, extras and per-series overrides.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="safe" checked><span class="choice-box"><span class="profile-icon-frame"><img class="profile-icon" src="${brandAsset("profile-safe.svg")}" alt="" aria-hidden="true"></span><strong>Safe</strong><small>Full episodes, specials and one-offs. Keeps minisodes and prequels in Specials.</small><span class="recommended">Recommended</span></span></label>
+<label class="choice"><input type="radio" name="profile" value="balanced"><span class="choice-box"><span class="profile-icon-frame"><img class="profile-icon" src="${brandAsset("profile-balanced.svg")}" alt="" aria-hidden="true"></span><strong>Balanced</strong><small>Also includes provider-confirmed significant short-form story entries.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="complete"><span class="choice-box"><span class="profile-icon-frame"><img class="profile-icon" src="${brandAsset("profile-complete.svg")}" alt="" aria-hidden="true"></span><strong>Complete story</strong><small>Includes more confirmed short-form story material.</small></span></label>
+<label class="choice"><input type="radio" name="profile" value="custom"><span class="choice-box"><span class="profile-icon-frame"><img class="profile-icon" src="${brandAsset("profile-custom.svg")}" alt="" aria-hidden="true"></span><strong>Custom</strong><small>Fine-tune matching, extras and per-series overrides.</small></span></label>
 </div>
 <div class="warning">Short-form episodes are more likely to have no playable stream. Safe is the best starting point for most people.</div>
 ${advancedOptions()}</section>${installSection()}`;
@@ -330,7 +362,7 @@ function advancedOptions() {
 }
 
 function installSection() {
-  return `<section id="install-stage" class="section install-stage"><div class="step-title"><div class="step-num">3</div><div><h2>Create your install link</h2><p>Story Order will generate a private configuration link for Stremio.</p></div></div>
+  return `<section id="install-stage" class="section install-stage"><div class="step-title"><div class="step-num"><span>3</span></div><div><h2>Create your install link</h2><p>Story Order will generate a private configuration link for Stremio.</p></div></div>
 <button class="primary" type="submit">Create install link</button><span id="status" class="status"></span>
 <div id="result" class="result hidden"><h3><span class="ok-mark large" aria-hidden="true"></span>Story Order is ready</h3><div>Click below, approve the addon in Stremio and then open your series normally.</div>
 <a id="install" class="install">Install Story Order</a><div class="manifest">Manifest URL: <span id="manifestOut"></span></div><button id="copy" class="copy" type="button">Copy manifest URL</button></div>

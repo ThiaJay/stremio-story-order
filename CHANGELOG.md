@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.31 - 2026-09-25
+
+Visual alignment and cinematic example rail.
+
+- Applies the approved optical-centre treatment across setup badges, section numbers and profile icon frames.
+- Wraps setup and section numerals so their glyphs can be optically centred rather than relying on font baseline placement.
+- Gives the Breaking Bad example rail its own Story Order narrative-path artwork with a glowing route, story nodes and framed silhouettes instead of the generic gradient background.
+- Keeps the continuous 1114 by 305 hero, single campervan and full composition from 1.0.30 unchanged.
+- Keeps the plain Breaking Bad identification and does not reproduce the programme's periodic-table title treatment.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.30 - 2026-09-25
 
 Continuous hero and optical alignment correction.
