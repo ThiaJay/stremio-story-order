@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.28 is the current production release.** It rebuilds the configure interface around the approved wide production mockup, keeps the cinematic Breaking Bad journey as background atmosphere and renders all important titles, badges and story-sequence information as crisp live HTML. The fifth hero tile is repaired and byte-integrity checked, the setup strip uses one consistent visual system and the safer plain Breaking Bad identification remains in place. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.29 is the current production release.** It fixes the remaining hero presentation defect by loading the five repaired artwork tiles directly, preloading them and revealing the complete composition only after every tile has decoded. Desktop framing now follows the artwork's native 1000 by 375 ratio so the full design is shown instead of being cropped to fill a wider box. The Story Order copy and plain Breaking Bad identification remain crisp live interface elements. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

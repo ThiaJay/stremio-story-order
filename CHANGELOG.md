@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.29 - 2026-09-25
+
+Atomic hero rendering and full-composition framing.
+
+- Stops rendering the desktop hero through an SVG containing five independently decoded WebP images.
+- Preloads the five repaired hero tiles directly and reveals them only after every tile has loaded and decoded, preventing the intermittent black final section seen in Chromium.
+- Uses the artwork's native 1000 by 375 aspect ratio on desktop instead of object-fit cover, so the complete composition is shown rather than cropping its top and bottom.
+- Removes the duplicate live episode-card overlay from the hero while retaining the crisp Story Order copy and plain Breaking Bad identification.
+- Keeps a lower-detail fallback behind the tiles until the complete hero is ready.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.28 - 2026-09-25
 
 Production UI rebuild and hero integrity repair.

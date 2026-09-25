@@ -51,11 +51,18 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.28`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.29`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.28`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.28`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.28`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.29`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.29`;
+export const BRAND_HERO_TILES = [
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.29`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.29`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.29`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.29`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.29`
+];
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.29`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -167,7 +174,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.28 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.29 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -237,18 +244,34 @@ const CSS_APPROVED_CONCEPT = `
 @media(max-width:900px){.concept-steps{grid-template-columns:1fr;padding:8px}.concept-step+ .concept-step{border-left:0;border-top:1px solid #29486f}.concept-step small{margin-left:46px}.grid{grid-template-columns:1fr}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128; }
+const CSS_RELEASE_129 = `
+.hero-production{aspect-ratio:1000/375;min-height:0;height:auto;background:#061126}
+.hero-production .hero-tiled{position:absolute;inset:0;background:#061126 url("${BRAND_HERO_URL}") center/cover no-repeat}
+.hero-production .hero-master{display:none!important}
+.hero-production .hero-tiles{position:absolute;inset:0;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));width:100%;height:100%;opacity:0;transition:opacity .14s linear}
+.hero-production.hero-art-ready .hero-tiles{opacity:1}
+.hero-production .hero-tile{display:block;width:100%;height:100%;min-width:0;object-fit:fill;object-position:center;border:0;border-radius:0}
+.hero-production .hero-tile+ .hero-tile{margin-left:-1px;width:calc(100% + 1px)}
+.hero-production:before{background:linear-gradient(90deg,#061126f8 0%,#07142bf1 23%,#08162cc7 39%,#07112445 55%,transparent 72%),linear-gradient(180deg,#06112646 0%,transparent 19%,transparent 78%,#06112656 100%)}
+.hero-production .hero-copy{width:45%;padding:34px 36px}
+.hero-production .hero-series-label{right:20px;top:18px}
+.hero-production .hero-story-flow{display:none!important}
+@media(max-width:1080px){.hero-production{aspect-ratio:1000/420}.hero-production .hero-copy{width:49%;padding:30px}.hero-production .hero-series-label{right:16px}}
+@media(max-width:900px){.hero-production{aspect-ratio:auto;min-height:520px}.hero-production .hero-tiles{grid-template-columns:repeat(5,20%);left:50%;right:auto;width:1000px;transform:translateX(-56%)}.hero-production .hero-copy{width:100%;padding:230px 22px 22px}.hero-production .hero-series-label{right:16px;top:16px}}
+@media(max-width:620px){.hero-production{min-height:550px}.hero-production .hero-copy{padding:260px 18px 20px}.hero-production .hero-series-label{right:12px;top:12px}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_129; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
+<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}">${BRAND_HERO_TILES.map(src=>`<link rel="preload" as="image" href="${src}">`).join("")}<title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
-<header class="hero hero-refresh hero-production"><figure class="hero-visual hero-tiled" aria-label="Breaking Bad story example moving from Granite State through Felina into El Camino"><img class="hero-master" src="${BRAND_HERO_MASTER_URL}" alt="" aria-hidden="true" width="1000" height="375"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
+<header class="hero hero-refresh hero-production"><figure class="hero-visual hero-tiled" aria-label="Breaking Bad story example moving from Granite State through Felina into El Camino"><div class="hero-tiles">${BRAND_HERO_TILES.map((src,index)=>`<img class="hero-tile" src="${src}" alt="" aria-hidden="true" width="200" height="375" loading="eager" decoding="async" fetchpriority="high" data-hero-tile="${index+1}">`).join("")}</div></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
 <p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
 </div>
 <div class="hero-series-label"><span>Story example</span><strong>Breaking Bad</strong></div>
-<div class="hero-story-flow" aria-label="Story order example"><div class="hero-story-card"><span>S05E15</span><strong>Granite State</strong></div><span class="hero-story-arrow" aria-hidden="true">&rsaquo;</span><div class="hero-story-card"><span>S05E16</span><strong>Felina</strong></div><span class="hero-story-arrow" aria-hidden="true">&rsaquo;</span><div class="hero-story-card hero-story-next"><span>Film</span><strong>El Camino</strong><small>2019</small></div></div>
 </header>
 <div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">2</span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">3</span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></article></div>
 <div class="grid"><main class="flow"><form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
@@ -384,6 +407,20 @@ function applyProfile(){ const p=radioValue("profile"); if(p==="safe"){ $("short
 document.querySelectorAll('input[name="sourceKind"]').forEach(x=>x.addEventListener("change",sourceVisibility));
 document.querySelectorAll('input[name="profile"]').forEach(x=>x.addEventListener("change",applyProfile));
 sourceVisibility();applyProfile();
+async function revealHeroArt(){
+  const hero=document.querySelector(".hero-production");
+  const imgs=[...document.querySelectorAll(".hero-tile")];
+  if(!hero||!imgs.length)return;
+  const waitFor=img=>new Promise(resolve=>{
+    const finish=async ok=>{if(ok&&typeof img.decode==="function"){try{await img.decode()}catch{}}resolve(ok&&img.naturalWidth>0)};
+    if(img.complete){finish(img.naturalWidth>0);return}
+    img.addEventListener("load",()=>finish(true),{once:true});
+    img.addEventListener("error",()=>finish(false),{once:true});
+  });
+  const ready=await Promise.all(imgs.map(waitFor));
+  if(ready.every(Boolean))hero.classList.add("hero-art-ready");
+}
+revealHeroArt();
 async function loadServiceStatus(){
   const box=$("serviceState"),title=$("serviceStateTitle"),detail=$("serviceStateDetail");
   if(!box||!title||!detail)return;
