@@ -1,0 +1,59 @@
+name: Materialise Story Order Hero
+
+on:
+  push:
+    branches:
+      - asset-staging/v1.0.17-hero
+    paths:
+      - '.asset-staging/hero.ready'
+
+permissions:
+  contents: write
+
+jobs:
+  materialise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Rebuild exact panoramic hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .asset-staging/hero.part*.txt | tr -d '\n\r ' | base64 -d > public/branding/v3/story-order-hero.webp
+          test "$(stat -c%s public/branding/v3/story-order-hero.webp)" = "51910"
+          node - <<'NODE'
+          const fs=require('fs');
+          const crypto=require('crypto');
+          const b=fs.readFileSync('public/branding/v3/story-order-hero.webp');
+          if(b.subarray(0,4).toString('ascii')!=='RIFF') process.exit(2);
+          if(b.subarray(8,12).toString('ascii')!=='WEBP') process.exit(3);
+          const sha=crypto.createHash('sha256').update(b).digest('hex');
+          if(sha!=='eef9cc0a57ee696c8cd0d7d3c153f9b2e92e52c1f3de343950c8ce918948d36a') process.exit(4);
+          console.log('hero_sha256',sha);
+          NODE
+      - name: Verify full Story Order release
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts
+          npm run check
+          npm test
+          npm audit --audit-level=high
+      - name: Commit materialised master and remove staging
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm -r .asset-staging
+          git rm .github/workflows/rebuild-story-order-hero.yml
+          git add public/branding/v3/story-order-hero.webp
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: materialise approved panoramic hero master"
+          git push origin HEAD
