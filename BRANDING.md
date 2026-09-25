@@ -26,7 +26,7 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embeds the approved panoramic Story Order master showing unordered episode and special cards flowing through the Story Order portal into one coherent narrative sequence. It must not be replaced by a cropped portal-only image, schematic or placeholder diagram.
+The primary configure hero is `public/branding/v3/story-order-hero.webp`. It is the approved panoramic Story Order master showing unordered episode and special cards flowing through the Story Order portal into one coherent narrative sequence. It must not be replaced by a cropped portal-only image, schematic or placeholder diagram.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.

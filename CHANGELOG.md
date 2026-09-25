@@ -5,7 +5,7 @@
 Panoramic Story Order presentation refresh.
 
 - Replaces the cropped configure hero with the approved panoramic artwork showing unordered episode and special cards becoming one coherent narrative sequence.
-- Keeps the legacy `story-order-order-flow.svg` URL as an exact compatibility alias of the new cinematic hero.
+- Keeps the legacy `story-order-order-flow.svg` URL as a compatibility wrapper for the new cinematic WebP hero.
 - Widens the configure page, turns the duplicated four-card setup row into a concise three-step journey and gives each configuration step its own spacious card.
 - Changes the profile grid from four compressed columns to a readable two-by-two layout.
 - Simplifies the right-hand preview and trust rail while retaining service status, privacy and stable-ID safety messaging.
