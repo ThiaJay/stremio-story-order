@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.18";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.19";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -53,7 +53,7 @@ const iconGitBlobSha=createHash("sha1")
   .digest("hex");
 assert.equal(
   iconGitBlobSha,
-  "92068e099691bae94f1b1636c7ad8b3a5d012bc8",
+  "ed91dc7c10b5454482e562c4d085effc7d0e0bc0",
   "checked-out logo bytes must match the approved compact master"
 );
 const heroPrimary=await readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url));
@@ -74,7 +74,7 @@ const html=await response.text();
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.18/);
+assert.match(html,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.19/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);

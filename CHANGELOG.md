@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.19 - 2026-09-25
+
+Optically centred Story Order emblem.
+
+- Corrects the canonical play portal artwork being visually biased to the right inside its square.
+- Translates the existing artwork left without redesigning or restyling it.
+- Publishes the same corrected bytes to the canonical logo, app icon alias and v3 icon.
+- Cache busts public branding references and locks the corrected icon by Git blob hash.
+- Carries forward the Breaking Bad example and cinematic interface refinement.
+
 ## Interface refinement - 2026-09-25
 
 Breaking Bad example and cinematic interface refinement.

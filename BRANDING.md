@@ -39,6 +39,8 @@ The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embe
 - Approved hero size is 28,482 bytes. Approved hero Git blob is `cddde00199bc6f2a26a0903d01d2564856e896e9`.
 - Approved hero SHA-256 is `884e53a7965c3a706beaa52b508f305a19604533af86a8af0d090164410763a5`.
 
+- Optically centred v1.0.19 icon Git blob: `ed91dc7c10b5454482e562c4d085effc7d0e0bc0`. SHA-256: `65a1dfa2d6fe5c896cd4cd43f0ea4c70ec64d25d5f95783f611b260cbfd93866`. The portal artwork is translated left within the unchanged square master to correct its visual centre.
+
 ## Meaning
 
 The visual system must communicate ordering rather than recommendation. Story Order keeps the same programme and the same underlying episode identities while publishing a narrative presentation order for episodes, specials and one-offs.
