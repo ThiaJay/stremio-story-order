@@ -86,8 +86,8 @@ assert.doesNotMatch(html,/translateX\(-3px\)/,"configure page must not apply a s
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
-assert.match(html,/branding\/v4\/hero-01\.webp\?v=1\.0\.25/);
-assert.match(html,/branding\/v4\/hero-05\.webp\?v=1\.0\.25/);
+assert.match(html,/branding\/v4\/hero-01\.webp\?v=1\.0\.26/);
+assert.match(html,/branding\/v4\/hero-05\.webp\?v=1\.0\.26/);
 assert.match(html,/class="hero-tiles"/);
 assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
