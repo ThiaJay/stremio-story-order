@@ -23,7 +23,7 @@ jobs:
           python3 - <<'PY'
           import base64, hashlib, pathlib, re
           source = pathlib.Path("public/branding/v3/story-order-hero.svg").read_text(encoding="utf-8")
-          match = re.search(r'data:image/webp;base64,([^"\\s]+)', source)
+          match = re.search(r'data:image/webp;base64,([^"]+)', source)
           if not match:
               raise SystemExit("approved embedded WebP not found")
           data = base64.b64decode(match.group(1), validate=True)
