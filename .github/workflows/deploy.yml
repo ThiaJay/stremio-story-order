@@ -50,3 +50,5 @@ jobs:
             echo "::error::Live manifest version $actual does not match expected $expected"
             exit 1
           }
+      - name: Run live smoke
+        run: npm run test:live

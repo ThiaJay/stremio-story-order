@@ -26,25 +26,22 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embeds the approved panoramic Story Order master showing unordered episode and special cards flowing through the Story Order portal into one coherent narrative sequence. It must not be replaced by a cropped portal-only image, schematic or placeholder diagram.
+The live configure hero is the approved Breaking Bad journey artwork delivered as five seamless verified WebP tiles under `public/branding/v4/`. The `public/branding/v3/story-order-hero.svg` path remains a compatibility wrapper and must not replace the live tiled hero with a generic landscape, schematic or placeholder.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
 - `public/branding/v2/story-order-order-flow.svg` and `public/branding/v3/story-order-hero.svg` are compatibility wrappers that point to the canonical WebP.
-- Approved v1.0.17 hero Git blob SHA: `4665a9c1cf5ec5bb861632d4964f90187b5f8659`.
 - `step-1-source.svg` through `step-4-install.svg` support the setup sequence.
 - `profile-safe.svg`, `profile-balanced.svg`, `profile-complete.svg` and `profile-custom.svg` identify ordering profiles.
 - `feature-ids-preserved.svg`, `feature-stream-independent.svg`, `feature-outage-aware.svg` and `feature-private.svg` support the trust and behaviour cards.
 
-- Approved hero size is 28,482 bytes. Approved hero Git blob is `cddde00199bc6f2a26a0903d01d2564856e896e9`.
-- Approved hero SHA-256 is `884e53a7965c3a706beaa52b508f305a19604533af86a8af0d090164410763a5`.
 
-- Optically centred v1.0.19 icon Git blob: `ed91dc7c10b5454482e562c4d085effc7d0e0bc0`. SHA-256: `65a1dfa2d6fe5c896cd4cd43f0ea4c70ec64d25d5f95783f611b260cbfd93866`. The portal artwork is translated left within the unchanged square master to correct its visual centre.
+- The canonical optically centred PNG master is Git blob `ed91dc7c10b5454482e562c4d085effc7d0e0bc0` with SHA-256 `65a1dfa2d6fe5c896cd4cd43f0ea4c70ec64d25d5f95783f611b260cbfd93866`. The portal artwork is translated 17 pixels left within the unchanged 320 by 320 square.
+- `story-order-glyph.svg` uses the equivalent seven viewBox unit left translation so scalable surfaces match the PNG master.
 
-- `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` use the optically centred v1.0.21 portal master. Git blob `8d50c42091c24fc80ef5e1a200359f8e4cfce2ac`.\n
-The configure hero uses the approved Breaking Bad journey artwork from the signed-off mockup. It must show the viewer moving with the story world toward the corrected sequence and desert caravan, not a generic landscape or abstract episode ribbon.
+The configure hero must show the viewer moving with the Breaking Bad story world toward the corrected sequence and desert caravan. The five live tiles reproduce that signed off composition without relying on a single oversized repository transfer.
 
-The live configure hero is delivered as five seamless verified WebP tiles under `public/branding/v4/`. Together they reproduce the approved Breaking Bad caravan journey without relying on a single oversized repository transfer.\n\n## Meaning
+## Meaning
 
 The visual system must communicate ordering rather than recommendation. Story Order keeps the same programme and the same underlying episode identities while publishing a narrative presentation order for episodes, specials and one-offs.
 

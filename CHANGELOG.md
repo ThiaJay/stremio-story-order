@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.25 - 2026-09-25
+
+Canonical icon centring consistency.
+
+- Removes the page-only three pixel left shift now that the canonical 320 by 320 Story Order icon is already optically centred.
+- Applies the equivalent optical centring to the scalable Story Order glyph so the favicon and vector surfaces match the PNG master.
+- Locks both behaviours in deterministic and live smoke tests.
+- Reconciles public release metadata and the package lock root version with the actual release.
+- Leaves the approved Breaking Bad journey hero, ordering logic, stable episode IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.24 - 2026-09-25
 
 Approved hero delivery hardening.

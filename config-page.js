@@ -51,17 +51,17 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.24`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.25`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.24`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.25`;
 export const BRAND_HERO_TILES = [
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.24`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.24`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.24`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.24`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.24`
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.25`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.25`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.25`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.25`,
+  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.25`
 ];
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.24`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.25`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -173,7 +173,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.bb-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.24 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.25 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -184,7 +184,7 @@ const CSS_BREAKING_JOURNEY = `
 .hero-refresh .strap{max-width:560px}
 .hero-visual img{object-position:center center}
 .hero-visual:after{display:none}
-.hero-copy .logo-card img,.topbar-brand img{transform:translateX(-3px)}
+
 .concept-steps{margin:18px 0 0;padding:9px;border:1px solid #2b4d7b;border-radius:18px;background:linear-gradient(145deg,#0b1d39e8,#08152bdd);gap:8px;box-shadow:0 14px 36px #02071344}
 .concept-steps:before{left:11%;right:11%;top:50%;height:1px;opacity:.7}
 .concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none;min-height:0;padding:12px 14px;border:0;border-radius:13px;background:linear-gradient(145deg,#0e2140cc,#0a172ecc);box-shadow:none;display:grid;grid-template-columns:40px minmax(0,1fr);grid-template-rows:auto auto;column-gap:11px;align-items:center}
