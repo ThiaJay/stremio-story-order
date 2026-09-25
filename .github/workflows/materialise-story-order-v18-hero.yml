@@ -1,0 +1,47 @@
+name: Materialise Story Order 1.0.18 Hero
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.materialise-story-order-v18-hero'
+
+permissions:
+  contents: write
+
+jobs:
+  materialise:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Rebuild verified panorama
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .asset-transfer-v18/part0 .asset-transfer-v18/part1 .asset-transfer-v18/part2 .asset-transfer-v18/part3 | base64 -d > /tmp/story-order-hero.webp
+          python3 - <<'PY'
+          import hashlib, pathlib
+          p=pathlib.Path("/tmp/story-order-hero.webp")
+          d=p.read_bytes()
+          assert len(d)==28482, len(d)
+          assert d[:4]==b"RIFF" and d[8:12]==b"WEBP"
+          digest=hashlib.sha256(d).hexdigest()
+          assert digest=="884e53a7965c3a706beaa52b508f305a19604533af86a8af0d090164410763a5", digest
+          print("hero_verified",len(d),digest)
+          PY
+          cp /tmp/story-order-hero.webp public/branding/v3/story-order-hero.webp
+          cat > public/branding/v3/story-order-hero.svg <<'SVG'
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 375" role="img" aria-labelledby="title desc"><title id="title">Story Order panoramic journey</title><desc id="desc">Unordered episode and special cards flow through Story Order into one coherent narrative sequence.</desc><image width="1000" height="375" href="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.webp?v=1.0.18"/></svg>
+          SVG
+          cp public/branding/v3/story-order-hero.svg public/branding/v2/story-order-order-flow.svg
+      - name: Commit verified asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/branding/v3/story-order-hero.webp public/branding/v3/story-order-hero.svg public/branding/v2/story-order-order-flow.svg
+          git commit -m "fix: materialise approved Story Order panorama"
+          git push origin HEAD:main
