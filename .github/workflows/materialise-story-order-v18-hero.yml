@@ -20,7 +20,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat .asset-transfer-v18/part0 .asset-transfer-v18/part1 .asset-transfer-v18/part2 .asset-transfer-v18/part3 | base64 -d > /tmp/story-order-hero.webp
+          cat .asset-transfer-v18/part0 .asset-transfer-v18/part1 .asset-transfer-v18/part2 .asset-transfer-v18/part3a .asset-transfer-v18/part3b .asset-transfer-v18/part3c .asset-transfer-v18/part3d | base64 -d > /tmp/story-order-hero.webp
           python3 - <<'PY'
           import hashlib, pathlib
           p=pathlib.Path("/tmp/story-order-hero.webp")
