@@ -41,7 +41,7 @@ const liveConfigureResponse=await fetch(liveOrigin+"/configure",{cache:"no-store
 assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
-assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.17/);
+assert.match(liveConfigureHtml,/branding\/v3\/story-order-hero\.webp\?v=1\.0\.18/);
 assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.17/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
