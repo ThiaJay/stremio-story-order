@@ -111,7 +111,7 @@ assert.doesNotMatch(html,/Pick a show/i);
 assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the right watch order\./);
 assert.match(html,/Cinemeta - simplest/);
 assert.match(html,/AIOMetadata/);
-assert.match(html,/class="hero hero-refresh hero-production"/);
+assert.match(html,/class="hero hero-production hero-continuous"/);
 assert.doesNotMatch(html,/class="hero-story-flow"/);
 assert.doesNotMatch(html,/class="hero-series-label"/);
 assert.match(html,/aspect-ratio:1114\/305/);
