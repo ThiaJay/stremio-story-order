@@ -26,7 +26,7 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The live configure hero uses the five repaired WebP source tiles under `public/branding/v4/` directly. They are preloaded and revealed atomically only after every tile has loaded and decoded. Desktop framing follows the artwork's native 1000 by 375 ratio and must not crop the artwork to fill a wider box. `public/branding/v4/story-order-hero-master.svg` remains a compatibility asset only. The fifth source tile must have a valid RIFF length with no trailing data. Story Order copy and programme identification remain live HTML for sharpness and accessibility.
+The live configure hero is `public/branding/v5/story-order-hero-approved.webp`, a single continuous 1114 by 305 master. It replaces the former five-tile presentation, which could create visible join defects around the campervan. The live hero must preserve the complete composition with contain framing and must not crop or stitch the artwork. The older v4 tile set and `story-order-hero-master.svg` remain compatibility material only.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
@@ -43,7 +43,7 @@ The configure hero must show the viewer moving with the Breaking Bad story world
 
 The Breaking Bad example card identifies the programme in plain text using Story Order's own interface styling. Do not reproduce the programme's periodic table title treatment or add atomic number tiles to that card.
 
-The three-step setup strip should read as three equal stages inside one container. Use the approved step icons and one consistent directional cue between stages. Do not add separate connector rules or mismatched divider lines.
+The three-step setup strip should read as three equal stages inside one container. Number badges, text blocks and icon frames must share the same vertical centre. Icons use fixed 36 pixel frames with centred 28 pixel artwork and the source stage uses the centred database symbol. Keep one consistent directional cue between stages and do not add separate connector rules or mismatched divider lines.
 
 ## Meaning
 

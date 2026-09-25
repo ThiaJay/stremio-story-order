@@ -51,18 +51,12 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.29`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.30`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.29`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.29`;
-export const BRAND_HERO_TILES = [
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-01.webp?v=1.0.29`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-02.webp?v=1.0.29`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-03.webp?v=1.0.29`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-04.webp?v=1.0.29`,
-  `${BRAND_PUBLIC_BASE}/branding/v4/hero-05.webp?v=1.0.29`
-];
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.29`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.30`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.30`;
+export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.30`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.30`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -174,7 +168,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.29 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.30 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -261,19 +255,33 @@ const CSS_RELEASE_129 = `
 @media(max-width:620px){.hero-production{min-height:550px}.hero-production .hero-copy{padding:260px 18px 20px}.hero-production .hero-series-label{right:12px;top:12px}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_129; }
+const CSS_RELEASE_130 = `
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.hero-continuous{position:relative;display:block;aspect-ratio:1114/305;min-height:0!important;height:auto;padding:0!important;border:1px solid #315084;border-radius:24px;overflow:hidden;background:#061126;box-shadow:0 22px 60px #02071370}
+.hero-continuous:before,.hero-continuous:after{display:none!important}
+.hero-continuous .hero-visual{position:absolute;inset:0;margin:0;border:0;border-radius:0;background:#061126;box-shadow:none;z-index:0}
+.hero-continuous .hero-approved{display:block;width:100%;height:100%;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;border:0;border-radius:0;filter:none;opacity:1}
+.hero-continuous .hero-copy,.hero-continuous .hero-series-label,.hero-continuous .hero-story-flow,.hero-continuous .hero-tiles{display:none!important}
+.concept-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;padding:9px 16px}
+.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px;gap:11px;align-items:center;min-height:64px;padding:0 2px}
+.concept-num{width:36px!important;height:36px!important;margin:0!important;align-self:center;justify-self:start}
+.concept-copy{display:flex;min-width:0;min-height:40px;flex-direction:column;justify-content:center;align-self:center}
+.concept-copy h3{margin:0 0 3px;line-height:1.15}.concept-copy p{margin:0;line-height:1.3}
+.concept-icon-frame{display:grid;width:36px;height:36px;place-items:center;align-self:center;justify-self:end}
+.concept-icon{display:block;width:28px;height:28px;margin:0!important;object-fit:contain;object-position:center;align-self:auto;justify-self:auto;opacity:.9}
+.concept-step:not(:last-child):after{right:-18px;top:50%;transform:translateY(-50%);line-height:1}
+.step-title{align-items:center}.step-num{align-self:center;margin:0}.step-title>div:last-child{display:flex;min-height:38px;flex-direction:column;justify-content:center}
+@media(max-width:900px){.hero-continuous{aspect-ratio:1114/305;min-height:0!important}.hero-continuous .hero-approved{object-fit:contain!important}.concept-steps{grid-template-columns:1fr;gap:0;padding:8px 14px}.concept-step{padding:9px 0}.concept-step:not(:last-child):after{content:"";left:51px;right:0;top:auto;bottom:0;height:1px;background:#24446d;transform:none}}
+@media(max-width:620px){.hero-continuous{aspect-ratio:1114/305;min-height:0!important;border-radius:18px}.hero-continuous .hero-approved{object-fit:contain!important}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_129 + CSS_RELEASE_130; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}">${BRAND_HERO_TILES.map(src=>`<link rel="preload" as="image" href="${src}">`).join("")}<title>Story Order - Stremio addon</title><style>${styles()}</style></head>
+<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><link rel="preload" as="image" href="${BRAND_HERO_CONTINUOUS_URL}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
-<header class="hero hero-refresh hero-production"><figure class="hero-visual hero-tiled" aria-label="Breaking Bad story example moving from Granite State through Felina into El Camino"><div class="hero-tiles">${BRAND_HERO_TILES.map((src,index)=>`<img class="hero-tile" src="${src}" alt="" aria-hidden="true" width="200" height="375" loading="eager" decoding="async" fetchpriority="high" data-hero-tile="${index+1}">`).join("")}</div></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
-<p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
-<p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p>
-<div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
-</div>
-<div class="hero-series-label"><span>Story example</span><strong>Breaking Bad</strong></div>
-</header>
-<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">2</span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">3</span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></article></div>
+<header class="hero hero-production hero-continuous"><figure class="hero-visual" aria-label="Story Order Breaking Bad example showing Granite State, Felina and El Camino in narrative order"><img class="hero-approved" src="${BRAND_HERO_CONTINUOUS_URL}" alt="" aria-hidden="true" width="1114" height="305" loading="eager" decoding="async" fetchpriority="high"></figure><div class="sr-only"><h1>Story Order</h1><p>Correct order. Complete stories. Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p><p>Breaking Bad example. Granite State, Felina, El Camino.</p></div></header>
+<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num">2</span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></span></article><article class="concept-step"><span class="concept-num">3</span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><span class="concept-icon-frame"><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></span></article></div>
 <div class="grid"><main class="flow"><form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
 </div><footer><span>Story Order | Puts TV episodes, specials and one-offs in the right watch order.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
 </div><script nonce="${nonce}">${clientScript()}</script></body></html>`;
