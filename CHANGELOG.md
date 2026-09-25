@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.28 - 2026-09-25
+
+Production UI rebuild and hero integrity repair.
+
+- Reframes the live hero for the actual wide container rather than forcing a 1000 by 375 composition into a much wider box.
+- Keeps the cinematic artwork as atmosphere while rendering the Story Order title, badges, programme label and Granite State to Felina to El Camino sequence as crisp live HTML.
+- Repairs the fifth WebP source tile by removing 389 trailing corrupt bytes and adds RIFF length integrity checks so a malformed hero asset cannot silently ship again.
+- Rebuilds the three-step setup strip as one clean component with consistent icons and directional cues instead of competing divider lines.
+- Refines source and profile cards, spacing, selected states and the Breaking Bad example rail to match the approved production mockup.
+- Keeps the safer plain Breaking Bad identification and does not reproduce the programme's periodic-table title treatment.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.27 - 2026-09-25
 
 Hero reliability and setup strip cleanup.

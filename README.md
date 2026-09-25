@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.27 is the current production release.** It keeps the approved Breaking Bad journey and safer programme label, renders the cinematic hero through one self-contained master so all five sections appear reliably and simplifies the three-step setup strip by removing competing internal rules. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.28 is the current production release.** It rebuilds the configure interface around the approved wide production mockup, keeps the cinematic Breaking Bad journey as background atmosphere and renders all important titles, badges and story-sequence information as crisp live HTML. The fifth hero tile is repaired and byte-integrity checked, the setup strip uses one consistent visual system and the safer plain Breaking Bad identification remains in place. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

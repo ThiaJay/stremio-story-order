@@ -51,11 +51,11 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.27`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.28`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.27`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.27`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.27`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.28`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.28`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.28`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -167,7 +167,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.27 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.28 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -237,17 +237,20 @@ const CSS_APPROVED_CONCEPT = `
 @media(max-width:900px){.concept-steps{grid-template-columns:1fr;padding:8px}.concept-step+ .concept-step{border-left:0;border-top:1px solid #29486f}.concept-step small{margin-left:46px}.grid{grid-template-columns:1fr}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_127; }
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
-<header class="hero hero-refresh"><figure class="hero-visual hero-tiled" aria-label="A viewer follows the Breaking Bad story path from misplaced episodes through Story Order towards Felina, El Camino and the desert caravan"><img class="hero-master" src="${BRAND_HERO_MASTER_URL}" alt="" aria-hidden="true" width="1000" height="375"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
+<header class="hero hero-refresh hero-production"><figure class="hero-visual hero-tiled" aria-label="Breaking Bad story example moving from Granite State through Felina into El Camino"><img class="hero-master" src="${BRAND_HERO_MASTER_URL}" alt="" aria-hidden="true" width="1000" height="375"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
 <p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
-</div></header>
-<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><h3>Choose source</h3><p>Cinemeta works for most people.</p><small>Leave the default unless you already use AIOMetadata.</small></article><article class="concept-step"><span class="concept-num">2</span><h3>Choose story profile</h3><p>Safe is the recommended default.</p><small>Increase coverage only when you want more short form story material.</small></article><article class="concept-step"><span class="concept-num">3</span><h3>Create and install</h3><p>Approve the private link in Stremio.</p><small>Your existing stream addons stay exactly as they are.</small></article></div>
+</div>
+<div class="hero-series-label"><span>Story example</span><strong>Breaking Bad</strong></div>
+<div class="hero-story-flow" aria-label="Story order example"><div class="hero-story-card"><span>S05E15</span><strong>Granite State</strong></div><span class="hero-story-arrow" aria-hidden="true">›</span><div class="hero-story-card"><span>S05E16</span><strong>Felina</strong></div><span class="hero-story-arrow" aria-hidden="true">›</span><div class="hero-story-card hero-story-next"><span>Film</span><strong>El Camino</strong><small>2019</small></div></div>
+</header>
+<div id="setup" class="concept-steps" aria-label="Three step setup"><article class="concept-step"><span class="concept-num">1</span><div class="concept-copy"><h3>Choose source</h3><p>Cinemeta works for most people.</p></div><img class="concept-icon" src="${brandAsset("step-1-source.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">2</span><div class="concept-copy"><h3>Choose story profile</h3><p>Safe is the recommended default.</p></div><img class="concept-icon" src="${brandAsset("step-2-profile.svg")}" alt="" aria-hidden="true"></article><article class="concept-step"><span class="concept-num">3</span><div class="concept-copy"><h3>Create and install</h3><p>Approve the private link in Stremio.</p></div><img class="concept-icon" src="${brandAsset("step-4-install.svg")}" alt="" aria-hidden="true"></article></div>
 <div class="grid"><main class="flow"><form id="configForm">${formSections(customOption)}</form></main>${sidePanel()}
 </div><footer><span>Story Order | Puts TV episodes, specials and one-offs in the right watch order.</span><span><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a> | <a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a> | No Stremio AuthKey | No analytics</span></footer>
 </div><script nonce="${nonce}">${clientScript()}</script></body></html>`;
@@ -450,14 +453,34 @@ form.addEventListener("submit",async e=>{e.preventDefault();$("status").textCont
 $("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("manifestOut").textContent);$("copy").textContent="Copied";setTimeout(()=>$("copy").textContent="Copy manifest URL",1600)}catch{}});`;
 }
 
-const CSS_RELEASE_127 = `
-.hero-tiled{overflow:hidden}
-.hero-master{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center;border:0;border-radius:0}
-.hero-tiles{display:none!important}
-.concept-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:10px}
+const CSS_RELEASE_128 = `
+.shell{width:min(1320px,calc(100% - 36px));padding:28px 0 56px}
+.topbar{min-height:52px;margin-bottom:14px;padding:8px 10px 8px 12px;border-radius:15px;background:#07142bdc;border-color:#284b78;box-shadow:0 12px 34px #02071338}
+.topbar-brand img{width:36px;height:36px}.topbar-brand{gap:10px}.topbar-links{gap:4px}.topbar-links a{padding:8px 10px}.topbar-links .nav-primary{padding:9px 14px;border-radius:10px}
+.hero,.hero-refresh{min-height:350px;border-radius:24px}
+.hero-production{position:relative;overflow:hidden;border-color:#2f5d8f;background:#061126;box-shadow:0 22px 60px #02071370}
+.hero-master{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 54%;border:0;border-radius:0;opacity:.84;filter:saturate(1.08) contrast(1.06)}
+.hero-production:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#061126 0%,#07142bf7 24%,#08162cd6 39%,#07112478 55%,#07112412 77%,transparent 100%),linear-gradient(180deg,#0611266e 0%,transparent 22%,transparent 70%,#06112670 100%)}
+.hero-production:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 0 1px #65cfff18,inset 0 -80px 120px #02071345}
+.hero-copy{position:absolute;left:0;top:0;bottom:0;z-index:3;display:flex;flex-direction:column;justify-content:center;width:46%;max-width:none;padding:30px 34px}
+.hero-copy .brand-row{gap:15px}.logo-card{width:74px;height:74px;border-radius:19px;background:#08162cd9}.logo-card img{width:68px;height:68px;border-radius:16px}
+.hero-copy h1{font-size:clamp(2.8rem,4.6vw,4.35rem);line-height:.95}.eyebrow{font-size:.7rem}.brand-line{margin-top:14px;font-size:clamp(1.28rem,2vw,1.75rem)}.hero-production .strap{margin-top:8px;max-width:540px;font-size:1rem;line-height:1.45;color:#c6d5ef}
+.hero-production .badges{margin-top:16px;gap:7px}.hero-production .badge{padding:5px 9px;font-size:.75rem;background:#0a1a33c9;backdrop-filter:blur(8px)}
+.hero-series-label{position:absolute;z-index:4;right:25px;top:22px;display:flex;align-items:center;gap:9px;padding:7px 10px;border:1px solid #3b6696;border-radius:10px;background:#07162bcc;backdrop-filter:blur(12px);box-shadow:0 8px 24px #02071355}.hero-series-label span{color:#83ddff;text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;font-weight:850}.hero-series-label strong{font-size:.9rem}
+.hero-story-flow{position:absolute;z-index:4;left:48%;right:5.5%;bottom:30px;display:grid;grid-template-columns:minmax(105px,1fr) 18px minmax(105px,1fr) 18px minmax(112px,1.08fr);gap:7px;align-items:center}
+.hero-story-card{min-width:0;padding:15px 12px 13px;border:1px solid #4f8ab6;border-radius:14px;background:linear-gradient(180deg,#0b2238e8,#071429f2);backdrop-filter:blur(12px);box-shadow:0 12px 30px #02071366,inset 0 0 30px #1bc9ff08;text-align:center}.hero-story-card span{display:block;color:#9bdfff;font-size:.7rem;font-weight:850;letter-spacing:.08em}.hero-story-card strong{display:block;margin-top:3px;color:#fff;font-size:.9rem;line-height:1.15}.hero-story-card small{display:block;margin-top:2px;color:#91a9c9;font-size:.68rem}.hero-story-next{border-color:#e29b48;background:linear-gradient(180deg,#331b12e8,#171321f4);box-shadow:0 12px 30px #02071366,0 0 30px #f2a64215}.hero-story-next span{color:#ffd08b}.hero-story-arrow{display:grid;place-items:center;color:#64d9ff;font-size:1.7rem;font-weight:300;text-shadow:0 0 16px #32d7ff}
+.concept-steps{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin:14px 0 0;padding:10px 16px;border:1px solid #2e5384;border-radius:19px;background:linear-gradient(145deg,#0a1830ed,#09162ce8);box-shadow:0 14px 36px #02071338}
 .concept-steps:before{display:none!important}
-.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){min-height:0;padding:13px 15px;border:1px solid #29486f;border-radius:14px;background:linear-gradient(145deg,#0e2140cc,#0a172ecc);box-shadow:none;transform:none!important}
-.concept-step+ .concept-step{border-left:1px solid #29486f}
-.series-example-banner{box-shadow:inset 0 0 28px #356cff10}
-@media(max-width:900px){.concept-steps{grid-template-columns:1fr}.concept-step+ .concept-step{border-left:1px solid #29486f;border-top:1px solid #29486f}}
+.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){position:relative;display:grid;grid-template-columns:40px minmax(0,1fr) 34px;gap:11px;align-items:center;min-height:62px;padding:6px 0;border:0!important;border-radius:0;background:transparent!important;box-shadow:none!important;transform:none!important}
+.concept-step:not(:last-child):after{content:"›";position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:#49cfff;font-size:1.35rem;line-height:1;text-shadow:0 0 14px #32d7ff}
+.concept-num{width:36px!important;height:36px!important;margin:0!important;border-radius:11px;box-shadow:0 8px 22px #315cff28}.concept-copy{min-width:0}.concept-step h3{margin:0 0 2px;font-size:.94rem}.concept-step p{margin:0;color:#9db0cf;font-size:.76rem;line-height:1.3}.concept-step small{display:none!important}.concept-icon{width:30px;height:30px;object-fit:contain;opacity:.82;justify-self:end}
+.grid{grid-template-columns:minmax(0,1fr) 382px;gap:18px;margin-top:18px}
+.section{border-radius:20px;border-color:#274770;background:linear-gradient(155deg,#0b1a34f2,#09162ce8 72%);box-shadow:0 14px 38px #02071335}.section:after{width:2px;opacity:.48}.section .step-title h2{font-size:1.16rem}.step-num{width:34px;height:34px}
+.choice-grid{gap:10px}.choice-grid.profiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.choice-box{min-height:100px;padding:14px 44px 14px 14px;border-radius:14px;border-color:#294a76;background:linear-gradient(145deg,#0a1831,#0b1a35)}.choice-grid.profiles .choice-box{min-height:116px}.choice-box:after{display:none!important}.choice-box:before{content:"";position:absolute;right:14px;top:14px;width:16px;height:16px;border:2px solid #57759f;border-radius:50%;background:#07152b;box-shadow:inset 0 0 0 4px #07152b}.choice input:checked+.choice-box:before{border-color:#64d8ff;background:#7657ee;box-shadow:inset 0 0 0 4px #122147,0 0 14px #4c82ff65}.choice input:checked+.choice-box{border-color:#59bcff;background:linear-gradient(145deg,#12335c,#1b2253 68%,#2b205d);box-shadow:0 0 0 1px #58c7ff55,inset 0 0 34px #4b72ff10}.profile-icon{width:34px;height:34px;margin-bottom:8px}.recommended{margin-top:7px}
+.breaking-card{padding:18px;border-color:#31598a;background:linear-gradient(155deg,#0a1931,#09162d 70%,#14172f)}.breaking-card .side-kicker{margin-bottom:4px}.breaking-card h3{font-size:1.12rem}.series-example-banner{margin:12px 0 10px}.sequence-compare{gap:6px}.sequence-item{padding:7px}.journey-caption{margin-top:9px}.order-note{margin-top:10px}
+.trust-card{padding:16px}.side-stack{gap:14px;top:16px}
+footer{margin-top:22px}
+@media(max-width:1080px){.hero-copy{width:49%;padding:28px}.hero-story-flow{left:50%;right:3%;gap:5px}.hero-series-label{right:18px}.grid{grid-template-columns:1fr}.side-stack{position:static;grid-template-columns:1fr 1fr}.breaking-card{order:-1}}
+@media(max-width:900px){.hero,.hero-refresh{min-height:520px}.hero-master{object-position:62% center}.hero-production:before{background:linear-gradient(0deg,#061126fa 0%,#07142bef 46%,#07112448 73%,transparent 100%)}.hero-copy{top:auto;bottom:0;width:100%;height:auto;padding:210px 22px 22px}.hero-series-label{top:18px;right:18px}.hero-story-flow{left:18px;right:18px;top:82px;bottom:auto}.concept-steps{grid-template-columns:1fr;gap:0;padding:8px 14px}.concept-step{padding:9px 0}.concept-step:not(:last-child):after{content:"";left:51px;right:0;top:auto;bottom:0;height:1px;background:#24446d;transform:none}.side-stack{grid-template-columns:1fr}}
+@media(max-width:620px){.shell{width:min(calc(100% - 18px),1320px);padding-top:12px}.topbar-links a:not(.nav-primary){display:none}.hero,.hero-refresh{min-height:560px;border-radius:20px}.hero-copy{padding:265px 18px 20px}.hero-copy h1{font-size:2.55rem}.logo-card{width:62px;height:62px}.logo-card img{width:56px;height:56px}.hero-story-flow{grid-template-columns:1fr 12px 1fr 12px 1fr;left:12px;right:12px;top:82px;gap:3px}.hero-story-card{padding:11px 6px}.hero-story-card strong{font-size:.75rem}.hero-story-card span{font-size:.58rem}.hero-story-arrow{font-size:1.25rem}.hero-series-label{right:12px;top:14px}.choice-grid,.choice-grid.profiles,.two{grid-template-columns:1fr}.section{padding:20px 16px}}
 `;
