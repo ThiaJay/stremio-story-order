@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.30 is the current production release.** It replaces the stitched hero entirely with one continuous approved 1114 by 305 WebP, eliminating the campervan join defect and showing the full signed-off composition without deliberate cropping. The setup strip now uses fixed icon frames and centred visual geometry so its number badges, copy and icons share the same vertical alignment. The plain Breaking Bad identification remains in the example rail. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.31 is the current production release.** It keeps the continuous 1114 by 305 hero from 1.0.30 and completes the visual alignment pass across setup badges, numbered section headings and profile icons. The Breaking Bad example rail now uses a dedicated Story Order narrative-path treatment rather than the previous generic gradient background. The plain Breaking Bad identification remains in place. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

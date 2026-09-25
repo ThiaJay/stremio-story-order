@@ -34,16 +34,19 @@ The live configure hero is `public/branding/v5/story-order-hero-approved.webp`, 
 - `step-1-source.svg` through `step-4-install.svg` support the setup sequence.
 - `profile-safe.svg`, `profile-balanced.svg`, `profile-complete.svg` and `profile-custom.svg` identify ordering profiles.
 - `feature-ids-preserved.svg`, `feature-stream-independent.svg`, `feature-outage-aware.svg` and `feature-private.svg` support the trust and behaviour cards.
+- `public/branding/v5/example-story-path.svg` is the decorative narrative-path artwork for the Breaking Bad example rail.
 
 
 - The canonical optically centred PNG master is Git blob `ed91dc7c10b5454482e562c4d085effc7d0e0bc0` with SHA-256 `65a1dfa2d6fe5c896cd4cd43f0ea4c70ec64d25d5f95783f611b260cbfd93866`. The portal artwork is translated 17 pixels left within the unchanged 320 by 320 square.
 - `story-order-glyph.svg` uses the equivalent seven viewBox unit left translation so scalable surfaces match the PNG master.
 
-The configure hero must show the viewer moving with the Breaking Bad story world toward the corrected sequence and desert caravan. The five live tiles reproduce that signed off composition without relying on a single oversized repository transfer.
+The configure hero must preserve the approved continuous Breaking Bad journey composition, including the corrected sequence and single desert campervan. Do not reintroduce tiled delivery, stitching or cropping.
 
 The Breaking Bad example card identifies the programme in plain text using Story Order's own interface styling. Do not reproduce the programme's periodic table title treatment or add atomic number tiles to that card.
 
-The three-step setup strip should read as three equal stages inside one container. Number badges, text blocks and icon frames must share the same vertical centre. Icons use fixed 36 pixel frames with centred 28 pixel artwork and the source stage uses the centred database symbol. Keep one consistent directional cue between stages and do not add separate connector rules or mismatched divider lines.
+The example rail uses the Story Order narrative-path visual as a restrained background motif. It should feel connected to the product's ordering metaphor, not like a generic settings-card gradient, and must remain subordinate to the comparison content.
+
+The three-step setup strip should read as three equal stages inside one container. Number badges, text blocks and icon frames must share the same vertical centre. Numeral glyphs are optically centred inside their badges rather than left to the font baseline. Icons use fixed 36 pixel frames with centred 28 pixel artwork and the source stage uses the centred database symbol. Numbered section headings and profile icons follow the same alignment rule. Keep one consistent directional cue between stages and do not add separate connector rules or mismatched divider lines.
 
 ## Meaning
 
