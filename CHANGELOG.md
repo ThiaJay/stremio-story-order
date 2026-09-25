@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.33 - 2026-09-25
+
+Fixed geometry alignment.
+
+- Replaces text-character setup arrows with drawn CSS chevrons so their position is independent of font baselines.
+- Uses fixed 68 pixel setup rows with number badges, copy and icons sharing the same geometric centre.
+- Aligns profile radio selectors to the centre of their profile icons instead of the top padding of the card.
+- Locks section numbers, sequence numbers and comparison arrows to fixed centred geometry.
+- Keeps the cinematic Breaking Bad rail and continuous hero unchanged.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.32 - 2026-09-25
 
 Alignment lock.
