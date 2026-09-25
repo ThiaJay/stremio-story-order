@@ -105,7 +105,7 @@ assert.match(html,/class="hero-series-label"/);
 assert.match(html,/class="concept-steps"/);
 assert.match(html,/class="concept-icon"/);
 assert.match(html,/concept-step:not\(:last-child\):after\{content:">"/,"setup strip should use one consistent directional cue");
-assert.doesNotMatch(html,/concept-step\+ \.concept-step\{border-left:/,"setup strip must not reintroduce mismatched internal dividers");
+assert.match(html,/border:0!important;border-radius:0;background:transparent!important/,"release override must neutralise legacy internal dividers");
 assert.match(html,/class="flow"/);
 assert.match(html,/Breaking Bad/);
 assert.match(html,/class="example-title">Breaking Bad</);
