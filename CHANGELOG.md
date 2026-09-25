@@ -4,6 +4,8 @@
 
 Panoramic Story Order presentation refresh.
 
+Production acceptance completed on 25 September 2026. The live Worker bundle matched SHA-256 `9cd46ad021984f72769bc740fa1e46e170954c2537fab68550ac644172d7cd1b` and the public manifest reported 1.0.17.
+
 - Replaces the cropped configure hero with the approved panoramic artwork showing unordered episode and special cards becoming one coherent narrative sequence.\n- Stores the approved panorama in the SVG compatibility asset itself so the release cannot silently substitute an undersized WebP derivative.
 - Keeps the legacy `story-order-order-flow.svg` URL as a compatibility wrapper for the new cinematic WebP hero.
 - Widens the configure page, turns the duplicated four-card setup row into a concise three-step journey and gives each configuration step its own spacious card.
