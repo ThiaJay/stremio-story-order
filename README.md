@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.33 is the current production release.** It keeps the continuous hero and cinematic Breaking Bad example rail while replacing the remaining baseline-dependent alignment with fixed geometry. The setup stages now use fixed-height rows and drawn chevrons, profile selectors align to their icon centres and section and sequence markers use explicit centred dimensions. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.34 is the current production release.** It keeps the fixed geometry from 1.0.33 and corrects the remaining visual mismatch in the three-stage setup strip. The numbered badges and copy stay fixed while the source, profile and install artwork is optically centred inside its SVG view box, with the drawn chevrons moved to the same visible centre line. The continuous hero and cinematic Breaking Bad rail are unchanged. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.
