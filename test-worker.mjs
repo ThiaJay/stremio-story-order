@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.24";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.25";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -56,6 +56,8 @@ assert.equal(
   "ed91dc7c10b5454482e562c4d085effc7d0e0bc0",
   "checked-out logo bytes must match the approved compact master"
 );
+const glyph=await readFile(new URL("./public/branding/v2/story-order-glyph.svg",import.meta.url),"utf8");
+assert.match(glyph,/transform="translate\(-7 0\)"/,"vector glyph must use the same optical centring as the canonical PNG");
 const heroTiles=[
   ["hero-01.webp",8260,"1b6665edbf79458b31046698d2575b8c38139012"],
   ["hero-02.webp",7952,"f7ca4bd23bf0e2f1b610a9177dbe6c2b53329f8c"],
@@ -80,6 +82,7 @@ assert.equal(csp.split("; ").find(rule=>rule.startsWith("img-src ")),"img-src 's
 assert.match(csp,/script-src 'nonce-[^']+'/);
 assert.match(csp,/frame-ancestors 'none'/);
 const html=await response.text();
+assert.doesNotMatch(html,/translateX\(-3px\)/,"configure page must not apply a second icon offset");
 assert.ok(html.includes('<img src="'+canonicalIcon+'" alt="Story Order logo"'));
 assert.doesNotMatch(html,/<svg viewBox="0 0 96 96"/);
 assert.match(html,/Correct order\. Complete stories\./);
