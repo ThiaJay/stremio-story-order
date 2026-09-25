@@ -278,7 +278,7 @@ const CSS_RELEASE_130 = `
 
 const CSS_RELEASE_131 = `
 .concept-num,.step-num{display:grid!important;place-items:center!important;padding:0!important;line-height:1!important}
-.concept-num>span,.step-num>span{display:block;line-height:1;font-variant-numeric:tabular-nums;transform:translateY(-1px)}
+.concept-num>span,.step-num>span{display:block;line-height:1;font-variant-numeric:tabular-nums;transform:none}
 .concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px;align-items:center}
 .concept-num{justify-self:center!important;align-self:center!important}
 .concept-copy{display:flex;min-height:42px;justify-content:center}
