@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.22 - 2026-09-25
+
+Approved cinematic concept implementation.
+
+- Replaces the generic hero with the Breaking Bad narrative journey artwork showing misplaced story items resolving into S05E15, Felina and El Camino on the path to the desert caravan.
+- Compresses the three setup stages into a deliberate journey strip instead of three oversized generic cards.
+- Pulls the Breaking Bad explanation up into a compact, visible right rail with a clear before and Story Order comparison.
+- Reduces generic dashboard styling, tightens the information hierarchy and gives the cinematic artwork more visual authority.
+- Keeps the stable-ID contract, existing stream addon independence and the validated Story Order behaviour unchanged.
+
 ## 1.0.21 - 2026-09-25
 
 Breaking Bad narrative journey and centred emblem.

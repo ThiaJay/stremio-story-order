@@ -51,10 +51,10 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.21`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.22`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.21`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.21`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.22`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.22`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -165,6 +165,48 @@ const CSS_BREAKING_JOURNEY = `
 .trust-card{background:linear-gradient(155deg,#0a1830,#0b1528 70%,#15172f)}
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.bb-banner{align-items:flex-start;flex-direction:column}}
+
+/* v1.0.22 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+.shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
+.topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
+.hero{min-height:360px;border-radius:24px}
+.hero-refresh{min-height:360px}
+.hero-refresh:before{background:linear-gradient(90deg,#061022fa 0%,#061022ef 26%,#071124c4 43%,#07112448 63%,#07112408 100%),linear-gradient(0deg,#061022cc 0%,transparent 42%)}
+.hero-copy{max-width:610px;padding:34px 36px 34px}
+.hero-copy h1{font-size:clamp(3rem,5vw,4.5rem)}
+.hero-refresh .strap{max-width:560px}
+.hero-visual img{object-position:center center}
+.hero-visual:after{display:none}
+.hero-copy .logo-card img,.topbar-brand img{transform:translateX(-3px)}
+.concept-steps{margin:18px 0 0;padding:9px;border:1px solid #2b4d7b;border-radius:18px;background:linear-gradient(145deg,#0b1d39e8,#08152bdd);gap:8px;box-shadow:0 14px 36px #02071344}
+.concept-steps:before{left:11%;right:11%;top:50%;height:1px;opacity:.7}
+.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none;min-height:0;padding:12px 14px;border:0;border-radius:13px;background:linear-gradient(145deg,#0e2140cc,#0a172ecc);box-shadow:none;display:grid;grid-template-columns:40px minmax(0,1fr);grid-template-rows:auto auto;column-gap:11px;align-items:center}
+.concept-step .concept-num{grid-row:1/3;width:36px;height:36px;margin:0}
+.concept-step h3{margin:0;font-size:.94rem}
+.concept-step p{margin:2px 0 0;font-size:.78rem;line-height:1.3}
+.concept-step small{display:none}
+.grid{grid-template-columns:minmax(0,1fr) 390px;gap:22px;margin-top:18px}
+.section{padding:22px 24px;border-radius:22px}
+.section .step-title h2{font-size:1.2rem}
+.choice-box{min-height:106px}
+.choice-grid.profiles .choice-box{min-height:132px}
+.side-stack{gap:14px}
+.breaking-card{padding:18px;min-height:0;background:linear-gradient(155deg,#0a1830,#09172e 66%,#15142a)}
+.breaking-card>*,.trust-card>*{position:relative;z-index:2}
+.breaking-card .side-kicker{margin:0 0 4px}
+.breaking-card h3{margin:0 0 7px;font-size:1.15rem}
+.breaking-card>.muted{margin:0 0 12px;font-size:.85rem;line-height:1.45}
+.bb-banner{margin:0 0 10px;padding:10px 12px}
+.sequence-compare{gap:7px}
+.sequence-item{padding:7px 7px}
+.journey-caption{margin-top:10px}
+.preview-card .order-note{margin-top:10px}
+.trust-card{padding:16px}
+.trust-list{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.trust-item{padding:8px 0}
+.service-state{margin-bottom:4px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}.side-stack{grid-row:auto}.breaking-card{order:-1}.trust-list{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.concept-steps{grid-template-columns:1fr}.concept-steps:before{display:none}.grid{grid-template-columns:1fr}.trust-list{grid-template-columns:1fr}}
 `;
 
 function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY; }
@@ -172,7 +214,7 @@ function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
 <body data-token="${initialToken}"><div class="shell"><nav class="topbar" aria-label="Story Order"><div class="topbar-brand"><img src="${BRAND_ICON_URL}" alt="" width="34" height="34"><span>Story Order</span></div><div class="topbar-links"><a href="#setup">Setup</a><a href="#examples">Example</a><a href="https://github.com/ThiaJay/stremio-story-order/blob/main/INSTALL.md">Help</a><a href="https://github.com/ThiaJay/stremio-story-order">GitHub</a><a class="nav-primary" href="#install-stage">Install on Stremio</a></div></nav>
-<header class="hero hero-refresh"><figure class="hero-visual"><img src="${BRAND_HERO_URL}" alt="A viewer follows the Breaking Bad story path through the correct sequence towards the desert caravan" width="1000" height="375"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
+<header class="hero hero-refresh"><figure class="hero-visual"><img src="${BRAND_HERO_URL}" alt="A viewer follows the Breaking Bad story path from misplaced episodes through Story Order towards Felina, El Camino and the desert caravan" width="1000" height="320"></figure><div class="hero-copy"><div class="brand-row"><div class="logo-card"><img src="${BRAND_ICON_URL}" alt="Story Order logo" width="80" height="80"></div><div>
 <p class="eyebrow">A Stremio addon</p><h1>Story Order</h1></div></div>
 <p class="brand-line">Correct order. Complete stories.</p><p class="strap">Puts TV episodes, specials and one-offs in the right watch order without changing their underlying episode identity.</p>
 <div class="badges"><span class="badge good"><span class="ok-mark" aria-hidden="true"></span>No account login</span><span class="badge">Works with your stream addons</span><span class="badge">Open source</span><span class="badge">Privacy focused</span></div>
