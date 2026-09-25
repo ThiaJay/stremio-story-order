@@ -12,8 +12,8 @@ const newExample = '<div class="example story-example"><div class="example-head"
 cfg = replaceOnce(cfg, oldExample, newExample, "Doctor Who example");
 
 const stylesMarker = 'function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH; }';
-const cinematicCss = String.raw\`
-const CSS_STORY_SIGNATURE = \\\`
+const cinematicCss = String.raw`
+const CSS_STORY_SIGNATURE = `
 :root{--story-glow:#32d7ff;--story-warm:#ffb74d;--story-ink:#050b18}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 18% 18%,#1f7aff12 0,transparent 34%),radial-gradient(circle at 82% 26%,#a35bff12 0,transparent 30%),linear-gradient(120deg,transparent 0 47%,#27c7ff08 48%,transparent 49%)}
 .panel,.section{position:relative;overflow:hidden}.panel:before,.section:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,#64d8ff08,transparent 26%,transparent 68%,#ffad4907)}
