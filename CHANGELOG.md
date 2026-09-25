@@ -4,6 +4,8 @@
 
 Direct panoramic hero repair.
 
+Production acceptance completed on 25 September 2026. The live Worker bundle matched SHA-256 `9d1cc00b5113c791f394c121fea9252b709387348e980da80ba551e97384ed70` and the public manifest reported 1.0.18.
+
 - Publishes the exact 1000 by 375 panoramic Story Order artwork generated from the approved cinematic master.
 - Serves the hero directly as WebP instead of relying on an SVG embedded image path.
 - Locks the hero to 28,482 bytes and Git blob `cddde00199bc6f2a26a0903d01d2564856e896e9` so degraded substitutes fail CI.

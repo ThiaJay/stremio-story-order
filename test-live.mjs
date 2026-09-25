@@ -1,4 +1,4 @@
-// Production smoke validates the accepted live 1.0.18 Story Order contract, panoramic configure experience, capability status and canonical identity parity.
+// Production smoke verifies the accepted live 1.0.18 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
