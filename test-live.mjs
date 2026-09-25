@@ -67,7 +67,8 @@ assert.equal(liveHero.subarray(8,12).toString("ascii"),"WEBP");
 const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.18",{cache:"no-store"});
 assert.equal(legacyHeroResponse.status,200);
 const legacyHero=await legacyHeroResponse.text();
-assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.18/);\nassert.doesNotMatch(legacyHero,/MIXED METADATA|ONE NARRATIVE PATH/);
+assert.match(legacyHero,/story-order-hero\.webp\?v=1\.0\.18/);
+assert.doesNotMatch(legacyHero,/MIXED METADATA|ONE NARRATIVE PATH/);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
   method:"POST",
