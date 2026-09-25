@@ -46,7 +46,7 @@ The Breaking Bad example card identifies the programme in plain text using Story
 
 The example rail uses the Story Order narrative-path visual as a restrained background motif. It should feel connected to the product's ordering metaphor, not like a generic settings-card gradient, and must remain subordinate to the comparison content.
 
-The three-step setup strip should read as three equal stages inside one container. Use fixed row geometry so number badges, text blocks and icon frames share the same physical centre. Directional cues are drawn chevrons rather than font characters and must sit on that same centre line. Centre complete boxes and never use manual vertical translations on individual numeral glyphs. Icons use fixed frames with centred artwork. Numbered section headings, profile icons, sequence numbers and selectors follow the same geometry rule.
+The three-step setup strip should read as three equal stages inside one container. Use fixed row geometry so number badges and text blocks stay on one physical centre. The source, profile and install symbols are optically centred within their SVG view boxes because their visible artwork is not naturally centred by the raw view box. Directional cues are drawn chevrons and must sit on that same optical line. Do not move the numbered badges to compensate for icon artwork. Numbered section headings, profile icons, sequence numbers and selectors retain the fixed geometry rule.
 
 ## Meaning
 

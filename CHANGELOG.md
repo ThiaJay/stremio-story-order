@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.34 - 2026-09-25
+
+Setup symbol optical alignment correction.
+
+- Keeps the numbered badges and text blocks fixed in place.
+- Optically lowers the source, profile and install symbols inside their SVG view boxes so their visible centres align with the numbered badges.
+- Moves the drawn setup chevrons to the same optical centre line.
+- Leaves the fixed geometry section headings, profile selectors, cinematic Breaking Bad rail and continuous hero unchanged.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.33 - 2026-09-25
 
 Fixed geometry alignment.

@@ -51,13 +51,13 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.33`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.34`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.33`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.33`;
-export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.33`;
-export const BRAND_EXAMPLE_PATH_URL = `${BRAND_PUBLIC_BASE}/branding/v5/example-story-path.svg?v=1.0.33`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.33`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.34`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.34`;
+export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.34`;
+export const BRAND_EXAMPLE_PATH_URL = `${BRAND_PUBLIC_BASE}/branding/v5/example-story-path.svg?v=1.0.34`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.34`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -169,7 +169,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.33 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.34 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -449,7 +449,13 @@ const CSS_RELEASE_133 = `
 }
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130 + CSS_RELEASE_131 + CSS_RELEASE_132 + CSS_RELEASE_133; }
+const CSS_RELEASE_134 = `
+/* Optical alignment follows the visible symbol artwork rather than the SVG viewBox. */
+.concept-icon-frame{overflow:visible!important}
+.concept-step:not(:last-child):after{top:calc(50% + 3px)!important}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130 + CSS_RELEASE_131 + CSS_RELEASE_132 + CSS_RELEASE_133 + CSS_RELEASE_134; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><link rel="preload" as="image" href="${BRAND_HERO_CONTINUOUS_URL}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>
