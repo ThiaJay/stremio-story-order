@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.23 - 2026-09-25
+
+Approved Breaking Bad cinematic concept.
+
+- Replaces the remaining generic panorama with the approved Breaking Bad journey artwork from the signed-off mockup, including the viewer, cast-led portal, corrected sequence path and desert caravan destination.
+- Converts the three setup cards into a connected journey strip rather than three disconnected generic panels.
+- Fixes the Breaking Bad explanation panel stacking so its before-and-after Felina to El Camino sequence is visible immediately.
+- Keeps the stable episode-ID contract, existing stream-addon independence and privacy behaviour unchanged.
+
 ## 1.0.22 - 2026-09-25
 
 Approved cinematic concept implementation.

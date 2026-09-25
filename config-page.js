@@ -51,10 +51,10 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.22`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.23`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.22`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.22`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.23`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.23`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -166,7 +166,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.bb-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.22 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.23 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -209,7 +209,30 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:720px){.concept-steps{grid-template-columns:1fr}.concept-steps:before{display:none}.grid{grid-template-columns:1fr}.trust-list{grid-template-columns:1fr}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY; }
+const CSS_APPROVED_CONCEPT = `
+.hero-visual img{object-position:right center}
+.hero-refresh:before{background:linear-gradient(90deg,#061124 0%,#071124f8 23%,#071124df 36%,#0711248f 48%,#0711242e 63%,transparent 78%),linear-gradient(0deg,#071124d4 0%,transparent 40%)}
+.hero-visual:after{display:none!important}
+.concept-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:14px 16px;border:1px solid #2e5384;border-radius:22px;background:linear-gradient(145deg,#0a1830ee,#0b1730e8);box-shadow:0 18px 50px #02071342}
+.concept-steps:before{left:13%;right:13%;top:50%;opacity:.55}
+.concept-step{min-height:0;padding:14px 18px;background:transparent;border:0;border-radius:0;box-shadow:none;transform:none!important}
+.concept-step+ .concept-step{border-left:1px solid #29486f}
+.concept-step:before{display:none}
+.concept-step .concept-num{width:34px;height:34px;float:left;margin-right:12px}
+.concept-step h3{margin:1px 0 3px;font-size:1rem}
+.concept-step p{font-size:.82rem}
+.concept-step small{margin:4px 0 0 46px;font-size:.72rem}
+.breaking-card>*{position:relative;z-index:2}
+.breaking-card:before{z-index:0}
+.breaking-card{background:linear-gradient(155deg,#0a1b33,#08162b 65%,#15172e)}
+.breaking-card .muted{max-width:30ch}
+.bb-banner{box-shadow:inset 0 0 28px #d0a02a16}
+.sequence-compare{margin-top:12px}
+.grid{grid-template-columns:minmax(0,1fr) 382px}
+@media(max-width:900px){.concept-steps{grid-template-columns:1fr;padding:8px}.concept-step+ .concept-step{border-left:0;border-top:1px solid #29486f}.concept-step small{margin-left:46px}.grid{grid-template-columns:1fr}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>

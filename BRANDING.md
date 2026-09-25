@@ -42,6 +42,8 @@ The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embe
 - Optically centred v1.0.19 icon Git blob: `ed91dc7c10b5454482e562c4d085effc7d0e0bc0`. SHA-256: `65a1dfa2d6fe5c896cd4cd43f0ea4c70ec64d25d5f95783f611b260cbfd93866`. The portal artwork is translated left within the unchanged square master to correct its visual centre.
 
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` use the optically centred v1.0.21 portal master. Git blob `8d50c42091c24fc80ef5e1a200359f8e4cfce2ac`.\n
+The configure hero uses the approved Breaking Bad journey artwork from the signed-off mockup. It must show the viewer moving with the story world toward the corrected sequence and desert caravan, not a generic landscape or abstract episode ribbon.
+
 ## Meaning
 
 The visual system must communicate ordering rather than recommendation. Story Order keeps the same programme and the same underlying episode identities while publishing a narrative presentation order for episodes, specials and one-offs.

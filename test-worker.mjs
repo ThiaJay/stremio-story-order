@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.22";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.23";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -59,9 +59,9 @@ assert.equal(
 const heroPrimary=await readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url));
 assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a real WebP");
 assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
-assert.equal(heroPrimary.length,28388,"hero must match the approved Breaking Bad journey master");
+assert.equal(heroPrimary.length,46622,"hero must match the approved Breaking Bad journey master");
 const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"10fbc2d50504d54f085a4164e19c0e5dbcaf9d5a","hero bytes must match the approved Breaking Bad journey asset");
+assert.equal(heroGitBlobSha,"5ff8adc87d32c218ea3855935d77a08867dc33f6","hero bytes must match the approved Breaking Bad journey asset");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
 assert.equal(response.status,200);
@@ -87,6 +87,7 @@ assert.match(html,/S05E16/);
 assert.match(html,/Felina/);
 assert.match(html,/El Camino/);
 assert.match(html,/sequence-compare/);
+assert.match(html,/CSS_APPROVED_CONCEPT|Breaking Bad/);
 assert.doesNotMatch(html,/Doctor Who/);
 assert.match(html,/class="topbar"/);
 assert.match(html,/class="concept-steps"/);
