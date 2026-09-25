@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.26 is the current production release.** It keeps the approved Breaking Bad journey and sequence example while presenting the programme name in Story Order's own interface styling rather than reproducing the programme title treatment. Icon centring, ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.27 is the current production release.** It keeps the approved Breaking Bad journey and safer programme label, renders the cinematic hero through one self-contained master so all five sections appear reliably and simplifies the three-step setup strip by removing competing internal rules. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.27 - 2026-09-25
+
+Hero reliability and setup strip cleanup.
+
+- Replaces five separate browser hero image requests with one self-contained SVG master that embeds all five verified Breaking Bad journey tiles.
+- Prevents a missing fifth request from leaving the right side of the cinematic hero blank.
+- Simplifies the three-step setup strip by removing the stray connector rule and inconsistent internal divider treatment.
+- Keeps the safer plain Breaking Bad example label introduced in 1.0.26.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.26 - 2026-09-25
 
 Safer programme example branding.

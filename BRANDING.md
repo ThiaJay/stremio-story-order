@@ -26,7 +26,7 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The live configure hero is the approved Breaking Bad journey artwork delivered as five seamless verified WebP tiles under `public/branding/v4/`. The `public/branding/v3/story-order-hero.svg` path remains a compatibility wrapper and must not replace the live tiled hero with a generic landscape, schematic or placeholder.
+The live configure hero is the approved Breaking Bad journey artwork. Its five verified WebP source tiles remain under `public/branding/v4/`, while the configure page renders `public/branding/v4/story-order-hero-master.svg`, a self-contained wrapper embedding all five tiles so the browser cannot lose one section to a separate image request. The `public/branding/v3/story-order-hero.svg` path remains a compatibility wrapper and must not replace the live hero with a generic landscape, schematic or placeholder.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
@@ -42,6 +42,8 @@ The live configure hero is the approved Breaking Bad journey artwork delivered a
 The configure hero must show the viewer moving with the Breaking Bad story world toward the corrected sequence and desert caravan. The five live tiles reproduce that signed off composition without relying on a single oversized repository transfer.
 
 The Breaking Bad example card identifies the programme in plain text using Story Order's own interface styling. Do not reproduce the programme's periodic table title treatment or add atomic number tiles to that card.
+
+The three-step setup strip should read as three equal stages inside one container. Do not add a separate connector rule or mismatched divider lines between the stages.
 
 ## Meaning
 
