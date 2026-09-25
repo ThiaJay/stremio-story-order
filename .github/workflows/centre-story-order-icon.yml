@@ -67,7 +67,7 @@ jobs:
           im.save(src,optimize=True)
           data=src.read_bytes()
           size=len(data)
-          gitsha=hashlib.sha1(f"blob {size}\0".encode()+data).hexdigest()
+          gitsha=hashlib.sha1(b"blob "+str(size).encode()+bytes([0])+data).hexdigest()
           sha256=hashlib.sha256(data).hexdigest()
           assert data[:8]==bytes.fromhex("89504e470d0a1a0a")
           assert Image.open(src).size==(320,320)
