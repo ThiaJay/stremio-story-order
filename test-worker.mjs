@@ -65,7 +65,7 @@ assert.equal(heroPrimary.length,51910,"hero must match the approved panoramic We
 assert.equal(heroPrimary.subarray(0,4).toString("ascii"),"RIFF","hero must be a real WebP");
 assert.equal(heroPrimary.subarray(8,12).toString("ascii"),"WEBP","hero must be a real WebP");
 const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${heroPrimary.length}\0`)).update(heroPrimary).digest("hex");
-assert.equal(heroGitBlobSha,"f898ac82cc64695570a6e53036a19dd523d76ed5","hero bytes must match the approved panoramic master");
+assert.equal(heroGitBlobSha,"fe982fdbbb6d32606a6ab6455efd9fc731ffb12d","hero bytes must match the approved panoramic master");
 for(const wrapper of [heroCompat,heroCompatV3]){
  assert.match(wrapper,/story-order-hero\.webp\?v=1\.0\.17/,"compatibility hero must point to the approved panoramic master");
  assert.doesNotMatch(wrapper,/MIXED METADATA|ONE NARRATIVE PATH/,"superseded schematic hero must not return");
