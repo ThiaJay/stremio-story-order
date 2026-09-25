@@ -33,7 +33,7 @@ assert.equal(directStatus.storyOrderContract.canonicalVideoIdsPreserved,true);
 assert.equal(directStatus.storyOrderContract.watchedIdentityMutation,false);
 assert.equal(directStatus.privacy.stremioAuthKeyRequired,false);
 assert.equal(directStatus.privacy.accountAccess,false);
-const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.16";
+const canonicalIcon="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.17";
 const brandPublicBase="https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
 const brandAssetBase=brandPublicBase+"/branding/v2";
 assert.equal(claimed.logo,canonicalIcon);
@@ -61,8 +61,10 @@ const [heroPrimary,heroCompat]=await Promise.all([
  readFile(new URL("./public/branding/v2/story-order-order-flow.svg",import.meta.url),"utf8")
 ]);
 assert.equal(heroCompat,heroPrimary,"legacy hero URL must mirror the approved primary hero");
-assert.ok(heroPrimary.length>20000,"hero is suspiciously small and may be a placeholder");
-assert.match(heroPrimary,/data:image\/webp;base64,/,"hero must embed the approved cinematic master");
+assert.equal(heroPrimary.length,57101,"hero must match the approved panoramic master");
+assert.match(heroPrimary,/data:image\/webp;base64,/,"hero must embed the approved panoramic cinematic master");
+const heroGitBlobSha=createHash("sha1").update(Buffer.from(`blob ${Buffer.byteLength(heroPrimary)}\0`)).update(heroPrimary).digest("hex");
+assert.equal(heroGitBlobSha,"4665a9c1cf5ec5bb861632d4964f90187b5f8659","hero bytes must match the approved panoramic master");
 assert.doesNotMatch(heroPrimary,/MIXED METADATA|ONE NARRATIVE PATH/,"superseded schematic hero must not return");
 
 let response=await worker.fetch(new Request("https://story.test/configure"),env,ctx);
@@ -82,6 +84,8 @@ assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the
 assert.match(html,/Cinemeta - simplest/);
 assert.match(html,/AIOMetadata/);
 assert.match(html,/class="hero hero-refresh"/);
+assert.match(html,/class="journey-strip"/);
+assert.match(html,/class="flow"/);
 assert.match(html,/name="sourceKind"/);
 assert.match(html,/name="profile"/);
 assert.match(html,/Install Story Order/);

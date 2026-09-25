@@ -26,11 +26,12 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embeds the approved cinematic Story Order master and must not be replaced by a schematic or placeholder diagram.
+The primary configure hero is `public/branding/v3/story-order-hero.svg`. It embeds the approved panoramic Story Order master showing unordered episode and special cards flowing through the Story Order portal into one coherent narrative sequence. It must not be replaced by a cropped portal-only image, schematic or placeholder diagram.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.
-- `public/branding/v2/story-order-order-flow.svg` must remain byte-identical to the v3 hero for backward compatibility.
+- `public/branding/v2/story-order-order-flow.svg` must remain byte-identical to the v3 panoramic hero for backward compatibility.
+- Approved v1.0.17 hero Git blob SHA: `4665a9c1cf5ec5bb861632d4964f90187b5f8659`.
 - `step-1-source.svg` through `step-4-install.svg` support the setup sequence.
 - `profile-safe.svg`, `profile-balanced.svg`, `profile-complete.svg` and `profile-custom.svg` identify ordering profiles.
 - `feature-ids-preserved.svg`, `feature-stream-independent.svg`, `feature-outage-aware.svg` and `feature-private.svg` support the trust and behaviour cards.

@@ -1,4 +1,4 @@
-// Production smoke validates the live 1.0.16 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
+// Production smoke validates the live 1.0.17 stable-ID Story Order contract, capability status and override helper and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -46,8 +46,10 @@ assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.16/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
+assert.match(liveConfigureHtml,/class="journey-strip"/);
+assert.match(liveConfigureHtml,/class="flow"/);
 
-const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.16",{cache:"no-store"});
+const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.17",{cache:"no-store"});
 assert.equal(liveIconResponse.status,200);
 const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
 assert.equal(liveIconBytes.length,15850,"live compact icon must match the approved master size");
@@ -55,11 +57,12 @@ assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","liv
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
-const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.svg?v=1.0.16",{cache:"no-store"});
+const liveHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v3/story-order-hero.svg?v=1.0.17",{cache:"no-store"});
 assert.equal(liveHeroResponse.status,200);
 const liveHero=await liveHeroResponse.text();
-assert.equal(liveHero.length,30715,"live cinematic hero must match the approved master");
+assert.equal(liveHero.length,57101,"live cinematic hero must match the approved panoramic master");
 assert.match(liveHero,/data:image\/webp;base64,/);
+assert.match(liveHero,/Unordered episode and special cards flow through the Story Order portal/);
 assert.doesNotMatch(liveHero,/MIXED METADATA|ONE NARRATIVE PATH/);
 
 const livePrivateConfigResponse=await fetch(liveOrigin+"/api/config",{
