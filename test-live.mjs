@@ -56,7 +56,7 @@ assert.match(liveConfigureHtml,/sequence-compare/);
 const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.21",{cache:"no-store"});
 assert.equal(liveIconResponse.status,200);
 const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
-assert.equal(liveIconBytes.length,24654,"live compact icon must match the approved centred master size");
+assert.equal(liveIconBytes.length,19237,"live compact icon must match the approved master size");
 assert.equal(liveIconBytes.subarray(0,8).toString("hex"),"89504e470d0a1a0a","live compact icon must be a PNG");
 assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);

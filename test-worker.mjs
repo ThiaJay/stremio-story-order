@@ -53,7 +53,7 @@ const iconGitBlobSha=createHash("sha1")
   .digest("hex");
 assert.equal(
   iconGitBlobSha,
-  "8d50c42091c24fc80ef5e1a200359f8e4cfce2ac",
+  "ed91dc7c10b5454482e562c4d085effc7d0e0bc0",
   "checked-out logo bytes must match the approved compact master"
 );
 const heroPrimary=await readFile(new URL("./public/branding/v3/story-order-hero.webp",import.meta.url));
