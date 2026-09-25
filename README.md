@@ -154,6 +154,6 @@ The hosted configuration page includes a privacy-safe live capability check back
 
 ## Current release status
 
-**1.0.29 is the current production release.** It fixes the remaining hero presentation defect by loading the five repaired artwork tiles directly, preloading them and revealing the complete composition only after every tile has decoded. Desktop framing now follows the artwork's native 1000 by 375 ratio so the full design is shown instead of being cropped to fill a wider box. The Story Order copy and plain Breaking Bad identification remain crisp live interface elements. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
+**1.0.30 is the current production release.** It replaces the stitched hero entirely with one continuous approved 1114 by 305 WebP, eliminating the campervan join defect and showing the full signed-off composition without deliberate cropping. The setup strip now uses fixed icon frames and centred visual geometry so its number badges, copy and icons share the same vertical alignment. The plain Breaking Bad identification remains in the example rail. Ordering logic, canonical video identities, privacy behaviour and stream addon independence remain unchanged.
 
 TVmaze data is used for ordering enrichment and should be attributed in accordance with TVmaze's terms/licensing.

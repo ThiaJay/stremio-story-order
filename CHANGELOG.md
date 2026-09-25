@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.30 - 2026-09-25
+
+Continuous hero and optical alignment correction.
+
+- Retires the stitched live hero that could create a visually impossible double-ended campervan across tile joins.
+- Publishes one continuous approved 1114 by 305 WebP hero with a single campervan and the complete composition visible.
+- Renders the hero at its native ratio with contain framing so none of the signed-off artwork is deliberately cropped.
+- Rebuilds the setup strip alignment around fixed 36 pixel icon frames and a centred database source symbol so number badges, copy and icons share one optical centre.
+- Centres the numbered section headings vertically as well.
+- Keeps the plain Breaking Bad identification in the example rail and does not reproduce the programme's periodic-table title treatment.
+- Leaves ordering logic, canonical IDs, privacy and stream addon independence unchanged.
+
 ## 1.0.29 - 2026-09-25
 
 Atomic hero rendering and full-composition framing.
