@@ -51,13 +51,13 @@ export function mergeOverrideRule(current, input = {}) {
 }
 
 export const BRAND_PUBLIC_BASE = "https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public";
-export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.31`;
+export const BRAND_ICON_URL = `${BRAND_PUBLIC_BASE}/logo.png?v=1.0.32`;
 export const BRAND_ASSET_BASE = `${BRAND_PUBLIC_BASE}/branding/v2`;
-export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.31`;
-export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.31`;
-export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.31`;
-export const BRAND_EXAMPLE_PATH_URL = `${BRAND_PUBLIC_BASE}/branding/v5/example-story-path.svg?v=1.0.31`;
-const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.31`;
+export const BRAND_HERO_URL = `${BRAND_PUBLIC_BASE}/branding/v3/story-order-hero.webp?v=1.0.32`;
+export const BRAND_HERO_MASTER_URL = `${BRAND_PUBLIC_BASE}/branding/v4/story-order-hero-master.svg?v=1.0.32`;
+export const BRAND_HERO_CONTINUOUS_URL = `${BRAND_PUBLIC_BASE}/branding/v5/story-order-hero-approved.webp?v=1.0.32`;
+export const BRAND_EXAMPLE_PATH_URL = `${BRAND_PUBLIC_BASE}/branding/v5/example-story-path.svg?v=1.0.32`;
+const brandAsset = name => `${BRAND_ASSET_BASE}/${name}?v=1.0.32`;
 
 const CSS = `
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#071124;--panel:#0d1a33;--panel2:#101f3d;--line:#23365d;--text:#f7f9ff;--muted:#a9b7d3;--cyan:#21d4fd;--blue:#3185ff;--violet:#8a5cf6;--good:#47d7a2;--warn:#f5b94c;--shadow:0 24px 80px #02071399}
@@ -169,7 +169,7 @@ const CSS_BREAKING_JOURNEY = `
 @media(max-width:900px){.concept-steps:before{display:none}.concept-step:nth-child(1),.concept-step:nth-child(3){transform:none}}
 @media(max-width:520px){.sequence-compare{grid-template-columns:1fr}.sequence-arrow{transform:rotate(90deg);justify-self:center}.series-example-banner{align-items:flex-start;flex-direction:column}}
 
-/* v1.0.31 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
+/* v1.0.32 visual correction: match the approved cinematic concept rather than a generic settings dashboard */
 .shell{width:min(1360px,calc(100% - 34px));padding-top:26px}
 .topbar{border-radius:14px;padding:8px 10px 8px 12px;background:#071329e8}
 .hero{min-height:360px;border-radius:24px}
@@ -278,7 +278,7 @@ const CSS_RELEASE_130 = `
 
 const CSS_RELEASE_131 = `
 .concept-num,.step-num{display:grid!important;place-items:center!important;padding:0!important;line-height:1!important}
-.concept-num>span,.step-num>span{display:block;line-height:1;font-variant-numeric:tabular-nums;transform:translateY(-1px)}
+.concept-num>span,.step-num>span{display:block;line-height:1;font-variant-numeric:tabular-nums;transform:none}
 .concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px;align-items:center}
 .concept-num{justify-self:center!important;align-self:center!important}
 .concept-copy{display:flex;min-height:42px;justify-content:center}
@@ -307,7 +307,27 @@ const CSS_RELEASE_131 = `
 @media(max-width:900px){.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){grid-template-columns:40px minmax(0,1fr) 40px}.breaking-card:before{background-size:100% 100%,cover}}
 `;
 
-function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130 + CSS_RELEASE_131; }
+const CSS_RELEASE_132 = `
+/* Alignment lock. Do not optically nudge individual glyphs. Centre the complete boxes instead. */
+.concept-step,.concept-step:nth-child(1),.concept-step:nth-child(3){align-items:center!important}
+.concept-num,.step-num,.concept-icon-frame{align-self:center!important;justify-self:center!important;transform:none!important}
+.concept-num,.step-num{display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}
+.concept-num>span,.step-num>span{display:flex!important;width:100%;height:100%;align-items:center!important;justify-content:center!important;line-height:normal!important;transform:none!important;padding:0!important;margin:0!important}
+.concept-copy{align-self:center!important;justify-content:center!important;margin:0!important}
+.concept-icon-frame{display:flex!important;width:36px;height:36px;align-items:center!important;justify-content:center!important;margin:0!important}
+.concept-icon{display:block!important;width:28px;height:28px;margin:0!important;transform:none!important}
+.concept-step:not(:last-child):after{top:50%!important;transform:translateY(-50%)!important;margin:0!important}
+.step-title{align-items:center!important}
+.step-title>div:last-child{align-self:center!important;justify-content:center!important;margin:0!important}
+.step-num{width:36px!important;height:36px!important;margin:0!important}
+.profile-icon-frame{display:flex!important;width:34px;height:34px;align-items:center!important;justify-content:center!important;margin:0 0 8px!important}
+.profile-icon-frame .profile-icon{display:block!important;width:30px;height:30px;margin:0!important;transform:none!important}
+.sequence-item span{display:flex!important;align-items:center!important;justify-content:center!important;line-height:normal!important;padding:0!important;margin:0!important}
+.sequence-arrow{display:flex;align-items:center;justify-content:center;line-height:1;margin:0}
+@media(max-width:900px){.concept-num,.step-num,.concept-icon-frame{align-self:center!important}}
+`;
+
+function styles() { return CSS + CSS_MORE + CSS_END + CSS_BRAND_REFRESH + CSS_SPACIOUS_REFRESH + CSS_STORY_SIGNATURE + CSS_CONCEPT_FINAL + CSS_BREAKING_JOURNEY + CSS_APPROVED_CONCEPT + CSS_RELEASE_128 + CSS_RELEASE_130 + CSS_RELEASE_131 + CSS_RELEASE_132; }
 function pageHtml(initialToken, customOption, nonce) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#050A17"><meta name="description" content="Puts TV episodes, specials and one-offs in the right watch order."><link rel="icon" type="image/svg+xml" href="${brandAsset("story-order-glyph.svg")}"><link rel="preload" as="image" href="${BRAND_HERO_CONTINUOUS_URL}"><title>Story Order - Stremio addon</title><style>${styles()}</style></head>

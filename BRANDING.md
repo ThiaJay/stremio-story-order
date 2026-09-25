@@ -46,7 +46,7 @@ The Breaking Bad example card identifies the programme in plain text using Story
 
 The example rail uses the Story Order narrative-path visual as a restrained background motif. It should feel connected to the product's ordering metaphor, not like a generic settings-card gradient, and must remain subordinate to the comparison content.
 
-The three-step setup strip should read as three equal stages inside one container. Number badges, text blocks and icon frames must share the same vertical centre. Numeral glyphs are optically centred inside their badges rather than left to the font baseline. Icons use fixed 36 pixel frames with centred 28 pixel artwork and the source stage uses the centred database symbol. Numbered section headings and profile icons follow the same alignment rule. Keep one consistent directional cue between stages and do not add separate connector rules or mismatched divider lines.
+The three-step setup strip should read as three equal stages inside one container. Number badges, text blocks and icon frames must share the same vertical centre. Centre the complete boxes and never use manual vertical translations on individual numeral glyphs. Icons use fixed 36 pixel frames with centred 28 pixel artwork and the source stage uses the centred database symbol. Numbered section headings, profile icons, sequence numbers and directional arrows follow the same box-centred alignment rule. Keep one consistent directional cue between stages and do not add separate connector rules or mismatched divider lines.
 
 ## Meaning
 
