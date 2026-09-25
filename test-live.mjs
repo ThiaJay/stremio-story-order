@@ -53,7 +53,7 @@ assert.match(liveConfigureHtml,/class="concept-steps"/);
 assert.match(liveConfigureHtml,/class="concept-icon"/);
 assert.match(liveConfigureHtml,/class="hero-story-flow"/);
 assert.match(liveConfigureHtml,/class="hero-series-label"/);
-assert.match(liveConfigureHtml,/concept-step:not\(:last-child\):after\{content:"›"/);
+assert.match(liveConfigureHtml,/concept-step:not\(:last-child\):after\{content:">"/);
 assert.doesNotMatch(liveConfigureHtml,/concept-step\+ \.concept-step\{border-left:/);
 assert.match(liveConfigureHtml,/class="flow"/);
 assert.match(liveConfigureHtml,/Breaking Bad/);
