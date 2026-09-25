@@ -26,7 +26,7 @@ The supporting line reinforces the visual identity. It does not replace the func
 
 The `public/branding/v2` directory contains compact vector interface symbols and the favicon. The former schematic hero path remains only as a compatibility alias.
 
-The live configure hero uses the approved Breaking Bad journey artwork as background atmosphere. Its five WebP source tiles remain under `public/branding/v4/`, while `public/branding/v4/story-order-hero-master.svg` embeds them into one browser request. The fifth source tile must have a valid RIFF length with no trailing data. Important Story Order copy, programme identification and the Granite State to Felina to El Camino sequence are rendered as live HTML over the artwork so they remain sharp at the actual wide hero ratio. The `public/branding/v3/story-order-hero.svg` path remains a compatibility wrapper and must not replace the live hero with a generic landscape, schematic or placeholder.
+The live configure hero uses the five repaired WebP source tiles under `public/branding/v4/` directly. They are preloaded and revealed atomically only after every tile has loaded and decoded. Desktop framing follows the artwork's native 1000 by 375 ratio and must not crop the artwork to fill a wider box. `public/branding/v4/story-order-hero-master.svg` remains a compatibility asset only. The fifth source tile must have a valid RIFF length with no trailing data. Story Order copy and programme identification remain live HTML for sharpness and accessibility.
 
 - `story-order-glyph.svg` is the compact vector favicon.
 - `public/logo.png`, `public/branding/app-icon.png` and `public/branding/v3/story-order-app-icon.png` are the approved cinematic addon icon and must remain byte-identical.

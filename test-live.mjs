@@ -1,4 +1,4 @@
-// Production smoke verifies the accepted live 1.0.28 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
+// Production smoke verifies the accepted live 1.0.29 Story Order contract, direct panoramic hero, spacious configure experience, capability status and canonical identity parity.
 import assert from "node:assert/strict";
 import { Buffer } from "node:buffer";
 import worker from "./worker.js";
@@ -42,17 +42,22 @@ assert.equal(liveConfigureResponse.status,200);
 const liveConfigureHtml=await liveConfigureResponse.text();
 assert.doesNotMatch(liveConfigureHtml,/translateX\(-3px\)/);
 assert.match(liveConfigureHtml,/Correct order\. Complete stories\./);
-assert.match(liveConfigureHtml,/branding\/v4\/story-order-hero-master\.svg\?v=1\.0\.28/);
-assert.match(liveConfigureHtml,/class="hero-master"/);
-assert.doesNotMatch(liveConfigureHtml,/class="hero-tiles"/);
-assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.28/);
+assert.match(liveConfigureHtml,/branding\/v4\/hero-01\.webp\?v=1\.0\.29/);
+assert.match(liveConfigureHtml,/branding\/v4\/hero-05\.webp\?v=1\.0\.29/);
+assert.match(liveConfigureHtml,/class="hero-tiles"/);
+assert.match(liveConfigureHtml,/class="hero-tile"/);
+assert.match(liveConfigureHtml,/rel="preload" as="image"/);
+assert.doesNotMatch(liveConfigureHtml,/class="hero-master"/);
+assert.match(liveConfigureHtml,/logo\.png\?v=1\.0\.29/);
 assert.match(liveConfigureHtml,/Per-series override helper/);
 assert.match(liveConfigureHtml,/Add override rule/);
 assert.match(liveConfigureHtml,/Advanced override JSON/);
 assert.match(liveConfigureHtml,/class="concept-steps"/);
 assert.match(liveConfigureHtml,/class="concept-icon"/);
-assert.match(liveConfigureHtml,/class="hero-story-flow"/);
+assert.doesNotMatch(liveConfigureHtml,/class="hero-story-flow"/);
 assert.match(liveConfigureHtml,/class="hero-series-label"/);
+assert.match(liveConfigureHtml,/aspect-ratio:1000\/375/);
+assert.match(liveConfigureHtml,/hero-art-ready/);
 assert.match(liveConfigureHtml,/concept-step:not\(:last-child\):after\{content:">"/);
 assert.match(liveConfigureHtml,/border:0!important;border-radius:0;background:transparent!important/);
 assert.match(liveConfigureHtml,/class="flow"/);
@@ -63,18 +68,18 @@ assert.match(liveConfigureHtml,/Felina/);
 assert.match(liveConfigureHtml,/El Camino/);
 assert.match(liveConfigureHtml,/sequence-compare/);
 
-const liveHeroMasterResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/story-order-hero-master.svg?v=1.0.28",{cache:"no-store"});
+const liveHeroMasterResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/story-order-hero-master.svg?v=1.0.29",{cache:"no-store"});
 assert.equal(liveHeroMasterResponse.status,200);
 const liveHeroMaster=await liveHeroMasterResponse.text();
 assert.match(liveHeroMaster,/viewBox="0 0 1000 375"/);
 assert.equal((liveHeroMaster.match(/data:image\/webp;base64,/g)||[]).length,5);
 
-const liveGlyphResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-glyph.svg?v=1.0.28",{cache:"no-store"});
+const liveGlyphResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-glyph.svg?v=1.0.29",{cache:"no-store"});
 assert.equal(liveGlyphResponse.status,200);
 const liveGlyph=await liveGlyphResponse.text();
 assert.match(liveGlyph,/transform="translate\(-7 0\)"/);
 
-const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.28",{cache:"no-store"});
+const liveIconResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/logo.png?v=1.0.29",{cache:"no-store"});
 assert.equal(liveIconResponse.status,200);
 const liveIconBytes=Buffer.from(await liveIconResponse.arrayBuffer());
 assert.equal(liveIconBytes.length,19237,"live compact icon must match the approved master size");
@@ -83,7 +88,7 @@ assert.equal(liveIconBytes.readUInt32BE(16),320);
 assert.equal(liveIconBytes.readUInt32BE(20),320);
 
 for(const [name,size] of [["hero-01.webp",8260],["hero-02.webp",7952],["hero-03.webp",7994],["hero-04.webp",7948],["hero-05.webp",8218]]){
- const response=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/"+name+"?v=1.0.28",{cache:"no-store"});
+ const response=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v4/"+name+"?v=1.0.29",{cache:"no-store"});
  assert.equal(response.status,200,name+" live status");
  const bytes=Buffer.from(await response.arrayBuffer());
  assert.equal(bytes.length,size,name+" live size");
@@ -92,7 +97,7 @@ for(const [name,size] of [["hero-01.webp",8260],["hero-02.webp",7952],["hero-03.
  assert.equal(bytes.readUInt32LE(4)+8,bytes.length,name+" live RIFF length");
 }
 
-const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.28",{cache:"no-store"});
+const legacyHeroResponse=await fetch("https://raw.githubusercontent.com/ThiaJay/stremio-story-order/main/public/branding/v2/story-order-order-flow.svg?v=1.0.29",{cache:"no-store"});
 assert.equal(legacyHeroResponse.status,200);
 const legacyHero=await legacyHeroResponse.text();
 assert.doesNotMatch(legacyHero,/MIXED METADATA|ONE NARRATIVE PATH/);
