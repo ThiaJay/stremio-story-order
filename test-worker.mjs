@@ -80,7 +80,7 @@ assert.match(html,/Story Order \| Puts TV episodes, specials and one-offs in the
 assert.match(html,/Cinemeta - simplest/);
 assert.match(html,/AIOMetadata/);
 assert.match(html,/class="hero hero-refresh"/);
-assert.match(html,/class="journey-strip"/);
+assert.match(html,/class="concept-steps"/);
 assert.match(html,/class="flow"/);
 assert.match(html,/class="topbar"/);
 assert.match(html,/class="concept-steps"/);
