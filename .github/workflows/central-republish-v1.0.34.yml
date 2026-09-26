@@ -1,0 +1,50 @@
+name: Republish Story Order 1.0.34 to Stremio central
+
+on:
+  push:
+    branches: [ops/central-republish-20260926-v1.0.34]
+
+permissions:
+  contents: read
+
+jobs:
+  republish:
+    if: github.event.head_commit.message == 'Republish Story Order 1.0.34 to Stremio central'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify live manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsS https://stremio-story-order.storyorder.workers.dev/manifest.json -o manifest.json
+          node -e '
+            const x=JSON.parse(require("fs").readFileSync("manifest.json","utf8"));
+            if(x.id!=="org.stremio.story-order"||x.version!=="1.0.34")process.exit(1);
+            console.log("manifest_verified",x.id,x.version);
+          '
+      - name: Submit to Stremio central
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsS -X POST \
+            -H 'Content-Type: application/json' \
+            --data '{"transportUrl":"https://stremio-story-order.storyorder.workers.dev/manifest.json","transportName":"http"}' \
+            https://api.strem.io/api/addonPublish > publish-response.json
+          node -e '
+            const x=JSON.parse(require("fs").readFileSync("publish-response.json","utf8"));
+            if(x.error){console.error(JSON.stringify(x.error));process.exit(1)}
+            console.log("publish_result",JSON.stringify(x.result));
+          '
+      - name: Check central collection
+        shell: bash
+        run: |
+          set -euo pipefail
+          sleep 10
+          curl -fsS https://api.strem.io/addonscollection.json -o addonscollection.json
+          node -e '
+            const x=JSON.parse(require("fs").readFileSync("addonscollection.json","utf8"));
+            const row=x.find(v=>v.transportUrl==="https://stremio-story-order.storyorder.workers.dev/manifest.json"||v.manifest?.id==="org.stremio.story-order");
+            console.log("central_indexed",!!row);
+            if(row)console.log("central_version",row.manifest?.version||"unknown");
+          '
