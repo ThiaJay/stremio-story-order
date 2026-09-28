@@ -22,3 +22,16 @@ export default function stableStoryOrderVideos(videos, behaviorHints) {
   if (regularIds.some(id => !seen.has(id))) return null;
   return ordered;
 }
+
+export function nextStoryVideo(videos, behaviorHints, currentVideoId) {
+  const ordered = stableStoryOrderVideos(videos, behaviorHints);
+  if (!ordered) return null;
+
+  const currentId = String(currentVideoId || "");
+  if (!currentId) return null;
+
+  const index = ordered.findIndex(video => String(video?.id || "") === currentId);
+  if (index < 0 || index + 1 >= ordered.length) return null;
+
+  return ordered[index + 1];
+}

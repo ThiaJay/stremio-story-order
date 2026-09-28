@@ -111,6 +111,10 @@ Malformed or unsupported hints must fall back to ordinary canonical presentation
 
 Next Episode and autoplay must preserve stable video identity.
 
+For both manual Next Episode and autoplay, resolve the continuation from the current stable video ID against the validated Story Order sequence. Use the original canonical video object returned by that mapping. If the current ID is absent from Story Order, the hint is invalid or there is no later Story Order item, fail closed and leave the existing continuation logic unchanged.
+
+The public reference exports `nextStoryVideo(videos, behaviorHints, currentVideoId)` for this identity mapping. It does not decide whether a source is directly playable and it must not bypass the player's existing continuation, readiness or failure gates.
+
 ## Acceptance
 
 The public regression fixture is `docs/android-story-order.fixture.json`.
@@ -125,5 +129,7 @@ The root test `test-android-contract.mjs` proves
 6. unsupported version fallback
 7. exact title watched action payloads
 8. deferred series title actions until MetaDetails is ready
+9. manual Next Episode and autoplay continuation by stable Story Order video ID
+10. fail closed continuation for ancillary, unknown, terminal or malformed Story Order state
 
 Private Android client acceptance still needs device coverage for remote focus, autoplay, Continue Watching and cross device account state.
