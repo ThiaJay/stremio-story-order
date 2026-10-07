@@ -24,7 +24,9 @@ const token=await encodeConfig(cfg,env);
 assert.ok(token.startsWith("v2."));
 assert.ok(!token.includes("elfhosted"));
 assert.deepEqual(await decodeConfig(token,env),cfg);
-await assert.rejects(()=>decodeConfig(token.slice(0,-2)+"xx",env),/Invalid configuration token/);
+const tamperedToken = token.slice(0, 3) + (token[3] === "A" ? "B" : "A") + token.slice(4);
+assert.notEqual(tamperedToken, token, "Tampering must change an authenticated byte");
+await assert.rejects(()=>decodeConfig(tamperedToken,env),/Invalid configuration token/);
 
 assert.equal(resolveSource({kind:"cinemeta"},env).kind,"cinemeta");
 for (const manifestUrl of [
