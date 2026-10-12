@@ -47,8 +47,10 @@ export function prepareTvWatchedAction({
   } else if (scope === "season" && Number.isInteger(season) && season > 0) {
     videos = meta.videos.filter((video) => video.season === season);
     // The existing Core MarkSeasonAsWatched acts on every listed season video.
-    // For a watched operation it must therefore be refused if ANY could be future/TBC.
-    if (isWatched && !videos.every((video) => released(video, when))) return null;
+    // Both watched and unwatched affect ALL listed season episodes in current Core.
+    // Refuse either action unless every entry is confirmed released, otherwise
+    // future or TBC watched state could be rewritten unexpectedly.
+    if (!videos.every((video) => released(video, when))) return null;
     payload = {
       action: "MetaDetails",
       args: { action: "MarkSeasonAsWatched", args: [season, isWatched] }

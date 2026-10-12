@@ -149,8 +149,8 @@ episodes and non-story Season 0 material.
 the canonical integer season number from the ordinary season view, not Story
 Order display position. The existing Core season action applies to *every*
 listed episode in that season. Until Core has a released-only season mutation,
-the reference **refuses Mark Season Watched** when even one listed episode is
-unreleased or its release date is unknown. Existing released seasons can
+the reference **refuses either watched or unwatched season actions** when even
+one listed episode is unreleased or its release date is unknown. Existing released seasons can
 produce a confirmed payload. The existing Core action can also mark released
 episodes in a series independently of season view. Explicit season zero
 operations require separate design and are not issued by this reference.
