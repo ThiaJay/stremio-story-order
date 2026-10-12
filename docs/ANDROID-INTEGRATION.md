@@ -136,16 +136,16 @@ Private Android client acceptance still needs device coverage for remote focus, 
 
 ## TV bulk watched controls and account safety
 
-The public pure reference \`src-android-tv-watched-actions.mjs\` provides exact Core
+The public pure reference `src-android-tv-watched-actions.mjs` provides exact Core
 action payloads and a separate remote confirmation stage. The companion
-\`test-android-tv-watched-actions.mjs\` tests them using only synthetic metadata.
+`test-android-tv-watched-actions.mjs` tests them using only synthetic metadata.
 
-**Series action** \`MetaDetails.MarkAsWatched(true|false)\` requires a matching
-loaded \`MetaDetails\` identity and watched state, never a preview-only library
+**Series action** `MetaDetails.MarkAsWatched(true|false)` requires a matching
+loaded `MetaDetails` identity and watched state, never a preview-only library
 item. Core selects currently released story videos and excludes future/TBC
 episodes and non-story Season 0 material.
 
-**Season action** \`MetaDetails.MarkSeasonAsWatched([season, true|false])\` uses
+**Season action** `MetaDetails.MarkSeasonAsWatched([season, true|false])` uses
 the canonical integer season number from the ordinary season view, not Story
 Order display position. The existing Core season action applies to *every*
 listed episode in that season. Until Core has a released-only season mutation,
@@ -165,12 +165,12 @@ not dispatch any action.
 
 The reference has **no account credentials, network calls, player commands or
 production Stremio installation effects**. It is not a running Android client,
-an APK, a patch to the signed official \`com.stremio.one\` application or proof
+an APK, a patch to the signed official `com.stremio.one` application or proof
 of TV remote acceptance. The official Android UI remains outside the
 repositories that this project controls. Adoption requires the maintainer to
 bind these actions to a focusable native menu, apply the current Core and
 verify real device behaviour. The private Foundation tracker remains
-\`ThiaJay/stremio-development-foundation#31\`.
+`ThiaJay/stremio-development-foundation#31`.
 
 Routine production account playback testing is prohibited unless the native
 account safety requirements in Foundation draft PR 66 are satisfied. Account
