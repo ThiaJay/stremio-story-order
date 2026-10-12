@@ -94,3 +94,17 @@ export function confirmTvWatchedAction(prepared, liveInputs, confirmation) {
       && confirmation.unwatchAcknowledged !== true) return null;
   return fresh.action;
 }
+
+
+// Local one-use dispatch gate. After a command is issued, wait for a fresh Core
+// account readback before offering another attempt. This is not server-side
+// compare-and-swap and cannot resolve simultaneous mutations by other clients.
+export function createTvOneShotConfirmation() {
+  const consumed = new Set();
+  return (prepared, liveInputs, confirmation) => {
+    const payload = confirmTvWatchedAction(prepared, liveInputs, confirmation);
+    if (!payload || consumed.has(prepared.fingerprint)) return null;
+    consumed.add(prepared.fingerprint);
+    return payload;
+  };
+}
