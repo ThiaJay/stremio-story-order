@@ -27,10 +27,13 @@ function storyMembers(meta) {
 
 // Prepare a remote-friendly, explicit confirmation rather than immediately mutating an account.
 export function prepareTvWatchedAction({
-  meta, expectedMetaId, metaReady, libraryReady, scope, season, isWatched, now
+  meta, expectedMetaId, metaReady, libraryReady, accountFingerprint, libraryItemFingerprint,
+  scope, season, isWatched, now
 }) {
   if (metaReady !== true || libraryReady !== true
       || typeof isWatched !== "boolean" || !validMeta(meta, expectedMetaId)
+      || !/^[a-f0-9]{64}$/.test(accountFingerprint || "")
+      || !/^[a-f0-9]{64}$/.test(libraryItemFingerprint || "")
       || typeof now !== "string" || !/(?:Z|[+-]\d{2}:\d{2})$/.test(now)) {
     return null;
   }
@@ -60,6 +63,7 @@ export function prepareTvWatchedAction({
     video.id, video.season, video.episode ?? null, video.released ?? null
   ]).sort((a, b) => a[0].localeCompare(b[0]));
   const fingerprint = JSON.stringify([
+    accountFingerprint, libraryItemFingerprint,
     meta.id, scope, season ?? null, isWatched, selectedIds, allMetadata
   ]);
   const label = (isWatched ? "Mark " : "Remove watched status from ")
