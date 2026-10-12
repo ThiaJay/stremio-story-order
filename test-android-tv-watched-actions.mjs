@@ -51,6 +51,8 @@ assert.deepEqual(season.action,
 assert.deepEqual(confirmTvWatchedAction(season, seasonInputs, {
   remoteKey: "ENTER", focused: true, fingerprint: season.fingerprint
 }), season.action);
+assert.equal(prepareTvWatchedAction({ ...seasonInputs, season: 3, isWatched: false }), null,
+  "Core's season unwatched action also includes future episodes and must fail closed");
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, season: 3 }), null,
   "Core's existing season action would wrongly include future episodes");
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, season: 0 }), null);
