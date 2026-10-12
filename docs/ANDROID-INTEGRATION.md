@@ -156,7 +156,12 @@ episodes in a series independently of season view. Explicit season zero
 operations require separate design and are not issued by this reference.
 
 Controls remain inactive unless metadata and LibraryItem readiness are both
-confirmed and the exact media ID matches. A selected TV remote action is
+confirmed and the exact media ID matches. The client must provide a freshly
+computed SHA-256 fingerprint of the authenticated account identity and of the
+complete relevant LibraryItem watched/resume record. Both must be refreshed
+at confirmation time. The reference refuses missing or changed fingerprints;
+these values are not credentials and must not be logged or embedded in a
+public release. A selected TV remote action is
 prepared as an explicit scope/count confirmation. Only focused Enter or D-pad
 centre activation with a fresh metadata fingerprint dispatches it. Removing
 watched status requires a separate affirmative acknowledgement. Merely moving
