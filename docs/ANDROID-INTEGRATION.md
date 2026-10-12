@@ -164,7 +164,15 @@ these values are not credentials and must not be logged or embedded in a
 public release. A selected TV remote action is
 prepared as an explicit scope/count confirmation. Only focused Enter or D-pad
 centre activation with a fresh metadata fingerprint dispatches it. Removing
-watched status requires a separate affirmative acknowledgement. Merely moving
+watched status requires a separate affirmative acknowledgement. The
+client must use `createTvOneShotConfirmation()` (or an equivalent persisted
+single-dispatch controller) to prevent a held remote key triggering the same
+mutation repeatedly. Following dispatch, refresh the full account record and
+start a new scope confirmation rather than silently retrying on timeout.
+A local one-use gate is not an atomic server transaction. Concurrent changes
+from another device remain an unproved integration boundary and must be
+covered by actual account/Core conflict handling before native production
+acceptance. Merely moving
 focus, opening the menu, a stale snapshot or changing the selected series does
 not dispatch any action.
 
