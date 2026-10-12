@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { prepareTvWatchedAction, confirmTvWatchedAction } from "./src-android-tv-watched-actions.mjs";
+import { prepareTvWatchedAction, confirmTvWatchedAction, createTvOneShotConfirmation } from "./src-android-tv-watched-actions.mjs";
 
 const meta = {
   id: "tt1234567", type: "series",
@@ -101,6 +101,16 @@ assert.deepEqual(confirmTvWatchedAction(remove, removeInputs, {
   remoteKey: "ENTER", focused: true, fingerprint: remove.fingerprint,
   unwatchAcknowledged: true
 }), remove.action);
+
+const sendOnce = createTvOneShotConfirmation();
+const confirmedRemote = {
+  remoteKey: "DPAD_CENTER", focused: true, fingerprint: title.fingerprint
+};
+assert.deepEqual(sendOnce(title, inputs, confirmedRemote), title.action);
+assert.equal(sendOnce(title, inputs, confirmedRemote), null,
+  "a held remote button must not dispatch a duplicate title watched action");
+assert.equal(sendOnce(title, { ...inputs, libraryItemFingerprint: "c".repeat(64) },
+  confirmedRemote), null, "changed account records must be reloaded first");
 
 assert.deepEqual(meta, before, "preparation and confirmation never mutate metadata");
 console.log("PASS: Fire TV bulk watched action payload and fail closed UI contract");
