@@ -21,6 +21,7 @@ const meta = {
 };
 const inputs = {
   meta, expectedMetaId: meta.id, metaReady: true, libraryReady: true,
+  accountFingerprint: "a".repeat(64), libraryItemFingerprint: "b".repeat(64),
   scope: "series", isWatched: true, now: "2026-10-12T12:00:00Z"
 };
 const before = structuredClone(meta);
@@ -58,6 +59,18 @@ assert.equal(prepareTvWatchedAction({ ...seasonInputs, season: 2.5 }), null);
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, scope: "storyOrder" }), null);
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, metaReady: false }), null);
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, libraryReady: false }), null);
+assert.equal(prepareTvWatchedAction({ ...seasonInputs, accountFingerprint: undefined }), null);
+assert.equal(prepareTvWatchedAction({ ...seasonInputs, libraryItemFingerprint: "unverified" }), null);
+assert.equal(confirmTvWatchedAction(season, {
+  ...seasonInputs, accountFingerprint: "c".repeat(64)
+}, {
+  remoteKey: "ENTER", focused: true, fingerprint: season.fingerprint
+}), null, "account switch between confirmation and action must fail closed");
+assert.equal(confirmTvWatchedAction(season, {
+  ...seasonInputs, libraryItemFingerprint: "d".repeat(64)
+}, {
+  remoteKey: "ENTER", focused: true, fingerprint: season.fingerprint
+}), null, "watched state drift between confirmation and action must fail closed");
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, expectedMetaId: "tt9999" }), null);
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, isWatched: "false" }), null);
 assert.equal(prepareTvWatchedAction({ ...seasonInputs, now: "invalid" }), null);
